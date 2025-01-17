@@ -14,6 +14,19 @@
 <junit.version>5.10.2</junit.version>  </properties>
 
   <dependencies>
+    <!-- JDBC Driver pour MySQL (ou PostgreSQL) -->
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>8.0.33</version>
+    </dependency>
+
+    <!-- Bibliothèque pour lire les fichiers CSV -->
+    <dependency>
+      <groupId>com.opencsv</groupId>
+      <artifactId>opencsv</artifactId>
+      <version>5.7.1</version>
+    </dependency>
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-controls</artifactId>
