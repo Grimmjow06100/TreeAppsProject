@@ -301,31 +301,12 @@ public class JSONDatabase implements JSONCheckLoginInfo {
         }
     }
 
-
-
-
-
-    public static void test() {
-        String filename = "Personne_JSON.json";
-        JSONDatabase db = new JSONDatabase("src/main/resources/JSONDB");
-
-
-        db.createJsonFile("Personne_JSON");
-        Faker faker = new Faker();
-        for (int i = 0; i < 10; i++) {
-            Personne p = new Personne( faker.name().lastName(),faker.name().firstName(),faker.number().numberBetween(15, 70));
-            JsonNode node = objectMapper.valueToTree(p);
-            db.addToJsonFile("Personne_JSON",node,Personne.class);
-
-        }
-        deleteObject("src/main/resources/JSONDB/Personne_JSON.json","uniqueId","0");
-        modifyJSON("src/main/resources/JSONDB/Personne_JSON.json","uniqueId","1","age","100");
+    public String fullPath(String filename){
+        return BASE_URL + "/" + filename;
     }
 
-
-    public static void main(String[] args) {
-        test();
-
+    public String getBASE_URL() {
+        return BASE_URL;
     }
 }
 
