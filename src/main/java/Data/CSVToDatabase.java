@@ -5,12 +5,18 @@ import java.io.FileReader;
 import java.sql.*;
 
 public class CSVToDatabase {
-    public static void main(String[] args) {
-        String csvFile = "C:\\Users\\samy0\\OneDrive\\Documents\\les-arbres.csv";  // Assure-toi que le fichier a bien l'extension .csv
-        String jdbcURL = "jdbc:mysql://localhost:3306/treeappsproject?useSSL=false";
-        String username = "root";
-        String password = "Mysqlsamytch5!";
 
+    public static String[] transformCSVString(String[] row){
+        StringBuilder build= new StringBuilder();
+        for(int i=0;i<row.length;i++){
+            build.append(row[i]);
+        }
+        String element=build.toString();
+        return element.split(";");
+
+    }
+
+    public static void loadDatabase(String csvFile, String jdbcURL, String username, String password) {
         // Requête SQL avec la gestion correcte du POINT
         String sql = "INSERT IGNORE INTO arbre (idBase, type_emplacement, domanialite, arrondissement, complement_adresse, numero, lieu, idEmplacement, libelle_france, genre, espece, variete_oucultivar, circonference, hauteur, stade_de_developpement, remarquable, geo_point_2d) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ST_PointFromText(?))";
@@ -21,7 +27,7 @@ public class CSVToDatabase {
             String[] get;
             reader.readNext(); // Ignorer l'en-tête
             while ((get = reader.readNext()) != null) {
-                String[] row = transformString(get);
+                String[] row = transformCSVString(get);
                 id = Integer.parseInt(row[0]);
                 for (int i = 0; i < row.length; i++) {
                     if (i == 0 || i == 5 || i == 12 || i == 13) {
@@ -55,20 +61,14 @@ public class CSVToDatabase {
 
     }
 
-    public static String[] transformString(String[] row){
-        StringBuilder build= new StringBuilder();
-        for(int i=0;i<row.length;i++){
-            build.append(row[i]);
-        }
-        String element=build.toString();
-        return element.split(";");
+    public static void main(String[] args) {
+        String csvFile = "C:\\Users\\samy0\\OneDrive\\Documents\\les-arbres.csv";  // Assure-toi que le fichier a bien l'extension .csv
+        String jdbcURL = "jdbc:mysql://localhost:3306/treeappsproject?useSSL=false";
+        String username = "root";
+        String password = "Mysqlsamytch5!";
 
+        loadDatabase(csvFile, jdbcURL, username, password);
     }
-
-    public static void check(String args){
-        System.out.println("ok : "+args);
-    }
-
 
 
 
