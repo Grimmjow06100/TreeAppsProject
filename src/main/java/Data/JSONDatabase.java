@@ -4,17 +4,20 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
-
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import net.datafaker.Faker;
+import others.Personne;
 
 
-public class JSONDatabase {
+public class JSONDatabase implements JSONCheckLoginInfo {
     private final String BASE_URL;
     private static final ObjectMapper objectMapper = new ObjectMapper();
+
 
     public JSONDatabase(String base_url) {
         this.BASE_URL = base_url;
@@ -27,8 +30,6 @@ public class JSONDatabase {
             } else {
                 System.out.println("❌ Impossible de créer le répertoire : " + BASE_URL);
             }
-        } else {
-            System.out.println("ℹ️ Répertoire déjà existant : " + BASE_URL);
         }
     }
 
@@ -42,7 +43,7 @@ public class JSONDatabase {
                     writer.write("[]"); // Initialisation du fichier avec un tableau vide
                 }
             } else {
-                System.out.println("❌ Impossible de créer le fichier : " + file.getName());
+                System.out.println("❌ Impossible de créer le fichier ou fichier déjà existant : " + file.getName());
             }
         } catch (Exception e) {
             System.out.println("❌ Erreur : " + e.getMessage());
@@ -50,7 +51,7 @@ public class JSONDatabase {
     }
 
     // Méthode pour ajouter un objet validé dans le fichier JSON
-    public void addToJsonFile(String fileName,Object newData, Class<?> clazz) {
+    public void addToJsonFile(String fileName, Object newData, Class<?> clazz) {
         try {
             File file = new File(BASE_URL + "/" + fileName + ".json");
 
@@ -76,17 +77,37 @@ public class JSONDatabase {
                 return;
             }
 
-            // Ajouter l'objet validé dans le tableau JSON
+            for (JsonNode node : arrayNode) {
+                if (node.has("uniqueId") && node.get("uniqueId").asInt() == newNode.get("uniqueId").asInt()) {
+                    System.out.println("❌ Erreur : L'objet existe déjà");
+                    return; // L'objet existe déjà
+                }
+            }
+
             arrayNode.add(newNode);
             objectMapper.writeValue(file, arrayNode);
             System.out.println("✅ Donnée ajoutée avec succès !");
 
         } catch (IOException e) {
             System.out.println("❌ Erreur lors de l'écriture dans le fichier JSON : " + e.getMessage());
+        } catch (IllegalArgumentException e) {
+            System.out.println("❌ Erreur : " + e.getMessage());
         }
     }
 
-    public boolean isValidLogin(String pathToData,String username, String password) {
+    // Méthode pour vérifier si un JSON correspond à une classe donnée
+    private static boolean isValidObject(JsonNode node, Class<?> clazz) {
+        try {
+            objectMapper.treeToValue(node, clazz);
+            return true;
+        } catch (Exception e) {
+            System.out.println("❌ Erreur lors de la conversion JSON → " + clazz.getSimpleName() + " : " + e.getMessage());
+            return false;
+        }
+    }
+
+    @Override
+    public boolean isValidLogin(String pathToData, String username, String password) {
         try {
             File file = new File(pathToData);
             if (!file.exists()) return false;
@@ -135,7 +156,7 @@ public class JSONDatabase {
     }
 
     // Récupérer une liste d'objets qui correspondent au critère (key = value)
-    public static <T> List<T> getObjectsList(String pathToData,Class<T> clazz,String key, String value) {
+    public static <T> List<T> getObjectsList(String pathToData, Class<T> clazz, String key, String value) {
         List<T> resultList = new ArrayList<>();
         try {
             File file = new File(pathToData);
@@ -167,7 +188,7 @@ public class JSONDatabase {
         return resultList;
     }
 
-    public static <T> List<T> getObjectsList(String pathToData,Class<T> clazz){
+    public static <T> List<T> getObjectsList(String pathToData, Class<T> clazz) {
         List<T> resultList = new ArrayList<>();
         try {
             File file = new File(pathToData);
@@ -236,21 +257,75 @@ public class JSONDatabase {
         }
     }
 
-
-
-    // Méthode pour vérifier si un JSON correspond à une classe donnée
-    private boolean isValidObject(JsonNode node, Class<?> clazz) {
+    public static void deleteObject(String pathToData, String key, String value) {
         try {
-            objectMapper.treeToValue(node, clazz);
-            return true;
-        } catch (Exception e) {
-            return false;
+            File file = new File(pathToData);
+            if (!file.exists()) {
+                System.out.println("❌ Fichier non trouvé : " + pathToData);
+                return;
+            }
+            JsonNode rootNode = objectMapper.readTree(file);
+            if (!rootNode.isArray()) {
+                System.out.println("❌ Erreur : Le fichier JSON ne contient pas un tableau.");
+                return;
+            }
+            ArrayNode arrayNode = (ArrayNode) rootNode;
+            Iterator<JsonNode> iterator = arrayNode.elements();
+            boolean updated = false;
+            while (iterator.hasNext()) {
+                JsonNode node = iterator.next();
+                if (node.has(key) && node.get(key).asText().equals(value)) {
+                    iterator.remove(); // ✅ Supprime l'élément en toute sécurité
+                    updated = true;
+                }
+            }
+
+            if (updated) {
+                objectMapper.writeValue(file, arrayNode);
+                System.out.println("✅ Donnée modifiée avec succès !");
+            } else {
+                System.out.println("❌ Aucune correspondance trouvée pour `" + key + "` = `" + value + "`");
+            }
+        } catch (IOException e) {
+            System.out.println("❌ Erreur de lecture JSON : " + e.getMessage());
+        }
+
+    }
+
+    public static void deleteFile(String pathToData) {
+        File file = new File(pathToData);
+        if (file.delete()) {
+            System.out.println("✅ Fichier supprimé avec succès : " + pathToData);
+        } else {
+            System.out.println("❌ Impossible de supprimer le fichier : " + pathToData);
         }
     }
 
 
-    public static void main(String[] args) {
+
+
+
+    public static void test() {
+        String filename = "Personne_JSON.json";
         JSONDatabase db = new JSONDatabase("src/main/resources/JSONDB");
+
+
+        db.createJsonFile("Personne_JSON");
+        Faker faker = new Faker();
+        for (int i = 0; i < 10; i++) {
+            Personne p = new Personne( faker.name().lastName(),faker.name().firstName(),faker.number().numberBetween(15, 70));
+            JsonNode node = objectMapper.valueToTree(p);
+            db.addToJsonFile("Personne_JSON",node,Personne.class);
+
+        }
+        deleteObject("src/main/resources/JSONDB/Personne_JSON.json","uniqueId","0");
+        modifyJSON("src/main/resources/JSONDB/Personne_JSON.json","uniqueId","1","age","100");
+    }
+
+
+    public static void main(String[] args) {
+        test();
+
     }
 }
 
