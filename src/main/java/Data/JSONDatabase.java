@@ -9,6 +9,7 @@ import java.util.Optional;
 
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 
 public class JSONDatabase {
@@ -195,6 +196,46 @@ public class JSONDatabase {
         }
         return resultList;
     }
+
+    public static void modifyJSON(String pathToData, String uniqueKey, String uniqueValue, String keyToUpdate, String newValue) {
+        try {
+            File file = new File(pathToData);
+            if (!file.exists()) {
+                System.out.println("❌ Fichier non trouvé : " + pathToData);
+                return;
+            }
+
+            JsonNode rootNode = objectMapper.readTree(file);
+            if (!rootNode.isArray()) {
+                System.out.println("❌ Erreur : Le fichier JSON ne contient pas un tableau.");
+                return;
+            }
+
+            ArrayNode arrayNode = (ArrayNode) rootNode;
+            boolean updated = false;
+
+            // Parcourir les objets du tableau JSON
+            for (JsonNode node : arrayNode) {
+                if (node.has(uniqueKey) && node.get(uniqueKey).asText().equals(uniqueValue)) {
+                    if (node.isObject()) { // Vérifier que c'est bien un ObjectNode
+                        ((ObjectNode) node).put(keyToUpdate, newValue);
+                        updated = true;
+                    }
+                }
+            }
+
+            if (updated) {
+                objectMapper.writeValue(file, arrayNode);
+                System.out.println("✅ Donnée modifiée avec succès !");
+            } else {
+                System.out.println("❌ Aucune correspondance trouvée pour `" + uniqueKey + "` = `" + uniqueValue + "`");
+            }
+
+        } catch (IOException e) {
+            System.out.println("❌ Erreur de lecture JSON : " + e.getMessage());
+        }
+    }
+
 
 
     // Méthode pour vérifier si un JSON correspond à une classe donnée
