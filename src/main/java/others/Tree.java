@@ -1,4 +1,4 @@
-package App.AssociationManagement;
+package others;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

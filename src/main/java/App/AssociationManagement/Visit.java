@@ -1,5 +1,6 @@
 package App.AssociationManagement;
 import App.AssociationMember.Member;
+import others.Tree;
 
 import java.time.LocalDate;
 import java.util.List;

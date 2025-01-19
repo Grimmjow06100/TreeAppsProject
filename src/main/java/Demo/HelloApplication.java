@@ -1,6 +1,6 @@
 package Demo;
 
-import App.AssociationManagement.Tree;
+import others.Tree;
 import Data.JSONDatabase;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,8 +14,6 @@ import others.Personne;
 import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
-
-import static Data.JSONDatabase.*;
 
 public class HelloApplication extends Application {
     @Override

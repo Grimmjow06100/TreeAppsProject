@@ -3,23 +3,37 @@ package App.AssociationManagement;
 import java.util.ArrayList;
 import java.util.List;
 import App.AssociationMember.Member;
+import others.Tree;
 
 public class Association {
     private final String nom;
-    private final String adresse;
-    private List<Member> members;
-    private List<Tree> arbresRemarquables;
-    private List<Visit> visits;
-    private Budget budget;
+    private final List<Member> members;
+    private final List<Tree> arbresRemarquables;
+    private final List<Visit> visits;
+    private final Budget budget;
 
     // Constructeur
-    public Association(String nom, String adresse) {
+    public Association(String nom,Budget budget) {
         this.nom = nom;
-        this.adresse = adresse;
         this.members = new ArrayList<>();
         this.arbresRemarquables = new ArrayList<>();
         this.visits = new ArrayList<>();
-        this.budget = new Budget();
+        this.budget = budget;
+    }
+
+    // ✅ Vérifier les membres qui n'ont pas payé leur cotisation
+    public void afficherMembresNonPayants() {
+        System.out.println("📋 Membres n'ayant pas encore payé leur cotisation :");
+        boolean found = false;
+        for (Member membre : members) {
+            if (!membre.isCotisationPayee()) {
+                System.out.println("- " + membre.getNom());
+                found = true;
+            }
+        }
+        if (!found) {
+            System.out.println("✅ Tous les membres ont payé leur cotisation !");
+        }
     }
 
     // ✅ Ajouter un Member
@@ -69,7 +83,6 @@ public class Association {
 
     // Getters et Setters
     public String getNom() { return nom; }
-    public String getAdresse() { return adresse; }
     public List<Member> getMembers() { return members; }
     public List<Tree> getArbresRemarquables() { return arbresRemarquables; }
     public List<Visit> getVisites() { return visits; }
