@@ -62,9 +62,9 @@ public class HelloApplication extends Application {
 
 
 
-        Visit v1= new Visit(50,LocalDate.of(2021, 5, 15), tree1.get(), List.of(m1, m2, m3));
-        Visit v2= new Visit(150,LocalDate.of(2021, 5, 16), tree2.get(), null);
-        Visit v3= new Visit(100,LocalDate.of(2021, 5, 17), tree3.get(), List.of(m1, m4, m5));
+        Visit v1= new Visit(50,LocalDate.of(2021, 5, 15), tree1.get(), List.of(m1, m2, m3),"Hey Hey Hey !!! La mala est gang");
+        Visit v2= new Visit(150,LocalDate.of(2021, 5, 16), tree2.get(), null,"null");
+        Visit v3= new Visit(100,LocalDate.of(2021, 5, 17), tree3.get(), List.of(m1, m4, m5),"typeShit");
 
         db.addToJsonFile("Visits_JSON.json",List.of(v1, v2, v3), "date");
 

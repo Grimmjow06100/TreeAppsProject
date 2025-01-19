@@ -20,8 +20,10 @@ public class Visit {
     @JsonIgnoreProperties({"identifiant","password","cotisationPayee","dateInscription","cotisationsPayees"})
     private List<Member> visitors;
 
+    private String compteRendu;
 
-    public Visit(double cout, LocalDate date, Tree tree, List<Member> visitors){
+
+    public Visit(double cout, LocalDate date, Tree tree, List<Member> visitors, String compteRendu) {
         this.cout = cout;
         this.date = date;
         this.tree = tree;
@@ -33,6 +35,7 @@ public class Visit {
         this.date = LocalDate.now();
         this.tree = new Tree();
         this.visitors = null;
+        this.compteRendu = "";
     }
 
     public void addVisitor(Member p){
@@ -52,13 +55,8 @@ public class Visit {
     public List<Member> getVisitors(){
         return visitors;
     }
-
-    //setters
-    public void setTree(Tree tree){
-        this.tree = tree;
-    }
-    public void setVisitors(List<Member> visitors){
-        this.visitors = visitors;
+    public String getCompteRendu(){
+        return compteRendu;
     }
 
 
