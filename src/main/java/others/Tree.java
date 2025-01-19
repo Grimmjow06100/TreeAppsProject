@@ -18,7 +18,7 @@ public class Tree {
     private final String lieu;
     private final double latitude;
     private final double longitude;
-    private final String remarquable;
+    private  String remarquable;
     private final LocalDate dateClassification; // Peut être vide si inconnu
 
     // ✅ Constructeur
@@ -81,5 +81,9 @@ public class Tree {
             System.out.println("🏅 Pas encore classé remarquable.");
         }
         System.out.println("-------------------------------------------------");
+    }
+
+    public void setRemarquable(String remarquable) {
+        this.remarquable = remarquable;
     }
 }

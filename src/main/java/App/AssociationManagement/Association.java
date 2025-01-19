@@ -1,7 +1,5 @@
 package App.AssociationManagement;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import App.AssociationMember.Member;
 import others.Tree;
 
@@ -11,6 +9,10 @@ public class Association {
     private final List<Tree> arbresRemarquables;
     private final List<Visit> visits;
     private final Budget budget;
+
+    private Map<Tree, Integer> votes = new HashMap<>();
+    private List<Member> membres;
+    private static final int MAX_TREES_TO_SUBMIT = 5;
 
     // Constructeur
     public Association(String nom,Budget budget) {
@@ -34,6 +36,42 @@ public class Association {
         if (!found) {
             System.out.println("✅ Tous les membres ont payé leur cotisation !");
         }
+    }
+    // ✅ Collecte toutes les nominations et les compte
+    public void collecterNominations() {
+        votes.clear();
+        for (Member membre : membres) {
+            for (Tree tree : membre.getNominations()) {
+                votes.put(tree, votes.getOrDefault(tree, 0) + 1);
+            }
+        }
+    }
+    // ✅ Comparateur pour trier les arbres par priorité (circonférence, hauteur)
+    public static final Comparator<Tree> TREE_COMPARATOR = Comparator
+            .comparingInt((Tree t) -> -t.getCirconference()) // Trier d'abord par circonférence (descendant)
+            .thenComparingDouble(t -> -t.getHauteur()); // Puis par hauteur (descendant)
+    // ✅ Génère la liste finale en fonction des règles de priorité
+    public List<Tree> genererListeSoumise() {
+        collecterNominations();
+
+        // Trier les arbres par nombre de votes, puis par priorité (circonférence, hauteur)
+        List<Map.Entry<Tree, Integer>> sortedEntries = new ArrayList<>(votes.entrySet());
+        sortedEntries.sort(Map.Entry.<Tree, Integer>comparingByValue(Comparator.reverseOrder())
+                .thenComparing(entry -> entry.getKey(),TREE_COMPARATOR));
+
+        // Récupérer les 5 premiers arbres
+        List<Tree> finalSelection = new ArrayList<>();
+        for (int i = 0; i < Math.min(MAX_TREES_TO_SUBMIT, sortedEntries.size()); i++) {
+            finalSelection.add(sortedEntries.get(i).getKey());
+        }
+
+        return finalSelection;
+    }
+
+    // ✅ Marquer un arbre comme "remarquable" s'il est accepté par la municipalité
+    public void marquerRemarquable(Tree arbre) {
+        arbre.setRemarquable("OUI");
+        System.out.println("🌟 L’arbre " + arbre.getGenre() + " (" + arbre.getLieu() + ") a été classé remarquable !");
     }
 
     // ✅ Ajouter un Member
