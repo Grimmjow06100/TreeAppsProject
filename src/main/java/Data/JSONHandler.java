@@ -11,7 +11,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
-public class JSONDatabase {
+public class JSONHandler {
     private final String BASE_URL;
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -21,7 +21,7 @@ public class JSONDatabase {
     }
 
     // ✅ Constructeur : Initialise la base de données JSON
-    public JSONDatabase(String baseUrl) {
+    public JSONHandler(String baseUrl) {
         this.BASE_URL = baseUrl;
         File directory = new File(BASE_URL);
         if (!directory.exists() && directory.mkdirs()) {

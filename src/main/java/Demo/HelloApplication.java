@@ -3,7 +3,7 @@ package Demo;
 import App.AssociationManagement.Visit;
 import App.AssociationMember.Member;
 import others.Tree;
-import Data.JSONDatabase;
+import Data.JSONHandler;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.application.Application;
@@ -30,7 +30,7 @@ public class HelloApplication extends Application {
 
 
     public static void MakeJsonFiles() throws IOException {
-        JSONDatabase db= new JSONDatabase("src/main/resources/JSONDB");
+        JSONHandler db= new JSONHandler("src/main/resources/JSONDB");
         db.createJsonFile("Members_JSON.json");
         db.createJsonFile("Visits_JSON.json");
 
@@ -73,6 +73,5 @@ public class HelloApplication extends Application {
 
 
     public static void main(String[] args) throws IOException {
-        MakeJsonFiles();
     }
 }
