@@ -1,32 +1,30 @@
 package others;
 
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDate;
 
 public class Personne {
-    private static int idCounter=0;
 
-    @JsonProperty("uniqueId")
-    private final int uniqueId;
+
     private String nom;
     private String prenom;
     private int age;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     LocalDate dateNaissance;
 
 
 
     public Personne(String nom, String prenom, int age, LocalDate dateNaissance) {
-        this.uniqueId = idCounter++;
         this.nom = nom;
         this.prenom = prenom;
         this.age = age;
+        this.dateNaissance = dateNaissance;
 
     }
 
-    public Personne(){
-        this.uniqueId = idCounter;
-    }
+    public Personne(){}
 
     public String getNom() {
         return nom;
@@ -47,12 +45,8 @@ public class Personne {
     public int getAge() {
         return age;
     }
-
-    public void setAge(int age) {
-        this.age = age;
+    public LocalDate getDateNaissance() {
+        return dateNaissance;
     }
 
-    public int getUniqueId() {
-        return uniqueId;
-    }
 }

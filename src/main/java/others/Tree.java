@@ -11,87 +11,72 @@ import com.fasterxml.jackson.databind.JsonNode;
 public class Tree {
     private final String genre;
     private final String espece;
-    private final String nomCommun;
+    private final String libelle_france;
     private final int circonference; // en cm
     private final double hauteur; // en mètres
-    private final String stadeDeveloppement;
-    private final String adresse;
+    private final String stade_de_developpement;
+    private final String lieu;
     private final double latitude;
     private final double longitude;
-    private final boolean estRemarquable;
-    private final Optional<LocalDate> dateClassification; // Peut être vide si inconnu
+    private final String remarquable;
+    private final LocalDate dateClassification; // Peut être vide si inconnu
 
     // ✅ Constructeur
     public Tree(String genre, String espece, String nomCommun, int circonference, double hauteur,
                 String stadeDeveloppement, String adresse, double latitude, double longitude,
-                boolean estRemarquable) {
+                String remarquable) {
         this.genre = genre;
         this.espece = espece;
-        this.nomCommun = nomCommun;
+        this.libelle_france = nomCommun;
         this.circonference = circonference;
         this.hauteur = hauteur;
-        this.stadeDeveloppement = stadeDeveloppement;
-        this.adresse = adresse;
+        this.stade_de_developpement = stadeDeveloppement;
+        this.lieu= adresse;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.estRemarquable = estRemarquable;
-        this.dateClassification = Optional.empty();
+        this.remarquable = remarquable;
+        this.dateClassification = null;
     }
 
-    public static Tree JSONToArbre(JsonNode node) {
-        try {
-            // Vérification de la présence des clés pour éviter NullPointerException
-            String genre =  node.get("genre").asText() ;
-            String espece =  node.get("espece").asText() ;
-            String nomCommun =  node.get("libelle_france").asText() ;
-            int circonference = node.get("circonference").asInt();
-            double hauteur = node.get("hauteur").asDouble();
-            String stadeDeveloppement =node.get("stade_de_developpement").asText() ;
-            String adresse =  node.get("lieu").asText();
-            double latitude = node.get("latitude").asDouble() ;
-            double longitude =  node.get("longitude").asDouble();
-            boolean estRemarquable = !Objects.equals(node.get("remarquable").asText(), "NON");
-
-            return new Tree(genre, espece, nomCommun, circonference, hauteur, stadeDeveloppement, adresse, latitude, longitude, estRemarquable);
-        } catch (Exception e) {
-            System.out.println("❌ Erreur lors de la conversion du JSON en arbre : " + e.getMessage());
-            return null;
-        }
+    public Tree(){
+        this.genre = "";
+        this.espece = "";
+        this.libelle_france = "";
+        this.circonference = 0;
+        this.hauteur = 0;
+        this.stade_de_developpement = "";
+        this.lieu = "";
+        this.latitude = 0;
+        this.longitude = 0;
+        this.remarquable = "NON";
+        this.dateClassification = null;
     }
 
-    public static List<Tree> JSONToArbreList(List<JsonNode> list) {
-        List<Tree> trees = new ArrayList<>();
-        for (JsonNode treeNode : list) {
-            Tree arbre = JSONToArbre(treeNode);
-            if (arbre != null) {  // Éviter d'ajouter un arbre mal formé
-                trees.add(arbre);
-            }
-        }
-        return trees;
-    }
 
     // ✅ Getters
     public String getGenre() { return genre; }
     public String getEspece() { return espece; }
-    public String getNomCommun() { return nomCommun; }
+    public String getLibelle_france() { return libelle_france; }
     public int getCirconference() { return circonference; }
     public double getHauteur() { return hauteur; }
-    public String getStadeDeveloppement() { return stadeDeveloppement; }
-    public String getAdresse() { return adresse; }
+    public String getStade_de_developpement() { return stade_de_developpement; }
+    public String getLieu() { return lieu; }
     public double getLatitude() { return latitude; }
     public double getLongitude() { return longitude; }
-    public boolean isRemarquable() { return estRemarquable; }
-    public Optional<LocalDate> getDateClassification() { return dateClassification; }
+    public String getRemarquable() { return remarquable; }
+    public LocalDate getDateClassification() { return dateClassification; }
 
     // ✅ Méthode pour afficher les infos
     public void afficherInfo() {
-        System.out.println("🌳 Arbre : " + nomCommun + " (" + genre + " " + espece + ")");
+        Optional<String> dateClassification = Optional.ofNullable(this.dateClassification)
+                .map(LocalDate::toString);
+        System.out.println("🌳 Arbre : " + libelle_france + " (" + genre + " " + espece + ")");
         System.out.println("📏 Circonférence : " + circonference + " cm, Hauteur : " + hauteur + " m");
-        System.out.println("🌱 Stade de développement : " + stadeDeveloppement);
-        System.out.println("📍 Adresse : " + adresse + " (GPS : " + latitude + ", " + longitude + ")");
-        if (estRemarquable) {
+        System.out.println("🌱 Stade de développement : " + stade_de_developpement);
+        System.out.println("📍 Adresse : " + lieu + " (GPS : " + latitude + ", " + longitude + ")");
+        if (remarquable=="OUI") {
             System.out.println("🏅 Arbre remarquable depuis : " +
-                    dateClassification.map(LocalDate::toString).orElse("Date inconnue"));
+                    dateClassification.orElse("Date inconnue"));
         } else {
             System.out.println("🏅 Pas encore classé remarquable.");
         }

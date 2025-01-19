@@ -45,14 +45,14 @@ public class Association {
     // ✅ Ajouter un arbre remarquable
     public void ajouterArbre(Tree Tree) {
         arbresRemarquables.add(Tree);
-        System.out.println("🌳 getArbre ajouté : " + Tree.getNomCommun());
+        System.out.println("🌳 getArbre ajouté : " + Tree.getLibelle_france());
     }
 
     // ✅ Organiser une visite et enregistrer le compte-rendu
     public void organiserVisite(Visit visit) {
         visits.add(visit);
         budget.enregistrerDepense(visit.getCout());
-        System.out.println("📅 Visite de l'getArbre "+ visit.getArbre().getNomCommun() +" organisée : ");
+        System.out.println("📅 Visite de l'getArbre "+ visit.getTree().getLibelle_france() +" organisée : ");
     }
 
     // ✅ Ajouter un don, une subvention ou une cotisation
@@ -77,7 +77,7 @@ public class Association {
     public void afficherArbres() {
         System.out.println("🌿 Arbres remarquables :");
         for (Tree a : arbresRemarquables) {
-            System.out.println("- " + a.getNomCommun());
+            System.out.println("- " + a.getLibelle_france());
         }
     }
 
