@@ -6,12 +6,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import net.datafaker.Faker;
-import others.Personne;
+
 
 
 public class JSONDatabase implements JSONCheckLoginInfo {
@@ -34,7 +32,7 @@ public class JSONDatabase implements JSONCheckLoginInfo {
     }
 
     public void createJsonFile(String filename) {
-        File file = new File(BASE_URL + "/" + filename + ".json");
+        File file = new File(BASE_URL + "/" + filename);
         try {
             if (file.createNewFile()) {
                 System.out.println("✅ Fichier créé avec succès : " + file.getName());
@@ -53,7 +51,7 @@ public class JSONDatabase implements JSONCheckLoginInfo {
     // Méthode pour ajouter un objet validé dans le fichier JSON
     public void addToJsonFile(String fileName, Object newData, Class<?> clazz) {
         try {
-            File file = new File(BASE_URL + "/" + fileName + ".json");
+            File file = new File(BASE_URL + "/" + fileName);
 
             // Vérifier si le fichier JSON existe
             if (!file.exists()) {
@@ -85,7 +83,7 @@ public class JSONDatabase implements JSONCheckLoginInfo {
             }
 
             arrayNode.add(newNode);
-            objectMapper.writeValue(file, arrayNode);
+            objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, arrayNode);
             System.out.println("✅ Donnée ajoutée avec succès !");
 
         } catch (IOException e) {
@@ -95,8 +93,47 @@ public class JSONDatabase implements JSONCheckLoginInfo {
         }
     }
 
+    public List<JsonNode> jsonFilter(String fileName, String key, String value) {
+        try {
+            File file = new File(BASE_URL + "/" + fileName);
+            if (!file.exists()) {
+                System.out.println("❌ Fichier non trouvé : " + fileName);
+                return new ArrayList<>();
+            }
+
+            JsonNode rootNode = objectMapper.readTree(file);
+            if (!rootNode.isArray()) {
+                System.out.println("❌ Erreur : Le fichier JSON ne contient pas un tableau.");
+                return new ArrayList<>();
+            }
+
+            ArrayNode arrayNode = (ArrayNode) rootNode;
+
+            // ✅ Trouver les objets qui correspondent à la clé/valeur
+            List<JsonNode> filteredNodes = arrayNode.findParents(key).stream()
+                    .filter(node -> node.get(key).asText().equals(value))
+                    .toList();
+
+            // ✅ Afficher les résultats
+            if (filteredNodes.isEmpty()) {
+                System.out.println("❌ Aucun résultat trouvé pour `" + key + "` = `" + value + "`");
+                return new ArrayList<>();
+            } else {
+                System.out.println("✅ Résultats trouvés :");
+                filteredNodes.forEach(System.out::println);
+                return filteredNodes;
+            }
+
+
+
+        } catch (IOException e) {
+            System.out.println("❌ Erreur de lecture JSON : " + e.getMessage());
+        }
+        return new ArrayList<>();
+    }
+
     // Méthode pour vérifier si un JSON correspond à une classe donnée
-    private static boolean isValidObject(JsonNode node, Class<?> clazz) {
+    private boolean isValidObject(JsonNode node, Class<?> clazz) {
         try {
             objectMapper.treeToValue(node, clazz);
             return true;
@@ -107,9 +144,9 @@ public class JSONDatabase implements JSONCheckLoginInfo {
     }
 
     @Override
-    public boolean isValidLogin(String pathToData, String username, String password) {
+    public boolean isValidLogin(String fileName, String username, String password) {
         try {
-            File file = new File(pathToData);
+            File file = new File(BASE_URL + "/" + fileName);
             if (!file.exists()) return false;
 
             JsonNode rootNode = objectMapper.readTree(file);
@@ -127,102 +164,11 @@ public class JSONDatabase implements JSONCheckLoginInfo {
         }
         return false;
     }
-
-    public static <T> Optional<T> getObject(String pathToData, String key, String value, Class<T> clazz) {
+    public void modifyNodeFromJSON(String fileName, String uniqueKey, String uniqueValue, String keyToUpdate, String newValue) {
         try {
-            File file = new File(pathToData);
+            File file = new File(BASE_URL + "/" + fileName);
             if (!file.exists()) {
-                System.out.println("❌ Fichier non trouvé : " + pathToData);
-                return Optional.empty();
-            }
-
-            JsonNode rootNode = objectMapper.readTree(file);
-            if (!rootNode.isArray()) {
-                System.out.println("❌ Erreur : Le fichier JSON ne contient pas un tableau.");
-                return Optional.empty();
-            }
-
-            for (JsonNode node : rootNode) {
-                if (node.has(key) && node.get(key).asText().equalsIgnoreCase(value)) { // Recherche insensible à la casse
-                    return Optional.of(objectMapper.treeToValue(node, clazz));
-                }
-            }
-
-            System.out.println("❌ Aucune correspondance trouvée pour `" + key + "` = `" + value + "`");
-        } catch (IOException e) {
-            System.out.println("❌ Erreur de lecture JSON : " + e.getMessage());
-        }
-        return Optional.empty();
-    }
-
-    // Récupérer une liste d'objets qui correspondent au critère (key = value)
-    public static <T> List<T> getObjectsList(String pathToData, Class<T> clazz, String key, String value) {
-        List<T> resultList = new ArrayList<>();
-        try {
-            File file = new File(pathToData);
-            if (!file.exists()) {
-                System.out.println("❌ Fichier non trouvé : " + pathToData);
-                return resultList; // Retourne une liste vide si le fichier n'existe pas
-            }
-
-            JsonNode rootNode = objectMapper.readTree(file);
-            if (!rootNode.isArray()) {
-                System.out.println("❌ Erreur : Le fichier JSON ne contient pas un tableau.");
-                return resultList;
-            }
-
-            for (JsonNode node : rootNode) {
-                if (node.has(key) && node.get(key).asText().equalsIgnoreCase(value)) { // Recherche insensible à la casse
-                    resultList.add(objectMapper.treeToValue(node, clazz));
-                }
-            }
-
-            if (resultList.isEmpty()) {
-                System.out.println("❌ Aucune correspondance trouvée pour `" + key + "` = `" + value + "`");
-            } else {
-                System.out.println("✅ " + resultList.size() + " correspondance(s) trouvée(s) !");
-            }
-        } catch (IOException e) {
-            System.out.println("❌ Erreur de lecture JSON : " + e.getMessage());
-        }
-        return resultList;
-    }
-
-    public static <T> List<T> getObjectsList(String pathToData, Class<T> clazz) {
-        List<T> resultList = new ArrayList<>();
-        try {
-            File file = new File(pathToData);
-            if (!file.exists()) {
-                System.out.println("❌ Fichier non trouvé : " + pathToData);
-                return resultList; // Retourne une liste vide si le fichier n'existe pas
-            }
-
-            JsonNode rootNode = objectMapper.readTree(file);
-            if (!rootNode.isArray()) {
-                System.out.println("❌ Erreur : Le fichier JSON ne contient pas un tableau.");
-                return resultList;
-            }
-
-            for (JsonNode node : rootNode) {
-                resultList.add(objectMapper.treeToValue(node, clazz));
-            }
-
-            if (resultList.isEmpty()) {
-                System.out.println("❌ Aucune correspondance trouvée !");
-            } else {
-                System.out.println("✅ " + resultList.size() + " correspondance(s) trouvée(s) !");
-            }
-        } catch (IOException e) {
-            System.out.println("❌ Erreur de lecture JSON : " + e.getMessage());
-        }
-        return resultList;
-    }
-
-    public static void modifyJSON(String pathToData, String uniqueKey, String uniqueValue, String keyToUpdate, String newValue) {
-        try {
-            File file = new File(pathToData);
-            if (!file.exists()) {
-                System.out.println("❌ Fichier non trouvé : " + pathToData);
+                System.out.println("❌ Fichier non trouvé : " + fileName);
                 return;
             }
 
@@ -246,7 +192,7 @@ public class JSONDatabase implements JSONCheckLoginInfo {
             }
 
             if (updated) {
-                objectMapper.writeValue(file, arrayNode);
+                objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, arrayNode);
                 System.out.println("✅ Donnée modifiée avec succès !");
             } else {
                 System.out.println("❌ Aucune correspondance trouvée pour `" + uniqueKey + "` = `" + uniqueValue + "`");
@@ -257,11 +203,11 @@ public class JSONDatabase implements JSONCheckLoginInfo {
         }
     }
 
-    public static void deleteObject(String pathToData, String key, String value) {
+    public void deleteNodeFromJSON(String fileName, String key, String value) {
         try {
-            File file = new File(pathToData);
+            File file = new File(BASE_URL + "/" + fileName);
             if (!file.exists()) {
-                System.out.println("❌ Fichier non trouvé : " + pathToData);
+                System.out.println("❌ Fichier non trouvé : " + fileName);
                 return;
             }
             JsonNode rootNode = objectMapper.readTree(file);
@@ -281,7 +227,7 @@ public class JSONDatabase implements JSONCheckLoginInfo {
             }
 
             if (updated) {
-                objectMapper.writeValue(file, arrayNode);
+                objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, arrayNode);
                 System.out.println("✅ Donnée modifiée avec succès !");
             } else {
                 System.out.println("❌ Aucune correspondance trouvée pour `" + key + "` = `" + value + "`");
@@ -292,19 +238,14 @@ public class JSONDatabase implements JSONCheckLoginInfo {
 
     }
 
-    public static void deleteFile(String pathToData) {
-        File file = new File(pathToData);
+    public void deleteFile(String fileName) {
+        File file = new File(BASE_URL + "/" + fileName);
         if (file.delete()) {
-            System.out.println("✅ Fichier supprimé avec succès : " + pathToData);
+            System.out.println("✅ Fichier supprimé avec succès : " + fileName);
         } else {
-            System.out.println("❌ Impossible de supprimer le fichier : " + pathToData);
+            System.out.println("❌ Impossible de supprimer le fichier : " + fileName);
         }
     }
-
-    public String fullPath(String filename){
-        return BASE_URL + "/" + filename;
-    }
-
     public String getBASE_URL() {
         return BASE_URL;
     }
