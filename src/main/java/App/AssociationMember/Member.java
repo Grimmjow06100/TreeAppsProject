@@ -1,15 +1,26 @@
 package App.AssociationMember;
 import App.AssociationManagement.Association;
 import others.Personne;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import java.time.LocalDate;
+import java.util.List;
 
 public class Member extends Personne{
     private String identifiant;
+
     private String password;
-    private static final double MONTANT_COTISATION = 50.0; // Montant fixe de la cotisation
+
+    private static final int MONTANT_COTISATION = 50; // Montant fixe de la cotisation
     private boolean cotisationPayee;
 
-    public Member(String nom, String prenom, int age,String identifiant,String password) {
-        super(nom, prenom, age);
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd") // Format JSON propre
+    private final LocalDate dateInscription = LocalDate.now();
+
+    @JsonFormat(shape = JsonFormat.Shape.ARRAY) // Stocke la liste comme un tableau JSON
+    private List<LocalDate>cotisationsPayees;
+
+    public Member(String nom, String prenom, int age, LocalDate birthDate,String identifiant, String password) {
+        super(nom, prenom, age,birthDate);
         this.identifiant = identifiant;
         this.password = password;
         this.cotisationPayee = false;

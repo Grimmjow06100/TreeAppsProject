@@ -41,30 +41,6 @@ public class HelloApplication extends Application {
 
     }
 
-    public static void testJSONClass() {
-
-
-
-        //Création de la base de données
-        JSONDatabase db = new JSONDatabase("src/main/resources/JSONDB");
-
-        String filename = "Personne_JSON.json";
-
-
-        //Création du fichier
-        db.createJsonFile(filename);
-
-        Faker faker = new Faker();
-        for (int i = 0; i < 10; i++) {
-            Personne p = new Personne( faker.name().lastName(),faker.name().firstName(),faker.number().numberBetween(15, 70));
-            db.addToJsonFile(filename,p,Personne.class);
-
-        }
-
-        db.deleteNodeFromJSON(filename,"uniqueId","0");
-        db.modifyNodeFromJSON(filename,"uniqueId","1","age","100");
-    }
-
 
     public static void main(String[] args) throws IOException {
         testJSONToTree();

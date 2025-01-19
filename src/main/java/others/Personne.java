@@ -2,6 +2,7 @@ package others;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.time.LocalDate;
 
 public class Personne {
     private static int idCounter=0;
@@ -11,9 +12,11 @@ public class Personne {
     private String nom;
     private String prenom;
     private int age;
+    LocalDate dateNaissance;
 
 
-    public Personne(String nom, String prenom, int age) {
+
+    public Personne(String nom, String prenom, int age, LocalDate dateNaissance) {
         this.uniqueId = idCounter++;
         this.nom = nom;
         this.prenom = prenom;
