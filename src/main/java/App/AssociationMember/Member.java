@@ -57,7 +57,7 @@ public class Member extends Personne{
 
     public static boolean checkAuthentification(String Username,String password){
         JSONHandler json=new JSONHandler("src/main/resources/JSONDB");
-        Optional<Member> member=json.getObjectFromJson("Members_JSON.json","identifiant","Username",Member.class);
+        Optional<Member> member=json.getObjectFromJson("Members_JSON.json","identifiant",Username,Member.class);
         if(member.isPresent()){
             if(member.get().password.equals(password)){
                 System.out.println("✅ Authentification réussie");

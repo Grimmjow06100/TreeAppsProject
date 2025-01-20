@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXDrawer?>
+<?import com.jfoenix.controls.JFXHamburger?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="380.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.AssociationMember.HomePageController ">
+   <children>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <AnchorPane prefHeight="97.0" prefWidth="153.0">
+               <children>
+                  <JFXHamburger fx:id="JFXHamburger" layoutY="39.0" prefHeight="20.0" prefWidth="57.0" />
+               </children>
+            </AnchorPane>
+            <VBox alignment="CENTER" prefHeight="97.0" prefWidth="135.0">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </VBox>
+            <VBox prefHeight="100.0" prefWidth="126.0" />
+         </children>
+      </HBox>
+      <HBox prefHeight="586.0" prefWidth="380.0">
+         <children>
+            <JFXDrawer fx:id="JFXDrawer" defaultDrawerSize="160.0" prefHeight="583.0" prefWidth="160.0" />
+         </children>
+      </HBox>
+   </children>
+</VBox>

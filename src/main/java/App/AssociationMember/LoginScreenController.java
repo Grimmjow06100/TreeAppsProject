@@ -1,15 +1,15 @@
 package App.AssociationMember;
 
-import javafx.event.ActionEvent;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
 public class LoginScreenController {
-
     @FXML
     private TextField identifiantLabel;
 
@@ -26,11 +26,17 @@ public class LoginScreenController {
     private ImageView logoImageView;
 
     @FXML
-    private TextField passwordLabel;
+    private PasswordField passwordLabel;
+
 
     @FXML
-    void loginAction(ActionEvent event) {
+    void loginAction() {
+        if(Member.checkAuthentification(identifiantLabel.getText(), passwordLabel.getText())){
+            System.out.println("Authentification réussie");
+        }
 
     }
+
+
 
 }

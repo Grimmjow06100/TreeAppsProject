@@ -6,16 +6,20 @@ module TreeApp {
     requires com.fasterxml.jackson.databind;
     requires net.datafaker;
     requires com.fasterxml.jackson.datatype.jsr310;
+    requires com.jfoenix;
+
+    exports Demo;
+    exports others;
+    exports App.AssociationManagement;
+    exports App.AssociationMember ;
+    //exports App.GreenSpaceService;
+
+
+
 
     opens Demo to javafx.fxml;
-    exports Demo;
-
-    exports others; // Rendre accessible le package "others" à tous les modules
     opens others to com.fasterxml.jackson.databind; // Autorise Jackson à accéder aux champs privés
-
-    exports App.AssociationMember ; // Rendre accessible le package "App.AssociationMember" à tous les modules
-    opens App.AssociationMember to com.fasterxml.jackson.databind;
-
-    exports App.AssociationManagement; // Rendre accessible
-    opens App.AssociationManagement to com.fasterxml.jackson.databind;
+    opens App.AssociationMember to javafx.fxml,com.fasterxml.jackson.databind,com.jfoenix;
+    opens App.AssociationManagement to com.fasterxml.jackson.databind,com.jfoenix;
+    //opens App.GreenSpaceService to javafx.fxml,com.fasterxml.jackson.databind,com.jfoenix;
 }

@@ -1,6 +1,7 @@
 package Demo;
 
 import App.AssociationManagement.Visit;
+import App.AssociationMember.LoginScreenController;
 import App.AssociationMember.Member;
 import javafx.scene.chart.ScatterChart;
 import others.Nomination;
@@ -29,8 +30,9 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws IOException {
 
         ResourceHandler rh= new ResourceHandler("src/main/resources/App/AssociationMember");
-        if(rh.getFileUrl("MemberApp.fxml")!=null){
-            FXMLLoader fxmlLoader = rh.getFXMLLoader("LoginScreen.fxml").get();
+        Optional<FXMLLoader> loader= rh.getFXMLLoader("HomePage.fxml");
+        if(loader.isPresent()){
+            FXMLLoader fxmlLoader = loader.get();
             Scene scene = new Scene(fxmlLoader.load());
             stage.setTitle("Hello!");
             stage.setScene(scene);
