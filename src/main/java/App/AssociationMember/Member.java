@@ -1,5 +1,6 @@
 package App.AssociationMember;
 import App.AssociationManagement.Association;
+import Data.JSONHandler;
 import others.Personne;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import others.Tree;
@@ -8,6 +9,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 public class Member extends Personne{
     private String identifiant;
@@ -51,6 +53,19 @@ public class Member extends Personne{
         } else {
             System.out.println("ℹ️ Cotisation déjà payée pour cette année.");
         }
+    }
+
+    public static boolean checkAuthentification(String Username,String password){
+        JSONHandler json=new JSONHandler("src/main/resources/JSONDB");
+        Optional<Member> member=json.getObjectFromJson("Members_JSON.json","identifiant","Username",Member.class);
+        if(member.isPresent()){
+            if(member.get().password.equals(password)){
+                System.out.println("✅ Authentification réussie");
+                return true;
+            }
+        }
+        System.out.println("❌ l'identifiant ou le mot de passe est incorrect");
+        return false;
     }
 
     // ✅ Vérifier si la cotisation est payée
