@@ -57,27 +57,7 @@ public class Member extends Personne{
     public boolean isCotisationPayee() {
         return cotisationPayee;
     }
-    // ✅ Afficher l’état du membre
-    public void afficherStatut() {
-        System.out.println("👤 Membre : " + getNom() + " - Identifiant : " + identifiant);
-        System.out.println("💰 Cotisation : " + (cotisationPayee ? "✅ Payée" : "❌ Non payée"));
-    }
 
-    // ✅ Ajouter une nomination (remplace l’ancienne si plus de 5)
-    public void nominerArbre(Tree arbre) {
-        if (nominations.contains(arbre)) {
-            System.out.println("ℹ️ " + getNom()+ " a déjà nominé cet arbre.");
-            return;
-        }
-
-        if (nominations.size() >= MAX_NOMINATIONS) {
-            Tree removed = nominations.removeFirst(); // Supprime la plus ancienne nomination
-            System.out.println("🚨 Limite atteinte ! Suppression de la nomination : " + removed.getGenre() + " (" + removed.getLieu() + ")");
-        }
-
-        nominations.add(arbre); // Ajoute la nouvelle nomination
-        System.out.println("✅ " + getNom() + " a nominé l’arbre : " + arbre.getGenre() + " (" + arbre.getLieu() + ")");
-    }
 
     public List<Tree> getNominations() { return nominations; }
 

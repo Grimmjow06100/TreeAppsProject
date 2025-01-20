@@ -2,6 +2,7 @@ package Demo;
 
 import App.AssociationManagement.Visit;
 import App.AssociationMember.Member;
+import others.Nomination;
 import others.Tree;
 import Data.JSONHandler;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -34,7 +35,7 @@ public class HelloApplication extends Application {
         db.createJsonFile("Members_JSON.json");
         db.createJsonFile("Visits_JSON.json");
 
-        String filename = "Arbre_JSON.json";
+        String filename = "Arbres_JSON.json";
         File file = new File(db.getBASE_URL()+"/"+filename);
 
         Personne p1= new Personne("Doe", "John", 25, LocalDate.of(1996, 5, 15));
@@ -66,8 +67,14 @@ public class HelloApplication extends Application {
         Visit v2= new Visit(150,LocalDate.of(2021, 5, 16), tree2.get(), null,"null");
         Visit v3= new Visit(100,LocalDate.of(2021, 5, 17), tree3.get(), List.of(m1, m4, m5),"typeShit");
 
+
         db.addToJsonFile("Visits_JSON.json",List.of(v1, v2, v3), "date");
 
+        Nomination n1= new Nomination(tree1.get(), 3);
+        Nomination n2= new Nomination(tree2.get(), 2);
+
+        db.createJsonFile("Nominations_JSON.json");
+        db.addToJsonFile("Nominations_JSON.json", List.of(n1, n2), "idBase");
 
     }
 

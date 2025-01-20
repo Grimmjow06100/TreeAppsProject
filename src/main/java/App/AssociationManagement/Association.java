@@ -1,43 +1,55 @@
 package App.AssociationManagement;
+import java.io.IOException;
 import java.util.*;
 import App.AssociationMember.Member;
+import Data.JSONHandler;
+import com.fasterxml.jackson.databind.JsonNode;
 import others.Tree;
 
 public class Association {
     private final String nom;
-    private final List<Member> members;
-    private final List<Tree> arbresRemarquables;
-    private final List<Visit> visits;
     private final Budget budget;
+    private JSONHandler jsonHandler = new JSONHandler("src/main/resources/JSONDB");
 
     private Map<Tree, Integer> votes = new HashMap<>();
-    private List<Member> membres;
     private static final int MAX_TREES_TO_SUBMIT = 5;
 
     // Constructeur
     public Association(String nom,Budget budget) {
-        this.nom = nom;
-        this.members = new ArrayList<>();
-        this.arbresRemarquables = new ArrayList<>();
-        this.visits = new ArrayList<>();
+        this.nom = nom;;
         this.budget = budget;
     }
 
     // ✅ Vérifier les membres qui n'ont pas payé leur cotisation
-    public void afficherMembresNonPayants() {
+    public List<Member> MembresNonPayants()  {
+
+        List<Member> members = new ArrayList<>();
         System.out.println("📋 Membres n'ayant pas encore payé leur cotisation :");
         boolean found = false;
-        for (Member membre : members) {
-            if (!membre.isCotisationPayee()) {
-                System.out.println("- " + membre.getNom());
-                found = true;
+        List<JsonNode>node=jsonHandler.searchInJson("members.json", "cotisationPayee", "false");
+        node.forEach(n->{
+            try {
+                members.add(jsonHandler.getObjectMapper().treeToValue(n, Member.class));
+            }catch (IOException e){
+                System.out.println("❌ Erreur lors de la lecture du fichier JSON : " + e.getMessage());
             }
-        }
+        });
         if (!found) {
             System.out.println("✅ Tous les membres ont payé leur cotisation !");
         }
+
+        return members;
     }
+
+    public Budget getBudget() { return budget; }
+    public String getNom() { return nom; }
+
+    //Toute cette partie est à modifier
+
+
     // ✅ Collecte toutes les nominations et les compte
+
+    /*
     public void collecterNominations() {
         votes.clear();
         for (Member membre : membres) {
@@ -98,31 +110,17 @@ public class Association {
         budget.ajouterEntree(montant, description);
     }
 
-    // ✅ Consulter le budget
-    public double getSoldeBudget() {
-        return budget.getSolde();
-    }
 
-    // ✅ Afficher les Members
-    public void afficherMembers() {
-        System.out.println("📜 Liste des Members :");
-        for (Member m : members) {
-            System.out.println("- " + m.getNom());
-        }
-    }
 
-    // ✅ Afficher les Arbres remarquables
-    public void afficherArbres() {
-        System.out.println("🌿 Arbres remarquables :");
-        for (Tree a : arbresRemarquables) {
-            System.out.println("- " + a.getLibelle_france());
-        }
-    }
+
+
 
     // Getters et Setters
     public String getNom() { return nom; }
     public List<Member> getMembers() { return members; }
     public List<Tree> getArbresRemarquables() { return arbresRemarquables; }
     public List<Visit> getVisites() { return visits; }
-    public Budget getBudget() { return budget; }
+
+*/
 }
+

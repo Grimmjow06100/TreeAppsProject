@@ -76,6 +76,31 @@ public class JSONHandler {
         }
     }
 
+    public <T> Optional<T> getAllObjectFromJson(String filenmae,Class<T>clazz){
+        File file = new File(BASE_URL + "/" + filenmae);
+        if (!file.exists()) {
+            System.out.println("❌ Fichier non trouvé : " + filenmae);
+            return Optional.empty();
+        }
+
+        try {
+            JsonNode rootNode = objectMapper.readTree(file);
+            if (!rootNode.isArray()) {
+                System.out.println("❌ Erreur : Le fichier JSON doit contenir un tableau.");
+                return Optional.empty();
+            }
+            List<T> list = new ArrayList<>();
+            for (JsonNode node : rootNode) {
+                T obj = objectMapper.treeToValue(node, clazz);
+                list.add(obj);
+            }
+            return Optional.of((T) list);
+        } catch (IOException e) {
+            System.out.println("❌ Erreur de lecture JSON : " + e.getMessage());
+        }
+        return Optional.empty();
+    }
+
     public <T> Optional<T> getObjectFromJson(String fileName, String key, String value, Class<T> clazz) {
         File file = new File(BASE_URL + "/" + fileName);
         if (!file.exists()) {
@@ -224,4 +249,10 @@ public class JSONHandler {
     public String getBASE_URL() {
         return BASE_URL;
     }
+
+    //
+    public ObjectMapper getObjectMapper() {
+        return objectMapper;
+    }
+
 }

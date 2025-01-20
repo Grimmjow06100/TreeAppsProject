@@ -1,0 +1,29 @@
+[ {
+  "idBase" : 99878,
+  "genre" : "Tetradium",
+  "espece" : "daniellii",
+  "libelle_france" : "Arbre à miel",
+  "circonference" : 53,
+  "hauteur" : 4.0,
+  "stade_de_developpement" : "Jeune (arbre)Adulte",
+  "lieu" : "PARC CLICHY BATIGNOLLES MARTIN LUTHER KING / 147 RUE CARDINET",
+  "latitude" : 48.890435284727694,
+  "longitude" : 2.3152894656387994,
+  "remarquable" : "NON",
+  "dateClassification" : null,
+  "nombreVotes" : 3
+}, {
+  "idBase" : 99881,
+  "genre" : "Platanus",
+  "espece" : "x hispanica",
+  "libelle_france" : "Platane",
+  "circonference" : 294,
+  "hauteur" : 20.0,
+  "stade_de_developpement" : "Mature",
+  "lieu" : "SQUARE ALEXANDRE ET RENE PARODI / 1 PLACE DE LA PORTE MAILLOT",
+  "latitude" : 48.87672177988977,
+  "longitude" : 2.2802216762385195,
+  "remarquable" : "NON",
+  "dateClassification" : null,
+  "nombreVotes" : 2
+} ]

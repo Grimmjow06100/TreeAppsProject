@@ -1,14 +1,13 @@
 package others;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+
 import java.util.Optional;
 
-import com.fasterxml.jackson.databind.JsonNode;
+
 
 public class Tree {
+    private final int idBase;
     private final String genre;
     private final String espece;
     private final String libelle_france;
@@ -22,7 +21,7 @@ public class Tree {
     private final LocalDate dateClassification; // Peut être vide si inconnu
 
     // ✅ Constructeur
-    public Tree(String genre, String espece, String nomCommun, int circonference, double hauteur,
+    public Tree(int idBase,String genre, String espece, String nomCommun, int circonference, double hauteur,
                 String stadeDeveloppement, String adresse, double latitude, double longitude,
                 String remarquable) {
         this.genre = genre;
@@ -36,6 +35,22 @@ public class Tree {
         this.longitude = longitude;
         this.remarquable = remarquable;
         this.dateClassification = null;
+        this.idBase = idBase;
+    }
+
+    public Tree(Tree copie){
+        this.genre = copie.genre;
+        this.espece = copie.espece;
+        this.libelle_france = copie.libelle_france;
+        this.circonference = copie.circonference;
+        this.hauteur = copie.hauteur;
+        this.stade_de_developpement = copie.stade_de_developpement;
+        this.lieu = copie.lieu;
+        this.latitude = copie.latitude;
+        this.longitude = copie.longitude;
+        this.remarquable = copie.remarquable;
+        this.dateClassification = copie.dateClassification;
+        this.idBase = copie.idBase;
     }
 
     public Tree(){
@@ -50,6 +65,7 @@ public class Tree {
         this.longitude = 0;
         this.remarquable = "NON";
         this.dateClassification = null;
+        this.idBase = 0;
     }
 
 
@@ -65,6 +81,7 @@ public class Tree {
     public double getLongitude() { return longitude; }
     public String getRemarquable() { return remarquable; }
     public LocalDate getDateClassification() { return dateClassification; }
+    public int getIdBase() { return idBase; }
 
     // ✅ Méthode pour afficher les infos
     public void afficherInfo() {
