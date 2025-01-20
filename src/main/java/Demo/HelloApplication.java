@@ -2,7 +2,9 @@ package Demo;
 
 import App.AssociationManagement.Visit;
 import App.AssociationMember.Member;
+import javafx.scene.chart.ScatterChart;
 import others.Nomination;
+import others.ResourceHandler;
 import others.Tree;
 import Data.JSONHandler;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -14,19 +16,29 @@ import javafx.stage.Stage;
 import others.Personne;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
+
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("Hello!");
-        stage.setScene(scene);
-        stage.show();
+
+        ResourceHandler rh= new ResourceHandler("src/main/resources/App/AssociationMember");
+        if(rh.getFileUrl("MemberApp.fxml")!=null){
+            FXMLLoader fxmlLoader = rh.getFXMLLoader("LoginScreen.fxml").get();
+            Scene scene = new Scene(fxmlLoader.load());
+            stage.setTitle("Hello!");
+            stage.setScene(scene);
+            stage.show();
+
+        }
+
+
     }
 
 
@@ -80,5 +92,8 @@ public class HelloApplication extends Application {
 
 
     public static void main(String[] args) throws IOException {
+
+        launch();
+
     }
 }
