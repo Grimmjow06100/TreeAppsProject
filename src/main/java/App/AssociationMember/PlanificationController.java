@@ -1,5 +1,6 @@
 package App.AssociationMember;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
@@ -33,6 +34,13 @@ public class PlanificationController {
 
     @FXML
     private VBox vboxMenu;
+
+    private JsonNode user;
+
+    public void setUser(JsonNode user){
+        this.user=user;
+    }
+
 
     @FXML
     public void  initialize() {

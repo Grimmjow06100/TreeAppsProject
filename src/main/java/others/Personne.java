@@ -11,7 +11,7 @@ public class Personne {
     private String prenom;
     private int age;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     LocalDate dateNaissance;
 
 

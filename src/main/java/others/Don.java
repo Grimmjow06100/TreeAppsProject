@@ -19,7 +19,7 @@ public class Don {
     private String donateur;
 
     @JsonProperty("dateDon")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate dateDon;
 
     // ✅ Constructeur

@@ -1,13 +1,14 @@
 package App.AssociationMember;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
@@ -15,7 +16,7 @@ import others.ResourceHandler;
 
 import java.util.Optional;
 
-public class ProfilController {
+public class CotisationPageController {
 
     @FXML
     private JFXDrawer JFXDrawer;
@@ -24,40 +25,21 @@ public class ProfilController {
     private JFXHamburger JFXHamburger;
 
     @FXML
-    private Label adresse;
+    private ListView<?> listViewHisto;
 
     @FXML
-    private Label dateDeNaissance;
-
-    @FXML
-    private Label dateInscription;
-
-    @FXML
-    private Label nom;
-
-    @FXML
-    private Label prenom;
-
-    @FXML
-    private VBox vboxMenu;
+    private JFXButton paiementCotisation;
 
     @FXML
     private HBox topHbox;
 
-    JsonNode user;
+    @FXML
+    private VBox vboxMenu;
 
-    
+    private JsonNode user;
+
     public void setUser(JsonNode user){
         this.user=user;
-        updateProfil();
-    }
-
-    public void updateProfil(){
-        nom.setText(user.get("nom").asText());
-        prenom.setText(user.get("prenom").asText());
-        adresse.setText(user.get("adresse").asText());
-        dateDeNaissance.setText(user.get("date_naissance").asText());
-        dateInscription.setText(user.get("date_inscription").asText());
     }
 
     @FXML

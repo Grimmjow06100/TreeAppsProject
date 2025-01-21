@@ -38,7 +38,7 @@
             </HBox>
             <HBox alignment="TOP_CENTER" prefHeight="117.0" prefWidth="380.0">
                <children>
-                  <Label text="Visites effectuées">
+                  <Label text="Historique des visites">
                      <HBox.margin>
                         <Insets top="60.0" />
                      </HBox.margin>

@@ -1,5 +1,6 @@
 package App.AssociationMember;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,7 +20,7 @@ public class MenuController {
     private JFXButton cotisationButton;
 
     @FXML
-    private JFXButton homeButton;
+    private JFXButton home;
 
     @FXML
     private JFXButton logoutButton;
@@ -30,6 +31,12 @@ public class MenuController {
     @FXML
     private JFXButton profilButton;
 
+    private JsonNode user;
+
+    public void setUser(JsonNode user){
+        this.user=user;
+    }
+
     @FXML
     void handleButtonClick() {
         ResourceHandler r=new ResourceHandler("src/main/resources/App/AssociationMember");
@@ -38,9 +45,11 @@ public class MenuController {
             if (loader.isPresent()) {
                 try {
                     StackPane pane = loader.get().load();
+                    ProfilController controller = loader.get().getController();
+                    controller.setUser(user);
                     profilButton.getScene().setRoot(pane);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    System.out.println(e.getMessage());
                 }
             }
         });
@@ -49,21 +58,24 @@ public class MenuController {
             if (loader.isPresent()) {
                 try {
                     StackPane pane = loader.get().load();
+                    ArbreRemarquableController controller = loader.get().getController();
+                    controller.setUser(user);
                     arbreRemarquableButton.getScene().setRoot(pane);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    System.out.println(e.getMessage());
                 }
             }
         });
         cotisationButton.setOnAction((ActionEvent event) -> {
-            Optional<FXMLLoader>loader = r.getFXMLLoader("Cotisation.fxml");
+            Optional<FXMLLoader>loader = r.getFXMLLoader("CotisationPage.fxml");
             if (loader.isPresent()) {
                 try {
                     StackPane pane = loader.get().load();
+                    CotisationPageController controller = loader.get().getController();
+                    controller.setUser(user);
                     cotisationButton.getScene().setRoot(pane);
                 } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                    System.out.println(e.getMessage());                }
             }
         });
         planificationButton.setOnAction((ActionEvent event) -> {
@@ -71,34 +83,36 @@ public class MenuController {
             if (loader.isPresent()) {
                 try {
                     StackPane pane = loader.get().load();
+                    PlanificationController controller = loader.get().getController();
+                    controller.setUser(user);
                     planificationButton.getScene().setRoot(pane);
                 } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                    System.out.println(e.getMessage());                }
             }
         });
         logoutButton.setOnAction((ActionEvent event) -> {
+            System.out.println("Logout Button clicked");
             Optional<FXMLLoader>loader = r.getFXMLLoader("LoginScreen.fxml");
             if (loader.isPresent()) {
                 try {
                     VBox pane = loader.get().load();
+                    this.user=null;
                     logoutButton.getScene().setRoot(pane);
                 } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                    System.out.println(e.getMessage());                }
             }
 
         });
-        homeButton.setOnAction((ActionEvent event) -> {
+        home.setOnAction((ActionEvent event) -> {
             Optional<FXMLLoader>loader = r.getFXMLLoader("HomePage.fxml");
             if (loader.isPresent()) {
                 try {
-                    System.out.println("Home Button clicked");
                     StackPane pane = loader.get().load();
-                    homeButton.getScene().setRoot(pane);
+                    HomePageController controller = loader.get().getController();
+                    controller.setUser(user);
+                    home.getScene().setRoot(pane);
                 } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                    System.out.println(e.getMessage());                }
             }
         });
 
