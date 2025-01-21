@@ -93,6 +93,7 @@ public class MenuController {
             Optional<FXMLLoader>loader = r.getFXMLLoader("HomePage.fxml");
             if (loader.isPresent()) {
                 try {
+                    System.out.println("Home Button clicked");
                     StackPane pane = loader.get().load();
                     homeButton.getScene().setRoot(pane);
                 } catch (Exception e) {
