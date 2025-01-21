@@ -29,6 +29,9 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
+        //test
+
+        String yoan = "pd";
         ResourceHandler rh= new ResourceHandler("src/main/resources/App/AssociationMember");
         Optional<FXMLLoader> loader= rh.getFXMLLoader("PlanificationPage.fxml");
         if(loader.isPresent()){
