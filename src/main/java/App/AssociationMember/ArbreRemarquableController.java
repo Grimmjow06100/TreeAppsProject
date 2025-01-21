@@ -1,11 +1,13 @@
 package App.AssociationMember;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
@@ -13,7 +15,7 @@ import others.ResourceHandler;
 
 import java.util.Optional;
 
-public class HomePageController {
+public class ArbreRemarquableController {
 
     @FXML
     private JFXDrawer JFXDrawer;
@@ -22,7 +24,17 @@ public class HomePageController {
     private JFXHamburger JFXHamburger;
 
     @FXML
+    private ListView<?> listViewArbre;
+
+    @FXML
+    private ListView<?> listViewVotes;
+
+
+    @FXML
     private VBox vboxMenu;
+
+    @FXML
+    private JFXButton voteButton;
 
     @FXML
     private HBox topHbox;
@@ -63,4 +75,5 @@ public class HomePageController {
         }
 
     }
+
 }

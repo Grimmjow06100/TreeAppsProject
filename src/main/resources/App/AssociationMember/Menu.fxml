@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="586.0" prefWidth="160.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.AssociationMember.MenuController">
+   <children>
+      <HBox fx:id="user" alignment="CENTER" prefHeight="151.0" prefWidth="160.0">
+         <children>
+            <Label fx:id="userLabel" text="Label">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="75.0" prefWidth="160.0">
+         <children>
+            <JFXButton fx:id="homeButton" text="Home">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </HBox>
+      <HBox prefHeight="75.0" prefWidth="160.0">
+         <children>
+            <JFXButton fx:id="profilButton" onAction="#handleButtonClick" prefHeight="75.0" prefWidth="160.0" text="Profil">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="75.0" prefWidth="160.0">
+         <children>
+            <JFXButton fx:id="arbreRemarquableButton" onAction="#handleButtonClick" text="Arbre Remarquable ">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="75.0" prefWidth="200.0">
+         <children>
+            <JFXButton fx:id="planificationButton" onAction="#handleButtonClick" text="Planification et Visite">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="75.0" prefWidth="200.0">
+         <children>
+            <JFXButton fx:id="cotisationButton" onAction="#handleButtonClick" text="Cotisation">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </HBox>
+      <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="259.0" prefWidth="160.0">
+         <children>
+            <HBox alignment="CENTER" layoutX="4.0" layoutY="159.0" prefHeight="100.0" prefWidth="153.0">
+               <children>
+                  <JFXButton fx:id="logoutButton" onAction="#handleButtonClick" text="Logout">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>

@@ -6,6 +6,7 @@ import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
@@ -13,7 +14,7 @@ import others.ResourceHandler;
 
 import java.util.Optional;
 
-public class HomePageController {
+public class PlanificationController {
 
     @FXML
     private JFXDrawer JFXDrawer;
@@ -22,10 +23,16 @@ public class HomePageController {
     private JFXHamburger JFXHamburger;
 
     @FXML
-    private VBox vboxMenu;
+    private ListView<?> listViewHoldVisites;
+
+    @FXML
+    private ListView<?> listViewNewVistes;
 
     @FXML
     private HBox topHbox;
+
+    @FXML
+    private VBox vboxMenu;
 
     @FXML
     public void  initialize() {
@@ -63,4 +70,5 @@ public class HomePageController {
         }
 
     }
+
 }

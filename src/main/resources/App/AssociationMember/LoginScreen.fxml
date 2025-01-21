@@ -13,9 +13,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="682.0" prefWidth="380.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.AssociationMember.LoginScreenController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="380.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.AssociationMember.LoginScreenController">
    <children>
-      <VBox prefHeight="108.0" prefWidth="380.0" />
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="205.0" prefWidth="380.0">
          <children>
             <ImageView fx:id="logoImageView" fitHeight="150.0" layoutX="115.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
@@ -25,7 +24,7 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <VBox alignment="CENTER" prefHeight="56.0" prefWidth="317.0">
+      <VBox alignment="CENTER" prefHeight="45.0" prefWidth="380.0">
          <children>
             <Label fx:id="loginLabel" alignment="CENTER" prefHeight="17.0" prefWidth="143.0" text="Login" textFill="#00000080">
                <font>
@@ -34,15 +33,12 @@
             </Label>
          </children>
       </VBox>
-      <VBox alignment="CENTER" prefHeight="48.0" prefWidth="318.0">
+      <VBox alignment="CENTER" prefHeight="99.0" prefWidth="380.0">
          <children>
-            <TextField fx:id="identifiantLabel" prefHeight="33.0" prefWidth="316.0" promptText="identifiant">
+            <TextField fx:id="identifiantLabel" prefHeight="36.0" prefWidth="310.0" promptText="identifiant">
                <VBox.margin>
                   <Insets bottom="10.0" left="35.0" right="35.0" top="10.0" />
                </VBox.margin>
-               <padding>
-                  <Insets left="20.0" />
-               </padding>
             </TextField>
          </children>
          <opaqueInsets>
@@ -59,7 +55,7 @@
             <Insets />
          </VBox.margin>
       </VBox>
-      <VBox fx:id="passwordPasswordField" alignment="CENTER" prefHeight="48.0" prefWidth="242.0">
+      <VBox fx:id="passwordPasswordField" alignment="CENTER" prefHeight="55.0" prefWidth="380.0">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
@@ -67,14 +63,14 @@
             <Blend opacity="0.0" />
          </effect>
          <children>
-            <PasswordField fx:id="passwordLabel" promptText="Mot de passe">
+            <PasswordField fx:id="passwordLabel" prefHeight="36.0" prefWidth="310.0" promptText="Mot de passe">
                <VBox.margin>
-                  <Insets left="35.0" right="35.0" />
+                  <Insets bottom="10.0" left="35.0" right="35.0" top="10.0" />
                </VBox.margin>
             </PasswordField>
          </children>
       </VBox>
-      <VBox alignment="CENTER" prefHeight="79.0" prefWidth="317.0">
+      <VBox alignment="CENTER" prefHeight="79.0" prefWidth="380.0">
          <children>
             <Button fx:id="loginButton" alignment="CENTER" mnemonicParsing="false" onAction="#loginAction" prefHeight="33.0" prefWidth="88.0" text="Login">
                <font>
@@ -83,6 +79,5 @@
             </Button>
          </children>
       </VBox>
-      <VBox prefHeight="162.0" prefWidth="380.0" />
    </children>
 </VBox>

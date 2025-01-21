@@ -30,7 +30,7 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws IOException {
 
         ResourceHandler rh= new ResourceHandler("src/main/resources/App/AssociationMember");
-        Optional<FXMLLoader> loader= rh.getFXMLLoader("HomePage.fxml");
+        Optional<FXMLLoader> loader= rh.getFXMLLoader("PlanificationPage.fxml");
         if(loader.isPresent()){
             FXMLLoader fxmlLoader = loader.get();
             Scene scene = new Scene(fxmlLoader.load());
