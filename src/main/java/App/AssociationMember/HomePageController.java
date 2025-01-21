@@ -1,16 +1,20 @@
 package App.AssociationMember;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import others.ResourceHandler;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 public class HomePageController {
@@ -28,8 +32,50 @@ public class HomePageController {
     private HBox topHbox;
 
     @FXML
+    private ListView<String> listViewVisites;
+
+    JsonNode user;
+
+    public void setUser(JsonNode user){
+        this.user=user;
+        updateListView();
+    }
+
+
+    public void updateListView(){
+        JsonNode node=user.get("visites");
+        String date;
+        String nom;
+        String lieu;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        for(JsonNode visite:node){
+            date = visite.get("date").asText();
+            LocalDate visiteDate = LocalDate.parse(date, formatter);
+            if (visiteDate.isBefore(LocalDate.now())) {
+                System.out.println("Visite après la date d'aujourd'hui");
+                continue;
+            }
+
+            date=visite.get("date").asText();
+            nom=visite.get("tree").get("libelle_france").asText();
+            lieu=visite.get("tree").get("lieu").asText();
+            listViewVisites.getItems().add("visite le "+ date+" de "+nom+" à "+lieu);
+
+        }
+
+    }
+
+
+
+    @FXML
     public void  initialize() {
         topHbox.setStyle("-fx-background-color: lightgray;");
+        if(user!=null){
+            System.out.println(user.get("nom").asText());
+        }
+        else{
+            System.out.println("User is null");
+        }
         ResourceHandler resourceHandler = new ResourceHandler("src/main/resources/App/AssociationMember");
         Optional<FXMLLoader> loader = resourceHandler.getFXMLLoader("Menu.fxml");
         if(loader.isPresent()){
@@ -57,9 +103,8 @@ public class HomePageController {
                     }
                 });
             } catch (Exception e) {
-                System.out.println("Error: " + e.getMessage());
+                System.out.println("Error de l'initialisation: " + e.getMessage());
             }
         }
-
     }
 }

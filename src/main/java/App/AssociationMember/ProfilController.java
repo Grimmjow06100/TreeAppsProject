@@ -1,5 +1,6 @@
 package App.AssociationMember;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
@@ -42,6 +43,22 @@ public class ProfilController {
 
     @FXML
     private HBox topHbox;
+
+    JsonNode user;
+
+    
+    public void setUser(JsonNode user){
+        this.user=user;
+        updateProfil();
+    }
+
+    public void updateProfil(){
+        nom.setText(user.get("nom").asText());
+        prenom.setText(user.get("prenom").asText());
+        adresse.setText(user.get("adresse").asText());
+        dateDeNaissance.setText(user.get("date_naissance").asText());
+        dateInscription.setText(user.get("date_inscription").asText());
+    }
 
     @FXML
     public void  initialize() {

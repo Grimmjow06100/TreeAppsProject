@@ -75,7 +75,7 @@
             </HBox>
          </children>
       </VBox>
-      <VBox fx:id="vboxMenu" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="689.0" prefWidth="160.0" >
+      <VBox fx:id="vboxMenu" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="689.0" prefWidth="160.0" visible="false">
          <children>
             <HBox prefHeight="100.0" prefWidth="380.0" />
             <JFXDrawer fx:id="JFXDrawer" defaultDrawerSize="160.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="688.0" prefWidth="160.0" />

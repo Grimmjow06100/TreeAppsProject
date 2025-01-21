@@ -1,5 +1,8 @@
 package others;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 import java.time.LocalDate;
 
 import java.util.Optional;
@@ -18,6 +21,9 @@ public class Tree {
     private final double latitude;
     private final double longitude;
     private  String remarquable;
+
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private final LocalDate dateClassification; // Peut être vide si inconnu
 
     // ✅ Constructeur

@@ -11,8 +11,9 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
-public class JSONHandler {
-    private final String BASE_URL;
+public enum JSONManager {
+    INSTANCE;
+    private final String BASE_URL="src/main/resources/JSONDB";
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
     // Initialisation de l'ObjectMapper
@@ -20,14 +21,6 @@ public class JSONHandler {
         objectMapper.registerModule(new JavaTimeModule()); // Support pour LocalDate
     }
 
-    // ✅ Constructeur : Initialise la base de données JSON
-    public JSONHandler(String baseUrl) {
-        this.BASE_URL = baseUrl;
-        File directory = new File(BASE_URL);
-        if (!directory.exists() && directory.mkdirs()) {
-            System.out.println("✅ Répertoire créé avec succès : " + BASE_URL);
-        }
-    }
 
     // ✅ Création d'un fichier JSON s'il n'existe pas
     public synchronized void createJsonFile(String filename) {
@@ -189,8 +182,7 @@ public class JSONHandler {
         return null;
     }
 
-    // ✅ Modification d'un champ dans un objet JSON
-    public synchronized void modifyInJson(String fileName, String uniqueKey, String uniqueValue, String keyToUpdate, String newValue) {
+    public synchronized void modifyInJson(String fileName, String uniqueKey, String uniqueValue, JsonNode newValue){
         File file = new File(BASE_URL + "/" + fileName);
         if (!file.exists()) {
             System.out.println("❌ Fichier non trouvé : " + fileName);
@@ -207,7 +199,42 @@ public class JSONHandler {
             boolean updated = false;
             for (JsonNode node : rootNode) {
                 if (node.has(uniqueKey) && node.get(uniqueKey).asText().equals(uniqueValue)) {
-                    ((ObjectNode) node).put(keyToUpdate, newValue);
+                    ((ObjectNode) node).setAll((ObjectNode) newValue);
+                    updated = true;
+                }
+            }
+
+            if (updated) {
+                objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, rootNode);
+                System.out.println("✅ Donnée modifiée avec succès !");
+            } else {
+                System.out.println("❌ Aucune correspondance trouvée.");
+            }
+
+        } catch (IOException e) {
+            System.out.println("❌ Erreur d'écriture JSON : " + e.getMessage());
+        }
+    }
+
+    public synchronized void modifyInJson(String fileName, String uniqueKey, String uniqueValue, Object newValue) {
+        File file = new File(BASE_URL + "/" + fileName);
+        if (!file.exists()) {
+            System.out.println("❌ Fichier non trouvé : " + fileName);
+            return;
+        }
+
+        try {
+            JsonNode rootNode = objectMapper.readTree(file);
+            if (!rootNode.isArray()) {
+                System.out.println("❌ Erreur : Le fichier JSON doit contenir un tableau.");
+                return;
+            }
+
+            boolean updated = false;
+            JsonNode newValueNode = objectMapper.valueToTree(newValue);
+            for (JsonNode node : rootNode) {
+                if (node.has(uniqueKey) && node.get(uniqueKey).asText().equals(uniqueValue)) {
+                    ((ObjectNode) node).setAll((ObjectNode) newValueNode);
                     updated = true;
                 }
             }

@@ -1,5 +1,6 @@
 package App.AssociationMember;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
@@ -34,6 +35,12 @@ public class CotisationPageController {
 
     @FXML
     private VBox vboxMenu;
+
+    private JsonNode user;
+
+    public void setUser(JsonNode user){
+        this.user=user;
+    }
 
     @FXML
     public void  initialize() {

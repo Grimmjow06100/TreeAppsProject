@@ -21,7 +21,7 @@ public class Facture {
     private boolean estPayee;
 
     @JsonProperty("dateEmission")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate dateEmission;
 
     // ✅ Constructeur

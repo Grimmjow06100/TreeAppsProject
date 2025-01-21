@@ -2,14 +2,14 @@ package App.AssociationManagement;
 import java.io.IOException;
 import java.util.*;
 import App.AssociationMember.Member;
-import Data.JSONHandler;
+import Data.JSONManager;
 import com.fasterxml.jackson.databind.JsonNode;
 import others.Tree;
 
 public class Association {
     private final String nom;
     private final Budget budget;
-    private JSONHandler jsonHandler = new JSONHandler("src/main/resources/JSONDB");
+    private JSONManager jsonManager = JSONManager.INSTANCE;
 
     private Map<Tree, Integer> votes = new HashMap<>();
     private static final int MAX_TREES_TO_SUBMIT = 5;
@@ -26,10 +26,10 @@ public class Association {
         List<Member> members = new ArrayList<>();
         System.out.println("📋 Membres n'ayant pas encore payé leur cotisation :");
         boolean found = false;
-        List<JsonNode>node=jsonHandler.searchInJson("members.json", "cotisationPayee", "false");
+        List<JsonNode>node= jsonManager.searchInJson("members.json", "cotisationPayee", "false");
         node.forEach(n->{
             try {
-                members.add(jsonHandler.getObjectMapper().treeToValue(n, Member.class));
+                members.add(jsonManager.getObjectMapper().treeToValue(n, Member.class));
             }catch (IOException e){
                 System.out.println("❌ Erreur lors de la lecture du fichier JSON : " + e.getMessage());
             }

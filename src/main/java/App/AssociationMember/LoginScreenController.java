@@ -1,21 +1,18 @@
 package App.AssociationMember;
 
-
-import Data.JSONHandler;
 import com.fasterxml.jackson.databind.JsonNode;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import others.ResourceHandler;
-
 import java.util.Optional;
-import java.util.Stack;
 
 
 public class LoginScreenController {
+
+
     @FXML
     private TextField identifiantLabel;
 
@@ -34,11 +31,14 @@ public class LoginScreenController {
             Optional<FXMLLoader> loader = resourceHandler.getFXMLLoader("HomePage.fxml");
             if(loader.isPresent()){
                 try {
-                    StackPane pane  = loader.get().load();
+                    FXMLLoader fxmlLoader = loader.get();
+                    StackPane pane = fxmlLoader.load();
+                    HomePageController controller = fxmlLoader.getController();
+                    controller.setUser(user);
                     identifiantLabel.getScene().setRoot(pane);
 
                 } catch (Exception e) {
-                    System.out.println("Error: " + e.getMessage());
+                    System.out.println("Error : " + e.getMessage());
                 }
             }
         }

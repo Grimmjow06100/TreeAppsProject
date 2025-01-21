@@ -1,46 +1,41 @@
 package App.AssociationManagement;
-import App.AssociationMember.Member;
-import App.AssociationMember.Member;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import others.Tree;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.time.LocalDate;
-import java.util.List;
+
 
 
 public class Visit {
 
     private final double cout;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @JsonProperty("date")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private final LocalDate date;
 
+    @JsonIgnoreProperties({"genre","espece","circonference","hauteur","stade_de_developpement","latitude","longitude","remarquable","dateClassification"})
     private Tree tree;
 
-    @JsonIgnoreProperties({"identifiant","password","cotisationPayee","dateInscription","cotisationsPayees"})
-    private List<Member> visitors;
-
+    @JsonProperty("compte_rendu")
     private String compteRendu;
 
 
-    public Visit(double cout, LocalDate date, Tree tree, List<Member> visitors, String compteRendu) {
+    public Visit(double cout, LocalDate date, Tree tree) {
         this.cout = cout;
         this.date = date;
         this.tree = tree;
-        this.visitors = visitors;
-    }
-
-    Visit(){
-        this.cout = 0;
-        this.date = LocalDate.now();
-        this.tree = new Tree();
-        this.visitors = null;
         this.compteRendu = "";
     }
 
-    public void addVisitor(Member p){
-        visitors.add(p);
+    public Visit(){
+        this.cout = 0;
+        this.date = LocalDate.now();
+        this.tree = new Tree();
+        this.compteRendu = "";
     }
+
 
     //getters
     public double getCout(){
@@ -51,9 +46,6 @@ public class Visit {
     }
     public Tree getTree(){
         return tree;
-    }
-    public List<Member> getVisitors(){
-        return visitors;
     }
     public String getCompteRendu(){
         return compteRendu;
