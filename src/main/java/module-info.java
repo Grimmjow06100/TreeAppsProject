@@ -12,7 +12,7 @@ module TreeApp {
     exports others;
     exports App.AssociationManagement;
     exports App.AssociationMember ;
-    //exports App.GreenSpaceService;
+    exports App.GreenSpaceService;
 
 
 
@@ -21,5 +21,5 @@ module TreeApp {
     opens others to com.fasterxml.jackson.databind; // Autorise Jackson à accéder aux champs privés
     opens App.AssociationMember to javafx.fxml,com.fasterxml.jackson.databind,com.jfoenix;
     opens App.AssociationManagement to com.fasterxml.jackson.databind,com.jfoenix;
-    //opens App.GreenSpaceService to javafx.fxml,com.fasterxml.jackson.databind,com.jfoenix;
+    opens App.GreenSpaceService to javafx.fxml,com.fasterxml.jackson.databind,com.jfoenix;
 }

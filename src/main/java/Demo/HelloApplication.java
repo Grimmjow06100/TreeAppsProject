@@ -16,6 +16,9 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.Objects;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 
 public class HelloApplication extends Application {
@@ -33,6 +36,20 @@ public class HelloApplication extends Application {
 
         }
 
+
+        Stage secondStage = new Stage(); // Nouveau Stage
+        Path accueilPath = Paths.get("src/main/resources/App.GreenSpace/accueil-view.fxml");
+        FXMLLoader accueilLoader = new FXMLLoader(accueilPath.toUri().toURL());
+        Scene scene1 = new Scene(accueilLoader.load(), 800, 600);
+
+        // Ajout du fichier CSS
+        scene1.getStylesheets().add(
+                Objects.requireNonNull(getClass().getResource("/App.GreenSpace/styles.css")).toExternalForm()
+        );
+
+        secondStage.setTitle("Gestion des espaces verts");
+        secondStage.setScene(scene1);
+        secondStage.show();
 
     }
     public static void MakeJsonFiles() {
