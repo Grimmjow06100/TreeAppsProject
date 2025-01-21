@@ -19,7 +19,7 @@ public class MenuController {
     private JFXButton cotisationButton;
 
     @FXML
-    private JFXButton homeButton;
+    private JFXButton home;
 
     @FXML
     private JFXButton logoutButton;
@@ -40,7 +40,7 @@ public class MenuController {
                     StackPane pane = loader.get().load();
                     profilButton.getScene().setRoot(pane);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    System.out.println(e.getMessage());
                 }
             }
         });
@@ -51,19 +51,18 @@ public class MenuController {
                     StackPane pane = loader.get().load();
                     arbreRemarquableButton.getScene().setRoot(pane);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    System.out.println(e.getMessage());
                 }
             }
         });
         cotisationButton.setOnAction((ActionEvent event) -> {
-            Optional<FXMLLoader>loader = r.getFXMLLoader("Cotisation.fxml");
+            Optional<FXMLLoader>loader = r.getFXMLLoader("CotisationPage.fxml");
             if (loader.isPresent()) {
                 try {
                     StackPane pane = loader.get().load();
                     cotisationButton.getScene().setRoot(pane);
                 } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                    System.out.println(e.getMessage());                }
             }
         });
         planificationButton.setOnAction((ActionEvent event) -> {
@@ -73,32 +72,29 @@ public class MenuController {
                     StackPane pane = loader.get().load();
                     planificationButton.getScene().setRoot(pane);
                 } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                    System.out.println(e.getMessage());                }
             }
         });
         logoutButton.setOnAction((ActionEvent event) -> {
+            System.out.println("Logout Button clicked");
             Optional<FXMLLoader>loader = r.getFXMLLoader("LoginScreen.fxml");
             if (loader.isPresent()) {
                 try {
                     VBox pane = loader.get().load();
                     logoutButton.getScene().setRoot(pane);
                 } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                    System.out.println(e.getMessage());                }
             }
 
         });
-        homeButton.setOnAction((ActionEvent event) -> {
+        home.setOnAction((ActionEvent event) -> {
             Optional<FXMLLoader>loader = r.getFXMLLoader("HomePage.fxml");
             if (loader.isPresent()) {
                 try {
-                    System.out.println("Home Button clicked");
                     StackPane pane = loader.get().load();
-                    homeButton.getScene().setRoot(pane);
+                    home.getScene().setRoot(pane);
                 } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                    System.out.println(e.getMessage());                }
             }
         });
 

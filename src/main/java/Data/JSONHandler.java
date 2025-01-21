@@ -161,6 +161,34 @@ public class JSONHandler {
         }
     }
 
+    public JsonNode searchInJson(String fileName, String key, String value, String key2, String value2) {
+        File file = new File(BASE_URL + "/" + fileName);
+        if (!file.exists()) {
+            System.out.println("❌ Fichier non trouvé : " + fileName);
+            return null;
+        }
+
+        try {
+            JsonNode rootNode = objectMapper.readTree(file);
+            if (!rootNode.isArray()) {
+                System.out.println("❌ Erreur : Le fichier JSON doit contenir un tableau.");
+                return null;
+            }
+
+            for (JsonNode node : rootNode) {
+                if (node.has(key) && node.get(key).asText().equals(value) && node.has(key2) && node.get(key2).asText().equals(value2)) {
+                    return node;
+                }
+            }
+
+            System.out.println("❌ Aucun objet trouvé avec `" + key + "` = `" + value + "`.");
+        } catch (IOException e) {
+            System.out.println("❌ Erreur de lecture JSON : " + e.getMessage());
+        }
+
+        return null;
+    }
+
     // ✅ Modification d'un champ dans un objet JSON
     public synchronized void modifyInJson(String fileName, String uniqueKey, String uniqueValue, String keyToUpdate, String newValue) {
         File file = new File(BASE_URL + "/" + fileName);

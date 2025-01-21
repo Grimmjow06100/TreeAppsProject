@@ -1,6 +1,7 @@
 package App.AssociationMember;
 import App.AssociationManagement.Association;
 import Data.JSONHandler;
+import com.fasterxml.jackson.databind.JsonNode;
 import others.Personne;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import others.Tree;
@@ -55,17 +56,17 @@ public class Member extends Personne{
         }
     }
 
-    public static boolean checkAuthentification(String Username,String password){
+    public static JsonNode login(String Username, String password){
         JSONHandler json=new JSONHandler("src/main/resources/JSONDB");
-        Optional<Member> member=json.getObjectFromJson("Members_JSON.json","identifiant",Username,Member.class);
-        if(member.isPresent()){
-            if(member.get().password.equals(password)){
-                System.out.println("✅ Authentification réussie");
-                return true;
-            }
+        JsonNode user=json.searchInJson("Members_JSON.json","identifiant",Username,"password",password);
+        if(user!=null){
+            return user;
+
         }
         System.out.println("❌ l'identifiant ou le mot de passe est incorrect");
-        return false;
+        return null;
+
+
     }
 
     // ✅ Vérifier si la cotisation est payée

@@ -1,11 +1,13 @@
 package App.AssociationMember;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
@@ -13,7 +15,7 @@ import others.ResourceHandler;
 
 import java.util.Optional;
 
-public class HomePageController {
+public class CotisationPageController {
 
     @FXML
     private JFXDrawer JFXDrawer;
@@ -22,13 +24,20 @@ public class HomePageController {
     private JFXHamburger JFXHamburger;
 
     @FXML
-    private VBox vboxMenu;
+    private ListView<?> listViewHisto;
+
+    @FXML
+    private JFXButton paiementCotisation;
 
     @FXML
     private HBox topHbox;
 
     @FXML
+    private VBox vboxMenu;
+
+    @FXML
     public void  initialize() {
+        System.out.println("HomePageController initialized");
         topHbox.setStyle("-fx-background-color: lightgray;");
         ResourceHandler resourceHandler = new ResourceHandler("src/main/resources/App/AssociationMember");
         Optional<FXMLLoader> loader = resourceHandler.getFXMLLoader("Menu.fxml");
@@ -62,4 +71,5 @@ public class HomePageController {
         }
 
     }
+
 }
