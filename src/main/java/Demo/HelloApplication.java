@@ -25,6 +25,7 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
+        //affichage samy
         ResourceHandler rh= new ResourceHandler("src/main/resources/App/AssociationMember");
         Optional<FXMLLoader> loader= rh.getFXMLLoader("LoginScreen.fxml");
         if(loader.isPresent()){
@@ -36,13 +37,11 @@ public class HelloApplication extends Application {
 
         }
 
-
+        //affichage yoan
         Stage secondStage = new Stage(); // Nouveau Stage
         Path accueilPath = Paths.get("src/main/resources/App.GreenSpace/accueil-view.fxml");
         FXMLLoader accueilLoader = new FXMLLoader(accueilPath.toUri().toURL());
         Scene scene1 = new Scene(accueilLoader.load(), 800, 600);
-
-        // Ajout du fichier CSS
         scene1.getStylesheets().add(
                 Objects.requireNonNull(getClass().getResource("/App.GreenSpace/styles.css")).toExternalForm()
         );
