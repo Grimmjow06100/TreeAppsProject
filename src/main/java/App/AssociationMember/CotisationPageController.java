@@ -1,5 +1,6 @@
 package App.AssociationMember;
 
+import Data.JsonManager;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
@@ -8,14 +9,19 @@ import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import javafx.util.Duration;
+import others.Message;
 import others.ResourceHandler;
 
+import java.io.IOException;
 import java.util.Optional;
 
 public class CotisationPageController {
@@ -46,6 +52,7 @@ public class CotisationPageController {
     public void setUser(JsonNode user){
         this.user=user;
         updateMenu();
+        handleButtonAction();
     }
 
     public void updateMenu(){
@@ -69,7 +76,7 @@ public class CotisationPageController {
                     if (JFXDrawer.isOpened()) {
                         JFXDrawer.close();
                         // ✅ Attendre 300ms avant de masquer vboxMenu
-                        PauseTransition pause = new PauseTransition(Duration.millis(300));
+                        PauseTransition pause = new PauseTransition(Duration.millis(500));
                         pause.setOnFinished(event -> vboxMenu.setVisible(false));
                         pause.play();
 
@@ -84,6 +91,32 @@ public class CotisationPageController {
             }
         }
 
+    }
+
+    public void handleButtonAction(){
+        paiementCotisation.setOnAction((_) -> {
+            try {
+                if(user.get("cotisationPayee").asBoolean()){
+                    Message.showInformation("Cotisation déjà payée", "Vous avez déjà payé votre cotisation pour cette année");
+                    return;
+                }
+                JsonManager j= JsonManager.INSTANCE;
+                Optional<JsonNode> association=j.getNode("Association_JSON.json");
+                if(association.isPresent()) {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationMember/PaymentPage.fxml"));
+                    GridPane paiementCotisation = loader.load();
+                    PaymentController controller = loader.getController();
+                    controller.set(50.00, user, association.get());
+                    Stage stage = new Stage();
+                    stage.setTitle("Paiement Cotisation");
+                    stage.setScene(new Scene(paiementCotisation, 700, 400));
+                    stage.show();
+                }
+                else System.out.println("Error: Association_JSON.json not found");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
 

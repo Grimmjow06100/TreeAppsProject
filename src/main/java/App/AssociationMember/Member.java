@@ -1,6 +1,6 @@
 package App.AssociationMember;
 import App.AssociationManagement.Visit;
-import Data.JSONManager;
+import Data.JsonManager;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.JsonNode;
 import others.Personne;
@@ -23,7 +23,6 @@ public class Member extends Personne{
 
 
     //Liste
-    @JsonFormat(shape = JsonFormat.Shape.ARRAY) // Stocke la liste comme un tableau JSON
     private List<LocalDate>cotisationsPayees;
 
 
@@ -59,7 +58,7 @@ public class Member extends Personne{
         this.cotisationsPayees = new ArrayList<>();
     }
     public static Optional<JsonNode> login(String Username, String password){
-        JSONManager json= JSONManager.INSTANCE;
+        JsonManager json= JsonManager.INSTANCE;
         Optional<JsonNode> user=json.getNode("Members_JSON.json",List.of(Map.entry("identifiant",Username),Map.entry("password",password)));
         if(user.isPresent()){
             return user;
@@ -89,7 +88,7 @@ public void addVisit(Visit visit) {
 }
 
 private void updateMemberData(Consumer<Member> updateAction) {
-    JSONManager json = JSONManager.INSTANCE;
+    JsonManager json = JsonManager.INSTANCE;
     Member member = json.getObjectFromJson("Members_JSON.json", "identifiant", identifiant, Member.class).get();
     updateAction.accept(member);
     json.updateJson("Members_JSON.json", Map.entry("identifiant", identifiant), member);
