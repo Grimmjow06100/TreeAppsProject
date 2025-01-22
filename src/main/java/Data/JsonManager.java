@@ -169,7 +169,9 @@ public enum JsonManager {
             for (JsonNode node : rootNode) {
                 boolean allMatch = true; // ✅ On suppose d'abord que tout correspond
                 for(Map.Entry<String ,Object> entry : entries){
-                    if (!node.has(entry.getKey()) || !node.get(entry.getKey()).asText().equals(entry.getValue())) {
+                    String key = entry.getKey();
+                    Object value = entry.getValue();
+                    if (!node.has(entry.getKey()) || !node.get(key).asText().equals(value.toString())) {
                         allMatch = false;
                         break;
                     }

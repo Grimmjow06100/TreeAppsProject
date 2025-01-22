@@ -41,6 +41,7 @@ public class TreeListViewController {
             String selected = treeListView.getSelectionModel().getSelectedItem();
             String id = selected.split("idBase : ")[1].split("Nom: ")[0];
             int idInt = Integer.parseInt(id.trim());
+            System.out.println(idInt);
             JsonManager jsonManager = JsonManager.INSTANCE;
             Optional<JsonNode> arbreOption = jsonManager.getNode("Arbres_JSON.json", List.of(Map.entry("idBase", idInt)));
             int votes = user.get("nominations").size();
