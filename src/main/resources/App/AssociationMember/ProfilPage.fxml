@@ -25,7 +25,7 @@
                   </AnchorPane>
                   <VBox alignment="CENTER" prefHeight="97.0" prefWidth="153.0">
                      <children>
-                        <ImageView fitHeight="84.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="logo" fitHeight="84.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../../../../../../../../../../Downloads/DALL_E-2025-01-20-15.37.38-A-professional-and-elegant-logo-for-an-association-called-_Arbre-Assos_-removebg-preview.png" />
                            </image>

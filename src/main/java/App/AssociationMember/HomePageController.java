@@ -8,6 +8,8 @@ import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
@@ -32,6 +34,9 @@ public class HomePageController {
     private HBox topHbox;
 
     @FXML
+    private ImageView logo;
+
+    @FXML
     private ListView<String> listViewVisites;
 
     JsonNode user;
@@ -39,11 +44,51 @@ public class HomePageController {
     public void setUser(JsonNode user){
         this.user=user;
         updateListView();
+        updateMenu();
+    }
+
+    public void updateMenu(){
+
+        logo.setImage(new Image("file:src/main/resources/App/AssociationMember/logo.png"));
+        ResourceHandler resourceHandler = new ResourceHandler("src/main/resources/App/AssociationMember");
+        Optional<FXMLLoader> loader = resourceHandler.getFXMLLoader("Menu.fxml");
+        if(loader.isPresent()){
+            try {
+                VBox box = loader.get().load();
+                MenuController controller = loader.get().getController();
+                controller.setUser(user);
+                JFXDrawer.setSidePane(box);
+
+                HamburgerBackArrowBasicTransition burgerTask2 = new HamburgerBackArrowBasicTransition(JFXHamburger);
+                burgerTask2.setRate(-1);
+                JFXHamburger.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_PRESSED, (_) -> {
+                    System.out.println("Hamburger clicked");
+                    burgerTask2.setRate(burgerTask2.getRate() * -1);
+                    burgerTask2.play();
+                    if (JFXDrawer.isOpened()) {
+                        JFXDrawer.close();
+                        // ✅ Attendre 300ms avant de masquer vboxMenu
+                        PauseTransition pause = new PauseTransition(Duration.millis(300));
+                        pause.setOnFinished(event -> vboxMenu.setVisible(false));
+                        pause.play();
+
+
+                    } else {
+                        JFXDrawer.open();
+                        vboxMenu.setVisible(true);
+                    }
+                });
+            } catch (Exception e) {
+                System.out.println("Error de l'initialisation: " + e.getMessage());
+            }
+        }
+
     }
 
 
     public void updateListView(){
         JsonNode node=user.get("visites");
+        System.out.println(user.get("nom").asText());
         String date;
         String nom;
         String lieu;
@@ -70,41 +115,6 @@ public class HomePageController {
     @FXML
     public void  initialize() {
         topHbox.setStyle("-fx-background-color: lightgray;");
-        if(user!=null){
-            System.out.println(user.get("nom").asText());
-        }
-        else{
-            System.out.println("User is null");
-        }
-        ResourceHandler resourceHandler = new ResourceHandler("src/main/resources/App/AssociationMember");
-        Optional<FXMLLoader> loader = resourceHandler.getFXMLLoader("Menu.fxml");
-        if(loader.isPresent()){
-            try {
-                VBox box = loader.get().load();
-                JFXDrawer.setSidePane(box);
 
-                HamburgerBackArrowBasicTransition burgerTask2 = new HamburgerBackArrowBasicTransition(JFXHamburger);
-                burgerTask2.setRate(-1);
-                JFXHamburger.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_PRESSED, (_) -> {
-                    System.out.println("Hamburger clicked");
-                    burgerTask2.setRate(burgerTask2.getRate() * -1);
-                    burgerTask2.play();
-                    if (JFXDrawer.isOpened()) {
-                        JFXDrawer.close();
-                        // ✅ Attendre 300ms avant de masquer vboxMenu
-                        PauseTransition pause = new PauseTransition(Duration.millis(300));
-                        pause.setOnFinished(event -> vboxMenu.setVisible(false));
-                        pause.play();
-
-
-                    } else {
-                        JFXDrawer.open();
-                        vboxMenu.setVisible(true);
-                    }
-                });
-            } catch (Exception e) {
-                System.out.println("Error de l'initialisation: " + e.getMessage());
-            }
-        }
     }
 }

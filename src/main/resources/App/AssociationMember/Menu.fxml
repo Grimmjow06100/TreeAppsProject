@@ -11,7 +11,7 @@
    <children>
       <HBox alignment="CENTER" prefHeight="151.0" prefWidth="160.0">
          <children>
-            <Label fx:id="user" text="Label">
+            <Label fx:id="userLabel" text="Label">
                <font>
                   <Font size="14.0" />
                </font>
@@ -20,7 +20,7 @@
       </HBox>
       <HBox prefHeight="75.0" prefWidth="160.0">
          <children>
-            <JFXButton fx:id="profilButton" onAction="#handleButtonClick" prefHeight="75.0" prefWidth="160.0" text="Profil">
+            <JFXButton fx:id="profilButton"  prefHeight="75.0" prefWidth="160.0" text="Profil">
                <font>
                   <Font size="14.0" />
                </font>
@@ -29,7 +29,7 @@
       </HBox>
       <HBox alignment="CENTER" prefHeight="75.0" prefWidth="160.0">
          <children>
-            <JFXButton fx:id="arbreRemarquableButton" onAction="#handleButtonClick" prefHeight="42.0" prefWidth="252.0" text="Arbre Remarquable ">
+            <JFXButton fx:id="arbreRemarquableButton"  prefHeight="42.0" prefWidth="252.0" text="Arbre Remarquable ">
                <font>
                   <Font size="14.0" />
                </font>
@@ -38,7 +38,7 @@
       </HBox>
       <HBox alignment="CENTER" prefHeight="75.0" prefWidth="200.0">
          <children>
-            <JFXButton fx:id="planificationButton" onAction="#handleButtonClick" prefHeight="42.0" prefWidth="271.0" text="Planification et Visite">
+            <JFXButton fx:id="planificationButton"  prefHeight="42.0" prefWidth="271.0" text="Planification et Visite">
                <font>
                   <Font size="14.0" />
                </font>
@@ -47,7 +47,7 @@
       </HBox>
       <HBox alignment="CENTER" prefHeight="75.0" prefWidth="200.0">
          <children>
-            <JFXButton fx:id="cotisationButton" onAction="#handleButtonClick" prefHeight="42.0" prefWidth="303.0" text="Cotisation">
+            <JFXButton fx:id="cotisationButton"  prefHeight="42.0" prefWidth="303.0" text="Cotisation">
                <font>
                   <Font size="14.0" />
                </font>
@@ -59,14 +59,14 @@
          <children>
             <HBox alignment="CENTER" layoutX="4.0" layoutY="179.0" prefHeight="80.0" prefWidth="153.0">
                <children>
-                  <JFXButton fx:id="logoutButton" onAction="#handleButtonClick" prefHeight="80.0" prefWidth="193.0" text="Logout">
+                  <JFXButton fx:id="logoutButton"  prefHeight="80.0" prefWidth="193.0" text="Logout">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </JFXButton>
                </children>
             </HBox>
-            <JFXButton fx:id="home" layoutY="134.0" onAction="#handleButtonClick" prefHeight="51.0" prefWidth="160.0" text="Home">
+            <JFXButton fx:id="home" layoutY="134.0"  prefHeight="51.0" prefWidth="160.0" text="Home">
                <font>
                   <Font size="14.0" />
                </font>

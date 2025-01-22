@@ -8,9 +8,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import others.Tree;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.function.Consumer;
 
 public class Member extends Personne{
@@ -29,7 +27,7 @@ public class Member extends Personne{
     private List<LocalDate>cotisationsPayees;
 
 
-    @JsonIgnoreProperties(value = { "genre", "espece", "circonference", "libelle_france", "hauteur", "stade_de_developpement", "lieu", "latitude", "longitude", "remarquable","dateClassification" })
+    @JsonIgnoreProperties(value = {  "circonference", "hauteur", "stade_de_developpement", "latitude", "longitude", "remarquable","dateClassification" })
     private List<Tree>nominations;
 
 
@@ -42,8 +40,8 @@ public class Member extends Personne{
 
 
 
-    public Member(Personne p,String identifiant, String password,LocalDate dateInscription){
-        super(p.getNom(), p.getPrenom(), p.getAge(),p.getDateNaissance());
+    public Member(Personne p,String identifiant, String password,LocalDate dateInscription) {
+        super(p.getNom(), p.getPrenom(), p.getAge(),p.getDateNaissance(),p.getAdresse());
         this.identifiant = identifiant;
         this.password = password;
         this.cotisationPayee = false;
@@ -60,15 +58,15 @@ public class Member extends Personne{
         this.visites = new ArrayList<>();
         this.cotisationsPayees = new ArrayList<>();
     }
-    public static JsonNode login(String Username, String password){
+    public static Optional<JsonNode> login(String Username, String password){
         JSONManager json= JSONManager.INSTANCE;
-        JsonNode user=json.searchInJson("Members_JSON.json","identifiant",Username,"password",password);
-        if(user!=null){
+        Optional<JsonNode> user=json.getNode("Members_JSON.json",List.of(Map.entry("identifiant",Username),Map.entry("password",password)));
+        if(user.isPresent()){
             return user;
 
         }
         System.out.println("❌ l'identifiant ou le mot de passe est incorrect");
-        return null;
+        return Optional.empty();
     }
 
    public void addNominations(Tree tree) {
@@ -94,7 +92,7 @@ private void updateMemberData(Consumer<Member> updateAction) {
     JSONManager json = JSONManager.INSTANCE;
     Member member = json.getObjectFromJson("Members_JSON.json", "identifiant", identifiant, Member.class).get();
     updateAction.accept(member);
-    json.modifyInJson("Members_JSON.json", "identifiant", identifiant, member);
+    json.updateJson("Members_JSON.json", Map.entry("identifiant", identifiant), member);
 }
 
     // ✅ Vérifier si la cotisation est payée

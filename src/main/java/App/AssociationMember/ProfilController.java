@@ -8,6 +8,8 @@ import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
@@ -24,13 +26,13 @@ public class ProfilController {
     private JFXHamburger JFXHamburger;
 
     @FXML
-    private Label adresse;
-
-    @FXML
     private Label dateDeNaissance;
 
     @FXML
     private Label dateInscription;
+
+    @FXML
+    private Label adresse;
 
     @FXML
     private Label nom;
@@ -44,31 +46,44 @@ public class ProfilController {
     @FXML
     private HBox topHbox;
 
+    @FXML
+    private ImageView logo;
+
     JsonNode user;
 
-    
+
     public void setUser(JsonNode user){
         this.user=user;
+        System.out.println(user.get("nom").asText());
         updateProfil();
+        updateMenu();
     }
 
     public void updateProfil(){
-        nom.setText(user.get("nom").asText());
-        prenom.setText(user.get("prenom").asText());
-        adresse.setText(user.get("adresse").asText());
-        dateDeNaissance.setText(user.get("date_naissance").asText());
-        dateInscription.setText(user.get("date_inscription").asText());
+        String name=user.get("nom").asText();
+        String firstname=user.get("prenom").asText();
+        String bithday=user.get("dateNaissance").asText();
+        String inscription=user.get("dateInscription").asText();
+        String address=user.get("adresse").asText();
+
+        prenom.setText(firstname);
+        nom.setText(name);
+        dateDeNaissance.setText(bithday);
+        dateInscription.setText(inscription);
+        adresse.setText(address);
+
     }
 
-    @FXML
-    public void  initialize() {
-        System.out.println("HomePageController initialized");
-        topHbox.setStyle("-fx-background-color: lightgray;");
+    public void updateMenu(){
         ResourceHandler resourceHandler = new ResourceHandler("src/main/resources/App/AssociationMember");
+        logo.setImage(new Image("file:src/main/resources/App/AssociationMember/logo.png"));
+
         Optional<FXMLLoader> loader = resourceHandler.getFXMLLoader("Menu.fxml");
         if(loader.isPresent()){
             try {
                 VBox box = loader.get().load();
+                MenuController controller = loader.get().getController();
+                controller.setUser(user);
                 JFXDrawer.setSidePane(box);
 
                 HamburgerBackArrowBasicTransition burgerTask2 = new HamburgerBackArrowBasicTransition(JFXHamburger);
@@ -91,9 +106,17 @@ public class ProfilController {
                     }
                 });
             } catch (Exception e) {
-                System.out.println("Error: " + e.getMessage());
+                System.out.println("Error de l'initialisation: " + e.getMessage());
             }
         }
+
+    }
+
+
+    @FXML
+    public void  initialize() {
+        System.out.println("HomePageController initialized");
+        topHbox.setStyle("-fx-background-color: lightgray;");
 
     }
 

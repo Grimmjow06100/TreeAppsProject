@@ -2,12 +2,31 @@
   "nom" : "Doe",
   "prenom" : "John",
   "age" : 25,
+  "adresse" : "balec",
   "dateNaissance" : "15-05-1996",
   "identifiant" : "johnDoe",
   "password" : "password123",
   "cotisationPayee" : false,
-  "cotisationsPayees" : [ ],
-  "nominations" : [ ],
+  "cotisationsPayees" : [ [ 2021, 5, 15 ], [ 2021, 5, 16 ], [ 2021, 5, 17 ] ],
+  "nominations" : [ {
+    "idBase" : 99878,
+    "genre" : "Tetradium",
+    "espece" : "daniellii",
+    "libelle_france" : "Arbre à miel",
+    "lieu" : "PARC CLICHY BATIGNOLLES MARTIN LUTHER KING / 147 RUE CARDINET"
+  }, {
+    "idBase" : 99881,
+    "genre" : "Platanus",
+    "espece" : "x hispanica",
+    "libelle_france" : "Platane",
+    "lieu" : "SQUARE ALEXANDRE ET RENE PARODI / 1 PLACE DE LA PORTE MAILLOT"
+  }, {
+    "idBase" : 99882,
+    "genre" : "Styphnolobium",
+    "espece" : "japonicum",
+    "libelle_france" : "Sophora",
+    "lieu" : "JARDIN DE L AVENUE FOCH / 10 AVENUE FOCH"
+  } ],
   "visites" : [ {
     "tree" : {
       "idBase" : 99878,
@@ -38,11 +57,12 @@
   "nom" : "Doe",
   "prenom" : "Jane",
   "age" : 22,
+  "adresse" : "balec",
   "dateNaissance" : "25-08-1999",
   "identifiant" : "JaneDoe",
   "password" : "password456",
   "cotisationPayee" : false,
-  "cotisationsPayees" : [ [ 2021, 5, 15 ], [ 2021, 5, 16 ] ],
+  "cotisationsPayees" : [ ],
   "nominations" : [ ],
   "visites" : [ ],
   "dateInscription" : "15-05-2021"
@@ -50,24 +70,20 @@
   "nom" : "Doe",
   "prenom" : "Alice",
   "age" : 30,
+  "adresse" : "balec",
   "dateNaissance" : "10-02-1991",
   "identifiant" : "AliceDoe",
   "password" : "password789",
   "cotisationPayee" : false,
   "cotisationsPayees" : [ ],
-  "nominations" : [ {
-    "idBase" : 99878
-  }, {
-    "idBase" : 99881
-  }, {
-    "idBase" : 99882
-  } ],
+  "nominations" : [ ],
   "visites" : [ ],
   "dateInscription" : "15-05-2021"
 }, {
   "nom" : "Doe",
   "prenom" : "Bob",
   "age" : 28,
+  "adresse" : "balec",
   "dateNaissance" : "05-12-1993",
   "identifiant" : "BobDoe",
   "password" : "password101112",
@@ -80,6 +96,7 @@
   "nom" : "Doe",
   "prenom" : "Eve",
   "age" : 35,
+  "adresse" : "balec",
   "dateNaissance" : "30-10-1986",
   "identifiant" : "DoeEve",
   "password" : "password131415",
