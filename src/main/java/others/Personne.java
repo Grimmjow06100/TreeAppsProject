@@ -10,17 +10,19 @@ public class Personne {
     private String nom;
     private String prenom;
     private int age;
+    private String adresse;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     LocalDate dateNaissance;
 
 
 
-    public Personne(String nom, String prenom, int age, LocalDate dateNaissance) {
+    public Personne(String nom, String prenom, int age, LocalDate dateNaissance,String adresse) {
         this.nom = nom;
         this.prenom = prenom;
         this.age = age;
         this.dateNaissance = dateNaissance;
+        this.adresse=adresse;
 
     }
 
@@ -40,6 +42,14 @@ public class Personne {
 
     public void setPrenom(String prenom) {
         this.prenom = prenom;
+    }
+
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
+    }
+
+    public String getAdresse() {
+        return adresse;
     }
 
     public int getAge() {

@@ -8,7 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import others.ResourceHandler;
-
+import javafx.scene.control.Label;
 import java.util.Optional;
 
 public class MenuController {
@@ -23,6 +23,9 @@ public class MenuController {
     private JFXButton home;
 
     @FXML
+    private Label userLabel;
+
+    @FXML
     private JFXButton logoutButton;
 
     @FXML
@@ -35,85 +38,84 @@ public class MenuController {
 
     public void setUser(JsonNode user){
         this.user=user;
+        handleButtonClick();
     }
-
-    @FXML
+    
     void handleButtonClick() {
-        ResourceHandler r=new ResourceHandler("src/main/resources/App/AssociationMember");
+        userLabel.setText(user.get("identifiant").asText());
         profilButton.setOnAction((ActionEvent _) -> {
-            Optional<FXMLLoader>loader = r.getFXMLLoader("ProfilPage.fxml");
-            if (loader.isPresent()) {
-                try {
-                    StackPane pane = loader.get().load();
-                    ProfilController controller = loader.get().getController();
-                    controller.setUser(user);
-                    profilButton.getScene().setRoot(pane);
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
-                }
+            FXMLLoader loader =new FXMLLoader(getClass().getResource("/App/AssociationMember/ProfilPage.fxml"));
+            try {
+                StackPane pane = loader.load();
+                ProfilController controller = loader.getController();
+                controller.setUser(user);
+                profilButton.getScene().setRoot(pane);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
+        
         });
         arbreRemarquableButton.setOnAction((ActionEvent event) -> {
-            Optional<FXMLLoader>loader = r.getFXMLLoader("ArbreRemarquablePage.fxml");
-            if (loader.isPresent()) {
-                try {
-                    StackPane pane = loader.get().load();
-                    ArbreRemarquableController controller = loader.get().getController();
-                    controller.setUser(user);
-                    arbreRemarquableButton.getScene().setRoot(pane);
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
-                }
+             FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationMember/ArbreRemarquablePage.fxml"));
+            
+            try {
+                StackPane pane = loader.load();
+                ArbreRemarquableController controller = loader.getController();
+                controller.setUser(user);
+                arbreRemarquableButton.getScene().setRoot(pane);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
+            
         });
         cotisationButton.setOnAction((ActionEvent event) -> {
-            Optional<FXMLLoader>loader = r.getFXMLLoader("CotisationPage.fxml");
-            if (loader.isPresent()) {
-                try {
-                    StackPane pane = loader.get().load();
-                    CotisationPageController controller = loader.get().getController();
-                    controller.setUser(user);
-                    cotisationButton.getScene().setRoot(pane);
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());                }
-            }
+             FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationMember/CotisationPage.fxml"));
+            
+            try {
+                StackPane pane = loader.load();
+                CotisationPageController controller = loader.getController();
+                controller.setUser(user);
+                cotisationButton.getScene().setRoot(pane);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());                }
+            
         });
         planificationButton.setOnAction((ActionEvent event) -> {
-            Optional<FXMLLoader>loader = r.getFXMLLoader("PlanificationPage.fxml");
-            if (loader.isPresent()) {
-                try {
-                    StackPane pane = loader.get().load();
-                    PlanificationController controller = loader.get().getController();
-                    controller.setUser(user);
-                    planificationButton.getScene().setRoot(pane);
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());                }
-            }
+             FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationMember/PlanificationPage.fxml"));
+         
+            try {
+                StackPane pane = loader.load();
+                PlanificationController controller = loader.getController();
+                controller.setUser(user);
+                planificationButton.getScene().setRoot(pane);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());                }
+            
         });
         logoutButton.setOnAction((ActionEvent event) -> {
-            System.out.println("Logout Button clicked");
-            Optional<FXMLLoader>loader = r.getFXMLLoader("LoginScreen.fxml");
-            if (loader.isPresent()) {
-                try {
-                    VBox pane = loader.get().load();
-                    this.user=null;
-                    logoutButton.getScene().setRoot(pane);
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());                }
-            }
+             System.out.println("Logout Button clicked");
+             FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationMember/LoginScreen.fxml"));
+        
+            try {
+                VBox pane = loader.load();
+                this.user=null;
+                logoutButton.getScene().setRoot(pane);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());                }
+           
 
         });
         home.setOnAction((ActionEvent event) -> {
-            Optional<FXMLLoader>loader = r.getFXMLLoader("HomePage.fxml");
-            if (loader.isPresent()) {
-                try {
-                    StackPane pane = loader.get().load();
-                    HomePageController controller = loader.get().getController();
-                    controller.setUser(user);
-                    home.getScene().setRoot(pane);
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());                }
-            }
+             FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationMember/HomePage.fxml"));
+           
+            try {
+                StackPane pane = loader.load();
+                HomePageController controller = loader.getController();
+                controller.setUser(user);
+                home.getScene().setRoot(pane);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());                }
+            
         });
 
     }

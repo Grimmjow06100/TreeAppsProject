@@ -9,6 +9,8 @@ import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
@@ -34,23 +36,28 @@ public class CotisationPageController {
     private HBox topHbox;
 
     @FXML
+    private ImageView logo;
+
+    @FXML
     private VBox vboxMenu;
 
     private JsonNode user;
 
     public void setUser(JsonNode user){
         this.user=user;
+        updateMenu();
     }
 
-    @FXML
-    public void  initialize() {
-        System.out.println("HomePageController initialized");
-        topHbox.setStyle("-fx-background-color: lightgray;");
+    public void updateMenu(){
         ResourceHandler resourceHandler = new ResourceHandler("src/main/resources/App/AssociationMember");
+        logo.setImage(new Image("file:src/main/resources/App/AssociationMember/logo.png"));
+
         Optional<FXMLLoader> loader = resourceHandler.getFXMLLoader("Menu.fxml");
         if(loader.isPresent()){
             try {
                 VBox box = loader.get().load();
+                MenuController controller = loader.get().getController();
+                controller.setUser(user);
                 JFXDrawer.setSidePane(box);
 
                 HamburgerBackArrowBasicTransition burgerTask2 = new HamburgerBackArrowBasicTransition(JFXHamburger);
@@ -73,9 +80,18 @@ public class CotisationPageController {
                     }
                 });
             } catch (Exception e) {
-                System.out.println("Error: " + e.getMessage());
+                System.out.println("Error de l'initialisation: " + e.getMessage());
             }
         }
+
+    }
+
+
+    @FXML
+    public void  initialize() {
+        System.out.println("HomePageController initialized");
+        topHbox.setStyle("-fx-background-color: lightgray;");
+
 
     }
 

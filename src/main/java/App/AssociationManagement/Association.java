@@ -26,10 +26,10 @@ public class Association {
         List<Member> members = new ArrayList<>();
         System.out.println("📋 Membres n'ayant pas encore payé leur cotisation :");
         boolean found = false;
-        List<JsonNode>node= jsonManager.searchInJson("members.json", "cotisationPayee", "false");
+        List<JsonNode>node= jsonManager.getNodeList("members.json", List.of(Map.entry("cotisationPayee", "false")));
         node.forEach(n->{
             try {
-                members.add(jsonManager.getObjectMapper().treeToValue(n, Member.class));
+                members.add(jsonManager.objectMapper.treeToValue(n, Member.class));
             }catch (IOException e){
                 System.out.println("❌ Erreur lors de la lecture du fichier JSON : " + e.getMessage());
             }
