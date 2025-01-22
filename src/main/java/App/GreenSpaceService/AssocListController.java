@@ -15,7 +15,7 @@ public class AssocListController {
     public void OnButtonReturnClick2(ActionEvent event) {
         try {
             // Chemin fixe pour le fichier FXML
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/App.GreenSpace/accueil-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/GreenServiceSpace/accueil-view.fxml"));
             Parent secondView = loader.load();
 
             // Obtenir le Stage actuel
@@ -24,7 +24,7 @@ public class AssocListController {
             // Remplacer la scène actuelle par celle de la deuxième vue
             stage.setScene(new Scene(secondView, 800, 600));
             stage.getScene().getStylesheets().add(
-                    Objects.requireNonNull(getClass().getResource("/App.GreenSpace/styles.css")).toExternalForm()
+                    Objects.requireNonNull(getClass().getResource("/App/GreenServiceSpace/styles.css")).toExternalForm()
             );
             stage.setTitle("Gestion des espaces verts");
             stage.show();
