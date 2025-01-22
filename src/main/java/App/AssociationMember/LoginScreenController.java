@@ -34,6 +34,7 @@ public class LoginScreenController {
             System.out.println(s.getUserData().toString());
 
             try {
+
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("src/main/resources/App/AssociationMember/HomePage.fxml"));
                 StackPane pane = loader.load();
                 HomePageController controller = loader.getController();
