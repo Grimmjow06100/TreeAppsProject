@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.GreenSpaceService.GreenAccueilController">
+<StackPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.GreenSpaceService.GreenAccueilController">
    <children>
       <ImageView fx:id="image1" fitHeight="683.0" fitWidth="1003.0" pickOnBounds="true">
          <image>
@@ -20,9 +20,30 @@
           <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
         </padding>
          <Label styleClass="header-label" text="Gestion des espaces verts" />
-        <Button id="buttonArbre" onAction="#onButtonArbreClick" prefHeight="161.0" prefWidth="297.0" styleClass="label" text="Gestion arbres" />
-         <Button id="buttonAsso" mnemonicParsing="false" onAction="#onButtonAssoClick" prefHeight="161.0" prefWidth="297.0" styleClass="label" text="Gestion associations" />
-         <Button id="buttonAsso" mnemonicParsing="false" onAction="#onButtonNotifClick" prefHeight="161.0" prefWidth="297.0" styleClass="label" text="Notification" />
+        <Button id="buttonArbre" contentDisplay="TOP" onAction="#onButtonArbreClick" prefHeight="161.0" prefWidth="297.0" styleClass="label" text="Gestion arbres">
+            <graphic>
+               <ImageView fitHeight="94.0" fitWidth="116.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@46564-removebg-preview.png" />
+                  </image>
+               </ImageView>
+            </graphic></Button>
+         <Button id="buttonAsso" contentDisplay="TOP" mnemonicParsing="false" onAction="#onButtonAssoClick" prefHeight="161.0" prefWidth="297.0" styleClass="label" text="Gestion associations">
+            <graphic>
+               <ImageView fitHeight="94.0" fitWidth="116.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@png-clipart-computer-icons-person-white-sky-font-design-rim-area-removebg-preview.png" />
+                  </image>
+               </ImageView>
+            </graphic></Button>
+         <Button id="buttonAsso" contentDisplay="TOP" mnemonicParsing="false" onAction="#onButtonNotifClick" prefHeight="161.0" prefWidth="297.0" styleClass="label" text="Notification">
+            <graphic>
+               <ImageView fitHeight="94.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@565422-removebg-preview.png" />
+                  </image>
+               </ImageView>
+            </graphic></Button>
       </VBox>
    </children>
 </StackPane>
