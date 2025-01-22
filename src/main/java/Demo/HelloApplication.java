@@ -1,16 +1,15 @@
 package Demo;
 
+import App.AssociationManagement.Association;
 import App.AssociationManagement.Visit;
 import App.AssociationMember.Member;
-import others.Nomination;
-import others.ResourceHandler;
-import others.Tree;
-import Data.JSONManager;
+import others.*;
+import Data.JsonManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import others.Personne;
+
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -53,13 +52,15 @@ public class HelloApplication extends Application {
 
     }
     public static void MakeJsonFiles() {
-        JSONManager db=  JSONManager.INSTANCE;
+        JsonManager db=  JsonManager.INSTANCE;
         db.deleteJsonFile("Members_JSON.json");
         db.deleteJsonFile("Visits_JSON.json");
+        db.deleteJsonFile("Association_JSON.json");
 
 
         db.createJsonFile("Members_JSON.json");
         db.createJsonFile("Visits_JSON.json");
+        db.createJsonFile("Association_JSON.json");
 
         String filename = "Arbres_JSON.json";
         File file = new File(db.BASE_URL+"/"+filename);
@@ -78,7 +79,13 @@ public class HelloApplication extends Application {
         System.out.println(m1);
         db.insertInJson("Members_JSON.json", List.of(m1, m2, m3, m4, m5), "identifiant");
 
+        Don d= new Don(100, "kaka");
+        Facture f= new Facture(100, "kaka",false);
 
+
+        Association a= new Association("Arre Assoc",500,List.of(d),List.of(f));
+
+        db.insertInJson("Association_JSON.json", List.of(a), "nom");
 
         Optional<Tree> tree1=db.getObjectFromJson(filename,"genre","Tetradium", Tree.class);
         Optional<Tree> tree2=db.getObjectFromJson(filename,"genre","Platanus", Tree.class);
@@ -115,6 +122,7 @@ public class HelloApplication extends Application {
 
 
     public static void main(String[] args) throws IOException {
+
         launch();
 
     }

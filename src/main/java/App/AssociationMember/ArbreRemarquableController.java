@@ -1,6 +1,6 @@
 package App.AssociationMember;
 
-import Data.JSONManager;
+import Data.JsonManager;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
@@ -64,7 +64,7 @@ public class ArbreRemarquableController {
 
     public void updateListeView(){
 
-        JSONManager jsonManager = JSONManager.INSTANCE;
+        JsonManager jsonManager = JsonManager.INSTANCE;
         List<JsonNode> arbreList =jsonManager.getNodeList("Arbres_JSON.json",List.of(Map.entry("remarquable","OUI")));
         arbreList.forEach((JsonNode node)->{
             String nom = node.get("libelle_france").asText();

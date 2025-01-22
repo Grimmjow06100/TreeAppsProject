@@ -7,14 +7,8 @@ public class Budget {
         this.solde = 0;
     }
 
-    public void ajouterEntree(double montant, String description) {
-        solde += montant;
-        System.out.println("💰 Entrée : " + description + " (+ " + montant + "€)");
-    }
-
-    public void enregistrerDepense(double montant) {
-        solde -= montant;
-        System.out.println("💸 Dépense enregistrée : " + montant + "€");
+    public Budget(double solde) {
+        this.solde = solde;
     }
 
     public double getSolde() {

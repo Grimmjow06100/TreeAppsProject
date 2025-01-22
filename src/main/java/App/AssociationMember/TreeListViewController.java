@@ -2,7 +2,7 @@
 
 package App.AssociationMember;
 
-import Data.JSONManager;
+import Data.JsonManager;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import javafx.fxml.FXML;
@@ -40,7 +40,7 @@ public class TreeListViewController {
         if (event.getClickCount() == 2) {
             String selected = treeListView.getSelectionModel().getSelectedItem();
             String id = selected.split("idBase : ")[1].split("Nom: ")[0];
-            JSONManager jsonManager = JSONManager.INSTANCE;
+            JsonManager jsonManager = JsonManager.INSTANCE;
             Optional<JsonNode> arbreOption = jsonManager.getNode("Arbres_JSON.json", List.of(Map.entry("idBase", id)));
             int votes = user.get("nominations").size();
             if (arbreOption.isPresent()) {
@@ -72,7 +72,7 @@ public class TreeListViewController {
 
     @FXML
     public void initialize() {
-        JSONManager jsonManager = JSONManager.INSTANCE;
+        JsonManager jsonManager = JsonManager.INSTANCE;
         treeList = FXCollections.observableArrayList();
         List<JsonNode> arbreList = jsonManager.getNodeList("Arbres_JSON.json", List.of(Map.entry("remarquable", "NON")));
         arbreList.forEach((JsonNode node) -> {
