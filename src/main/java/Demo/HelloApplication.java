@@ -50,19 +50,13 @@ public class HelloApplication extends Application {
 
 
         //affichage ny
-        Stage accueilStage = new Stage();  // Nouveau Stage pour la page d'accueil
-        ResourceHandler rh3 = new ResourceHandler("src/main/resources/App/AssociationManagement");
-        Optional<FXMLLoader> accueilFXMLLoader = rh3.getFXMLLoader("PageAccueil.fxml");
+        Stage accueilStage = new Stage();
+        FXMLLoader pageAccueilLoader = new FXMLLoader(getClass().getResource("/App/AssociationManagement/PageAccueil/PageAccueil.fxml"));
+        Scene accueilScene = new Scene(pageAccueilLoader.load(), 600, 400);
 
-        if (accueilFXMLLoader.isPresent()) {
-            FXMLLoader loader2 = accueilFXMLLoader.get();
-            Scene accueilScene = new Scene(loader2.load(), 600, 400);
-
-            accueilStage.setTitle("Gestion de l'association");
-            accueilStage.setScene(accueilScene);
-            accueilStage.show();
-
-        }
+        accueilStage.setTitle("Gestion de l'association");
+        accueilStage.setScene(accueilScene);
+        accueilStage.show();
 
 
     }

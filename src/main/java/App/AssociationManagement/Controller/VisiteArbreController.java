@@ -15,7 +15,7 @@ public class VisiteArbreController {
     protected void onButtonRetourClick(ActionEvent event){
         try {
             // Charger la nouvelle vue
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationManagement/PageAccueil.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationManagement/PageAccueil/PageAccueil.fxml"));
             Parent arbreView = loader.load();
 
             // Obtenir la scène actuelle à partir de l'événement

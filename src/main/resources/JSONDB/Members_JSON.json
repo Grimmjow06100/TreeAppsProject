@@ -9,17 +9,7 @@
   "cotisationPayee" : false,
   "cotisationsPayees" : [ ],
   "nominations" : [ ],
-  "visites" : {
-    "id" : 1,
-    "cout" : 50.0,
-    "tree" : {
-      "idBase" : 99878,
-      "libelle_france" : "Arbre à miel",
-      "lieu" : "PARC CLICHY BATIGNOLLES MARTIN LUTHER KING / 147 RUE CARDINET"
-    },
-    "date" : "16-03-2025",
-    "compte_rendu" : ""
-  },
+  "visites" : [ ],
   "dateInscription" : "15-05-2021"
 }, {
   "nom" : "Doe",
