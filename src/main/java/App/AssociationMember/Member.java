@@ -58,32 +58,13 @@ public class Member extends Personne{
         this.cotisationsPayees = new ArrayList<>();
     }
     public static Optional<JsonNode> login(String Username, String password){
-        JsonManager json= JsonManager.INSTANCE;
-        Optional<JsonNode> user=json.getNode("Members_JSON.json",List.of(Map.entry("identifiant",Username),Map.entry("password",password)));
+        Optional<JsonNode> user=JsonManager.getNodeAllMatch("Members_JSON.json",List.of(Map.entry("identifiant",Username),Map.entry("password",password)));
         if(user.isPresent()){
             return user;
 
         }
         System.out.println("❌ l'identifiant ou le mot de passe est incorrect");
         return Optional.empty();
-    }
-
-    public void addNominations(Tree tree) {
-       JsonManager json = JsonManager.INSTANCE;
-        nominations.add(tree);
-        json.updateJson("Members_JSON.json", Map.entry("identifiant", identifiant), Map.entry("nominations",nominations));
-    }
-
-    public void addCotisationPayee(LocalDate date) {
-        JsonManager json = JsonManager.INSTANCE;
-        cotisationsPayees.add(date);
-        json.updateJson("Members_JSON.json", Map.entry("identifiant", identifiant), Map.entry("cotisationsPayees",cotisationsPayees));
-    }
-
-    public void addVisit(Visit visit) {
-        JsonManager json = JsonManager.INSTANCE;
-        visites.add(visit);
-        json.updateJson("Members_JSON.json", Map.entry("identifiant", identifiant), Map.entry("visites",visites));
     }
 
 

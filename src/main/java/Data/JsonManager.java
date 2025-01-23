@@ -13,7 +13,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 public enum JsonManager {
     INSTANCE;
-    public final String BASE_URL="src/main/resources/JSONDB";
+    public static final String BASE_URL="src/main/resources/JSONDB";
     public static final ObjectMapper objectMapper = new ObjectMapper();
 
     // Initialisation de l'ObjectMapper
@@ -26,7 +26,7 @@ public enum JsonManager {
 
 
     // ✅ Création d'un fichier JSON s'il n'existe pas
-    public synchronized void createJsonFile(String filename) {
+    public static synchronized void createJsonFile(String filename) {
         File file = new File(BASE_URL + "/" + filename);
         if (!file.exists()) {
             try (FileWriter writer = new FileWriter(file)) {
@@ -39,7 +39,7 @@ public enum JsonManager {
     }
 
     // ✅ Ajout d'un ou plusieurs objets dans un fichier JSON
-    public synchronized void insertInJson(String fileName, List<Object> newData, String keyField) {
+    public static synchronized void insertInJson(String fileName, List<Object> newData, String keyField) {
         File file = new File(BASE_URL + "/" + fileName);
         if (!file.exists()) {
             createJsonFile(fileName); // Création automatique si le fichier n'existe pas
@@ -76,7 +76,7 @@ public enum JsonManager {
         }
     }
 
-    public Optional<JsonNode> getRootNode(String fileName){
+    public static Optional<JsonNode> getRootNode(String fileName){
         File file = new File(BASE_URL + "/" + fileName);
         if (!file.exists()) {
             System.out.println("❌ Fichier non trouvé : " + fileName);
@@ -92,7 +92,7 @@ public enum JsonManager {
     }
 
 
-    public <T> Optional<T> getObjectFromJson(String fileName, Map.Entry<String,Object> entry, Class<T> clazz) {
+    public static <T> Optional<T> getObjectFromJson(String fileName, Map.Entry<String,Object> entry, Class<T> clazz) {
         File file = new File(BASE_URL + "/" + fileName);
         if (!file.exists()) {
             System.out.println("❌ Fichier non trouvé : " + fileName);
@@ -122,21 +122,10 @@ public enum JsonManager {
         return Optional.empty();
     }
 
-    public void updateNode(JsonNode node, List<Map.Entry<String, Object>> entries) {
-    if (node.isObject()) {
-        ObjectNode objectNode = (ObjectNode) node;
-        for (Map.Entry<String, Object> entry : entries) {
-            JsonNode updatedValue = JsonManager.objectMapper.valueToTree(entry.getValue());
-            objectNode.set(entry.getKey(), updatedValue);
-        }
-    } else {
-        System.out.println("❌ Le nœud n'est pas un ObjectNode.");
-    }
-}
 
 
-    // ✅ Recherche d'objets dans un fichier JSON par clé/valeur
-    public synchronized List<JsonNode> getNodeList(String fileName, List<Map.Entry<String,String>>entries) {
+    // ✅ Recherche d'objets dans un fichier JSON par cléUnique/valeur
+    public static synchronized List<JsonNode> getNodeList(String fileName, List<Map.Entry<String,String>>entries) {
         File file = new File(BASE_URL + "/" + fileName);
         if (!file.exists()) {
             System.out.println("❌ Fichier non trouvé : " + fileName);
@@ -152,15 +141,12 @@ public enum JsonManager {
 
             List<JsonNode> results = new ArrayList<>();
             for (JsonNode node : rootNode) {
-                boolean allMatch = true; // ✅ On suppose d'abord que tout correspond
                 for(Map.Entry<String,String>entry:entries){
-                    if (!node.has(entry.getKey()) || !node.get(entry.getKey()).asText().equals(entry.getValue())) {
-                        allMatch = false;
-                        break;
+                    if (node.has(entry.getKey()) && node.get(entry.getKey()).asText().equals(entry.getValue())) {
+                        results.add(node);
                     }
                 }
-                if(allMatch)
-                    results.add(node);
+
             }
 
             return results.isEmpty() ? Collections.emptyList() : results;
@@ -170,8 +156,8 @@ public enum JsonManager {
         }
     }
 
-    // ✅ Recherche d'un objet unique dans un fichier JSON par clé/valeur
-    public synchronized Optional<JsonNode> getNode(String fileName, List<Map.Entry<String ,Object>> entries) {
+    // ✅ Recherche d'un objet unique dans un fichier JSON par cléUnique/valeur
+    public static synchronized Optional<JsonNode> getNode(String fileName, Map.Entry<String ,Object> entry) {
         File file = new File(BASE_URL + "/" + fileName);
         if (!file.exists()) {
             System.out.println("❌ Fichier non trouvé : " + fileName);
@@ -185,17 +171,12 @@ public enum JsonManager {
                 return Optional.empty();
             }
             for (JsonNode node : rootNode) {
-                boolean allMatch = true; // ✅ On suppose d'abord que tout correspond
-                for(Map.Entry<String ,Object> entry : entries){
-                    String key = entry.getKey();
-                    Object value = entry.getValue();
-                    if (!node.has(entry.getKey()) || !node.get(key).asText().equals(value.toString())) {
-                        allMatch = false;
-                        break;
-                    }
-                }
-                if(allMatch)
+
+                String key = entry.getKey();
+                JsonNode entryValue = objectMapper.valueToTree(entry.getValue());
+                if (node.has(key) && node.get(key).equals(entryValue)) {
                     return Optional.of(node);
+                }
 
             }
 
@@ -207,25 +188,84 @@ public enum JsonManager {
         return Optional.empty();
     }
 
-    public Optional<JsonNode> getNode(String filename){
-        File file = new File(BASE_URL + "/" + filename);
+    public static Optional<JsonNode> getNodeAllMatch(String fileName,List<Map.Entry<String,Object>>entries){
+        File file = new File(BASE_URL + "/" + fileName);
         if (!file.exists()) {
-            System.out.println("❌ Fichier non trouvé : " + filename);
+            System.out.println("❌ Fichier non trouvé : " + fileName);
             return Optional.empty();
         }
 
         try {
             JsonNode rootNode = objectMapper.readTree(file);
-            Iterator<JsonNode> iterator = rootNode.elements();
-            return Optional.of(iterator.next());
+            if (!rootNode.isArray()) {
+                System.out.println("❌ Erreur : Le fichier JSON doit contenir un tableau.");
+                return Optional.empty();
+            }
+
+            boolean allMatch;
+            for (JsonNode node : rootNode) {
+                allMatch=true;
+                for(Map.Entry<String,Object>entry:entries){
+                    String key=entry.getKey();
+                    JsonNode entryValue=objectMapper.valueToTree(entry.getValue());
+                    if (!node.has(key) || !node.get(key).equals(entryValue)) {
+                        allMatch=false;
+                        break;
+                    }
+                }
+                if(allMatch) return Optional.of(node);
+
+            }
+
+            return Optional.empty();
         } catch (IOException e) {
             System.out.println("❌ Erreur de lecture JSON : " + e.getMessage());
             return Optional.empty();
         }
     }
 
+    public static synchronized void removeFromJson(String fileName,Map.Entry<String,Object>entry){
+        File file = new File(BASE_URL + "/" + fileName);
+        if (!file.exists()) {
+            System.out.println("❌ Fichier non trouvé : " + fileName);
+            return ;
+        }
 
-    public synchronized void updateJson(String fileName,Map.Entry<String,Object> entry,Map.Entry<String,Object> values) {
+        try {
+            JsonNode rootNode = objectMapper.readTree(file);
+            if (!rootNode.isArray()) {
+                System.out.println("❌ Erreur : Le fichier JSON doit contenir un tableau.");
+                return ;
+            }
+            JsonNode entryValue=objectMapper.valueToTree(entry.getValue());
+            for (Iterator<JsonNode> it = rootNode.iterator(); it.hasNext();) {
+                JsonNode node=it.next();
+                if(node.has(entry.getKey())&&node.get(entry.getKey()).equals(entryValue)){
+                    it.remove();
+                }
+            }
+
+            System.out.println("❌ Aucun objet trouvé avec les critères spécifiés.");
+        } catch (IOException e) {
+            System.out.println("❌ Erreur de lecture JSON : " + e.getMessage());
+        }
+    }
+    
+    public static void updateNode(JsonNode node,List<Map.Entry<String,Object>>updateList){
+        
+        for(Map.Entry<String,Object> update : updateList){
+            String key=update.getKey();
+            JsonNode jsonValue=objectMapper.valueToTree(update.getValue());
+            ObjectNode obj=(ObjectNode) node;
+            if(node.has(key)){
+                obj.set(key,jsonValue);
+            }
+            
+        }
+    }
+
+
+    public static synchronized void updateJsonObject(String fileName,Map.Entry<String,Object> entry,Map.Entry<String,Object> values) {
         File file = new File(BASE_URL + "/" + fileName);
         if (!file.exists()) {
             System.out.println("❌ Fichier non trouvé : " + fileName);
@@ -239,9 +279,10 @@ public enum JsonManager {
                 return;
             }
             JsonNode updatedValue = JsonManager.objectMapper.valueToTree(values.getValue());
+            JsonNode entryValue=objectMapper.valueToTree(entry.getValue());
             for (JsonNode node : rootNode) {
                 ObjectNode objectNode = (ObjectNode) node;
-                if (objectNode.has(entry.getKey()) && objectNode.get(entry.getKey()).asText().equals(entry.getValue().toString())) {
+                if (objectNode.has(entry.getKey()) && objectNode.get(entry.getKey()).equals(entryValue)) {
                     objectNode.set(values.getKey(),updatedValue);
                     objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, rootNode);
                     System.out.println("✅ Donnée modifiée avec succès !");
@@ -258,7 +299,7 @@ public enum JsonManager {
     }
 
     // ✅ Suppression d'un fichier JSON
-    public synchronized void deleteJsonFile(String fileName) {
+    public static synchronized void deleteJsonFile(String fileName) {
         File file = new File(BASE_URL + "/" + fileName);
         if (file.exists() && file.delete()) {
             System.out.println("✅ Fichier supprimé : " + fileName);

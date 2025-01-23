@@ -1,6 +1,6 @@
 [ {
   "nom" : "Arre Assoc",
-  "budget" : 500,
+  "budget" : 550.0,
   "dons" : [ {
     "id" : 1,
     "montant" : 100.0,
