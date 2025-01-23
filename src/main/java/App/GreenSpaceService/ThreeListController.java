@@ -13,14 +13,14 @@ import java.util.Objects;
 public class ThreeListController {
 
     @FXML
-    void OnButtonReturnClick1(ActionEvent actionEvent) {
+    void OnButtonReturnClickArbre(ActionEvent event){
         try {
             // Chemin fixe pour le fichier FXML
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/GreenServiceSpace/accueil-view.fxml"));
             Parent secondView = loader.load();
 
             // Obtenir le Stage actuel
-            Stage stage = (Stage) ((javafx.scene.Node) actionEvent.getSource()).getScene().getWindow();
+            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
 
             // Remplacer la scène actuelle par celle de la deuxième vue
             stage.setScene(new Scene(secondView, 800, 600));

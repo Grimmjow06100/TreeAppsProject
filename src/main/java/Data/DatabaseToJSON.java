@@ -32,7 +32,31 @@ public class DatabaseToJSON {
                 ObjectNode rowObject = objectMapper.createObjectNode();
                 for (int i = 1; i <= columnCount; i++) {
                     String columnName = metaData.getColumnName(i);
-                    rowObject.put(columnName, rs.getString(i)); // Stocker tout en String
+                    int columnType = metaData.getColumnType(i);
+
+                    switch (columnType) {
+                        case Types.INTEGER:
+                            rowObject.put(columnName, rs.getInt(i));
+                            break;
+                        case Types.FLOAT:
+                            rowObject.put(columnName, rs.getFloat(i));
+                            break;
+                        case Types.DOUBLE:
+                            rowObject.put(columnName, rs.getDouble(i));
+                            break;
+                        case Types.BOOLEAN:
+                            rowObject.put(columnName, rs.getBoolean(i));
+                            break;
+                        case Types.DATE:
+                            rowObject.put(columnName, rs.getDate(i).toString());
+                            break;
+                        case Types.TIMESTAMP:
+                            rowObject.put(columnName, rs.getTimestamp(i).toString());
+                            break;
+                        default:
+                            rowObject.put(columnName, rs.getString(i));
+                            break;
+                    }
                 }
                 newArrayNode.add(rowObject);
             }
@@ -65,6 +89,8 @@ public class DatabaseToJSON {
     }
 
     public static void main(String[] args) {
+        JsonManager json= JsonManager.INSTANCE;
+        json.deleteJsonFile("Arbres_JSON.json");
         exportTableToJson("C:\\Users\\samy0\\OneDrive\\Bureau\\Polytech\\Info\\Java\\ET4\\demo\\src\\main\\resources\\JSONDB\\Arbres_JSON.json"); // Remplace "arbres" par le nom de ta table
     }
 }

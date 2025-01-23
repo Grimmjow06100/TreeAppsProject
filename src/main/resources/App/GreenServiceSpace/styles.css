@@ -22,7 +22,7 @@
     -fx-font-weight: bold;
     -fx-font-family: "Arial";
     -fx-text-fill: white;
-    -fx-background-color: #2e8b57; /* Vert forêt */
+    -fx-background-color: rgba(46, 139, 87); /* Vert forêt */
     -fx-padding: 10; /* Espace intérieur autour du texte */
     -fx-border-color: white; /* Bordure blanche */
     -fx-border-width: 3; /* Épaisseur de la bordure */
