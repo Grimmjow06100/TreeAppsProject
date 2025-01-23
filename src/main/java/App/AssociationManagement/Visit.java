@@ -4,11 +4,16 @@ import others.Tree;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.time.LocalDate;
-
+import java.util.concurrent.atomic.AtomicInteger;
 
 
 public class Visit {
 
+    private static final AtomicInteger count = new AtomicInteger(0);
+    int id ;
+    {
+        id = count.incrementAndGet();
+    }
     private final double cout;
 
     @JsonProperty("date")
@@ -31,6 +36,7 @@ public class Visit {
 
     public Visit(){
         this.cout = 0;
+        this.id=0;
         this.date = LocalDate.now();
         this.tree = new Tree();
         this.compteRendu = "";
@@ -49,6 +55,9 @@ public class Visit {
     }
     public String getCompteRendu(){
         return compteRendu;
+    }
+    public int getId(){
+        return id;
     }
 
 

@@ -75,40 +75,37 @@ public class ProfilController {
     }
 
     public void updateMenu(){
-        ResourceHandler resourceHandler = new ResourceHandler("src/main/resources/App/AssociationMember");
         logo.setImage(new Image("file:src/main/resources/App/AssociationMember/logo.png"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationMember/Menu.fxml"));
+        try {
+            VBox box = loader.load();
+            MenuController controller = loader.getController();
+            controller.setUser(user);
+            JFXDrawer.setSidePane(box);
 
-        Optional<FXMLLoader> loader = resourceHandler.getFXMLLoader("Menu.fxml");
-        if(loader.isPresent()){
-            try {
-                VBox box = loader.get().load();
-                MenuController controller = loader.get().getController();
-                controller.setUser(user);
-                JFXDrawer.setSidePane(box);
-
-                HamburgerBackArrowBasicTransition burgerTask2 = new HamburgerBackArrowBasicTransition(JFXHamburger);
-                burgerTask2.setRate(-1);
-                JFXHamburger.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_PRESSED, (_) -> {
-                    System.out.println("Hamburger clicked");
-                    burgerTask2.setRate(burgerTask2.getRate() * -1);
-                    burgerTask2.play();
-                    if (JFXDrawer.isOpened()) {
-                        JFXDrawer.close();
-                        // ✅ Attendre 300ms avant de masquer vboxMenu
-                        PauseTransition pause = new PauseTransition(Duration.millis(300));
-                        pause.setOnFinished(event -> vboxMenu.setVisible(false));
-                        pause.play();
+            HamburgerBackArrowBasicTransition burgerTask2 = new HamburgerBackArrowBasicTransition(JFXHamburger);
+            burgerTask2.setRate(-1);
+            JFXHamburger.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_PRESSED, (_) -> {
+                System.out.println("Hamburger clicked");
+                burgerTask2.setRate(burgerTask2.getRate() * -1);
+                burgerTask2.play();
+                if (JFXDrawer.isOpened()) {
+                    JFXDrawer.close();
+                    // ✅ Attendre 300ms avant de masquer vboxMenu
+                    PauseTransition pause = new PauseTransition(Duration.millis(300));
+                    pause.setOnFinished(event -> vboxMenu.setVisible(false));
+                    pause.play();
 
 
-                    } else {
-                        JFXDrawer.open();
-                        vboxMenu.setVisible(true);
-                    }
-                });
-            } catch (Exception e) {
-                System.out.println("Error de l'initialisation: " + e.getMessage());
-            }
+                } else {
+                    JFXDrawer.open();
+                    vboxMenu.setVisible(true);
+                }
+            });
+        } catch (Exception e) {
+            System.out.println("Error de l'initialisation: " + e.getMessage());
         }
+
 
     }
 

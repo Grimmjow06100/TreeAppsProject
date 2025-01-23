@@ -1,5 +1,6 @@
 package App.AssociationMember;
 
+import Data.JsonManager;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
@@ -84,9 +85,11 @@ public class MenuController {
              FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationMember/PlanificationPage.fxml"));
          
             try {
+                JsonManager jsonManager = JsonManager.INSTANCE;
+                Optional<JsonNode> rootNodeOption = jsonManager.getRootNode("Visites_JSON.json");
                 StackPane pane = loader.load();
                 PlanificationController controller = loader.getController();
-                controller.setUser(user);
+                controller.setUser(user,rootNodeOption.get());
                 planificationButton.getScene().setRoot(pane);
             } catch (Exception e) {
                 System.out.println(e.getMessage());                }

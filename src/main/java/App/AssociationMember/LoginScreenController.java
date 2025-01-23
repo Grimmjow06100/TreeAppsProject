@@ -8,7 +8,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
-import others.ResourceHandler;
 import java.util.Optional;
 
 
@@ -32,10 +31,9 @@ public class LoginScreenController {
             SessionManager s=SessionManager.INSTANCE;
             s.setUserData(user.get());
             System.out.println(s.getUserData().toString());
-
             try {
 
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("src/main/resources/App/AssociationMember/HomePage.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationMember/HomePage.fxml"));
                 StackPane pane = loader.load();
                 HomePageController controller = loader.getController();
                 controller.setUser(user.get());

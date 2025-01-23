@@ -9,7 +9,6 @@ import others.Tree;
 
 import java.time.LocalDate;
 import java.util.*;
-import java.util.function.Consumer;
 
 public class Member extends Personne{
 
@@ -22,7 +21,8 @@ public class Member extends Personne{
     private boolean cotisationPayee;
 
 
-    //Liste
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy") // Format JSON propre
     private List<LocalDate>cotisationsPayees;
 
 
@@ -68,40 +68,34 @@ public class Member extends Personne{
         return Optional.empty();
     }
 
-   public void addNominations(Tree tree) {
-    updateMemberData(member -> {
-        if (member.getNominations().size() < MAX_NOMINATIONS) {
-            member.getNominations().add(tree);
-        } else {
-            member.getNominations().removeFirst();
-            member.getNominations().add(tree);
-        }
-    });
-}
+    public void addNominations(Tree tree) {
+       JsonManager json = JsonManager.INSTANCE;
+        nominations.add(tree);
+        json.updateJson("Members_JSON.json", Map.entry("identifiant", identifiant), Map.entry("nominations",nominations));
+    }
 
-public void addCotisationPayee(LocalDate date) {
-    updateMemberData(member -> member.getCotisationsPayees().add(date));
-}
+    public void addCotisationPayee(LocalDate date) {
+        JsonManager json = JsonManager.INSTANCE;
+        cotisationsPayees.add(date);
+        json.updateJson("Members_JSON.json", Map.entry("identifiant", identifiant), Map.entry("cotisationsPayees",cotisationsPayees));
+    }
 
-public void addVisit(Visit visit) {
-    updateMemberData(member -> member.getVisites().add(visit));
-}
+    public void addVisit(Visit visit) {
+        JsonManager json = JsonManager.INSTANCE;
+        visites.add(visit);
+        json.updateJson("Members_JSON.json", Map.entry("identifiant", identifiant), Map.entry("visites",visites));
+    }
 
-private void updateMemberData(Consumer<Member> updateAction) {
-    JsonManager json = JsonManager.INSTANCE;
-    Member member = json.getObjectFromJson("Members_JSON.json", "identifiant", identifiant, Member.class).get();
-    updateAction.accept(member);
-    json.updateJson("Members_JSON.json", Map.entry("identifiant", identifiant), member);
-}
 
     // ✅ Vérifier si la cotisation est payée
     public boolean isCotisationPayee() {
         return cotisationPayee;
     }
 
-
     public List<Tree> getNominations() { return nominations; }
+
     public List<LocalDate> getCotisationsPayees() { return cotisationsPayees; }
+
     public List<Visit> getVisites() { return visites; }
 
 

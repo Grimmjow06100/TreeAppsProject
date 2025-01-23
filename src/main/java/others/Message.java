@@ -21,4 +21,12 @@ public class Message {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
+    public static Alert showConfirmation(String title, String message){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        return alert;
+    }
 }

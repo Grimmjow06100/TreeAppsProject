@@ -7,27 +7,11 @@
   "identifiant" : "johnDoe",
   "password" : "password123",
   "cotisationPayee" : false,
-  "cotisationsPayees" : [ [ 2021, 5, 15 ], [ 2021, 5, 16 ], [ 2021, 5, 17 ] ],
-  "nominations" : [ {
-    "idBase" : 99878,
-    "genre" : "Tetradium",
-    "espece" : "daniellii",
-    "libelle_france" : "Arbre à miel",
-    "lieu" : "PARC CLICHY BATIGNOLLES MARTIN LUTHER KING / 147 RUE CARDINET"
-  }, {
-    "idBase" : 99881,
-    "genre" : "Platanus",
-    "espece" : "x hispanica",
-    "libelle_france" : "Platane",
-    "lieu" : "SQUARE ALEXANDRE ET RENE PARODI / 1 PLACE DE LA PORTE MAILLOT"
-  }, {
-    "idBase" : 99882,
-    "genre" : "Styphnolobium",
-    "espece" : "japonicum",
-    "libelle_france" : "Sophora",
-    "lieu" : "JARDIN DE L AVENUE FOCH / 10 AVENUE FOCH"
-  } ],
-  "visites" : [ {
+  "cotisationsPayees" : [ ],
+  "nominations" : [ ],
+  "visites" : {
+    "id" : 1,
+    "cout" : 50.0,
     "tree" : {
       "idBase" : 99878,
       "libelle_france" : "Arbre à miel",
@@ -35,23 +19,7 @@
     },
     "date" : "16-03-2025",
     "compte_rendu" : ""
-  }, {
-    "tree" : {
-      "idBase" : 99881,
-      "libelle_france" : "Platane",
-      "lieu" : "SQUARE ALEXANDRE ET RENE PARODI / 1 PLACE DE LA PORTE MAILLOT"
-    },
-    "date" : "16-05-2021",
-    "compte_rendu" : ""
-  }, {
-    "tree" : {
-      "idBase" : 99882,
-      "libelle_france" : "Sophora",
-      "lieu" : "JARDIN DE L AVENUE FOCH / 10 AVENUE FOCH"
-    },
-    "date" : "17-05-2021",
-    "compte_rendu" : ""
-  } ],
+  },
   "dateInscription" : "15-05-2021"
 }, {
   "nom" : "Doe",
