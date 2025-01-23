@@ -1,8 +1,10 @@
 package Demo;
 
 import App.AssociationManagement.Association;
+import App.AssociationManagement.Controller.PageAccueilController;
 import App.AssociationManagement.Visit;
 import App.AssociationMember.Member;
+import javafx.scene.Parent;
 import others.*;
 import Data.JsonManager;
 import javafx.application.Application;
@@ -45,6 +47,22 @@ public class HelloApplication extends Application {
         secondStage.setTitle("Gestion des espaces verts");
         secondStage.setScene(scene1);
         secondStage.show();
+
+
+        //affichage ny
+        Stage accueilStage = new Stage();  // Nouveau Stage pour la page d'accueil
+        ResourceHandler rh3 = new ResourceHandler("src/main/resources/App/AssociationManagement");
+        Optional<FXMLLoader> accueilFXMLLoader = rh3.getFXMLLoader("PageAccueil.fxml");
+
+        if (accueilFXMLLoader.isPresent()) {
+            FXMLLoader loader2 = accueilFXMLLoader.get();
+            Scene accueilScene = new Scene(loader2.load(), 600, 400);
+
+            accueilStage.setTitle("Gestion de l'association");
+            accueilStage.setScene(accueilScene);
+            accueilStage.show();
+
+        }
 
 
     }

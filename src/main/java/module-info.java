@@ -7,6 +7,7 @@ module TreeApp {
     requires net.datafaker;
     requires com.fasterxml.jackson.datatype.jsr310;
     requires com.jfoenix;
+    requires java.desktop;
 
     exports Demo;
     exports others;
@@ -22,4 +23,11 @@ module TreeApp {
     opens App.AssociationMember to javafx.fxml,com.fasterxml.jackson.databind,com.jfoenix;
     opens App.AssociationManagement to com.fasterxml.jackson.databind,com.jfoenix;
     opens App.GreenSpaceService to javafx.fxml,com.fasterxml.jackson.databind,com.jfoenix;
+    exports App.AssociationManagement.Controller;
+    opens App.AssociationManagement.Controller to javafx.fxml, com.fasterxml.jackson.databind, com.jfoenix;
+    exports App.AssociationManagement.Controller.classificationArbres;
+    opens App.AssociationManagement.Controller.classificationArbres to javafx.fxml, com.fasterxml.jackson.databind, com.jfoenix;
+    exports App.AssociationManagement.Controller.financesAssociation;
+    opens App.AssociationManagement.Controller.financesAssociation to javafx.fxml, com.fasterxml.jackson.databind, com.jfoenix;
+
 }

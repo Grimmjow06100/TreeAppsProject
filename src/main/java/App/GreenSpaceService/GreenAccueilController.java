@@ -47,7 +47,7 @@ public class GreenAccueilController {
             // Définir la nouvelle scène
             stage.setScene(new Scene(arbreView,800,600));
             stage.getScene().getStylesheets().add(Objects.requireNonNull(getClass().getResource("/App/GreenServiceSpace/styles.css")).toExternalForm());
-            stage.setTitle("Gestion des associations");
+            stage.setTitle("Gestion des arbres");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -68,7 +68,7 @@ public class GreenAccueilController {
             // Définir la nouvelle scène
             stage.setScene(new Scene(arbreView,800,600));
             stage.getScene().getStylesheets().add(Objects.requireNonNull(getClass().getResource("/App/GreenServiceSpace/styles.css")).toExternalForm());
-            stage.setTitle("Gestion des associations");
+            stage.setTitle("Gestion des notifications");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane fx:id="pane1" cache="true" focusTraversable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.AssociationManagement.Controller.classificationArbres.ClassificationArbresRemarquablesController">
+    <children>
+        <VBox fx:id="vbox1">
+            <children>
+                <MenuBar fx:id="menuBar" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
+                    <menus>
+                        <Menu fx:id="menu1" mnemonicParsing="false" text="Autres">
+                            <items>
+                                <MenuItem fx:id="menuItem1" mnemonicParsing="false" text="Quitter" />
+                            </items>
+                        </Menu>
+                        <Menu fx:id="menu2" mnemonicParsing="false" text="Notifications">
+                            <items>
+                                <MenuItem fx:id="menuItem2" mnemonicParsing="false" text="Voir les notifications" />
+                            </items>
+                        </Menu>
+                    </menus>
+                </MenuBar>
+            </children>
+        </VBox>
+        <VBox fx:id="vbox2" layoutY="26.0" prefHeight="44.0" prefWidth="600.0">
+            <children>
+                <Pane fx:id="paneVBox2" prefHeight="83.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
+                    <children>
+                        <Button fx:id="retourButtonClassement" mnemonicParsing="false" onAction="#onButtonRetourClick" text="Retour" />
+                        <Label fx:id="titreLabel" layoutX="199.0" layoutY="18.0" text="Classification des arbres remarquables" />
+                    </children>
+                </Pane>
+            </children>
+        </VBox>
+        <VBox layoutY="70.0" prefHeight="311.0" prefWidth="600.0">
+            <children>
+                <SplitPane fx:id="splitPane" dividerPositions="0.4999999999999999" prefHeight="320.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
+                    <items>
+                        <AnchorPane fx:id="anchorPane1" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                            <children>
+                                <VBox fx:id="vbox3" alignment="CENTER" prefHeight="330.0" prefWidth="298.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <children>
+                                        <Label fx:id="listeLabel" prefHeight="37.0" prefWidth="298.0" style="-fx-wrap-text: true;" text="Liste des arbres classés comme REMARQUABLES par la municipalité" textAlignment="CENTER" VBox.vgrow="ALWAYS" />
+                                        <Button fx:id="listeButton" mnemonicParsing="false" text="Afficher liste" VBox.vgrow="ALWAYS" />
+                                    </children>
+                                </VBox>
+                            </children>
+                        </AnchorPane>
+                        <AnchorPane fx:id="anchorPane2" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                            <children>
+                                <VBox fx:id="vbox4" alignment="CENTER" prefHeight="330.0" prefWidth="296.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <children>
+                                        <Label fx:id="classementLabel" style="-fx-wrap-text: true;" text="Classement des arbres remarquables après vote des membres de l'association" textAlignment="CENTER" VBox.vgrow="ALWAYS" />
+                                        <Button fx:id="classementButton" mnemonicParsing="false" text="Afficher classement" VBox.vgrow="ALWAYS" />
+                                    </children>
+                                </VBox>
+                            </children>
+                        </AnchorPane>
+                    </items>
+                </SplitPane>
+            </children>
+        </VBox>
+    </children>
+</Pane>
