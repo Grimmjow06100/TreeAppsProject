@@ -1,0 +1,23 @@
+
+
+/* Logo */
+#logo {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 5);
+}
+
+/* Titres des sections */
+.home-label {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2E7D32; /* Vert foncé */
+}
+
+/* Listes de notifications et visites */
+.home-listView {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #C8E6C9; /* Vert clair */
+    -fx-border-radius: 8px;
+    -fx-padding: 5px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 3);
+}
+

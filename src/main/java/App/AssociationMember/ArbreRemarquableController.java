@@ -71,7 +71,7 @@ public class ArbreRemarquableController {
             String genre = node.get("genre").asText();
             String espece = node.get("espece").asText();
             String lieu = node.get("lieu").asText();
-            listViewArbre.getItems().add("Nom: "+nom+" Genre: "+genre+" Espece: "+espece+" Lieu: "+lieu);
+            listViewArbre.getItems().add( String.format("🌳 %s -🌱 %s - %s - 📌 %s", nom, genre, espece, lieu));
         });
 
         JsonNode voteList =user.get("nominations");
@@ -80,7 +80,7 @@ public class ArbreRemarquableController {
             String genre = node.get("genre").asText();
             String espece = node.get("espece").asText();
             String lieu = node.get("lieu").asText();
-            listViewVotes.getItems().add("Nom: "+nom+" Genre: "+genre+" Espece: "+espece+" Lieu: "+lieu);
+            listViewVotes.getItems().add( String.format("🌳 %s -🌱 %s - %s - 📌 %s", nom, genre, espece, lieu));
         });
     }
 
@@ -141,7 +141,6 @@ public class ArbreRemarquableController {
     @FXML
     public void  initialize() {
         System.out.println("HomePageController initialized");
-        topHbox.setStyle("-fx-background-color: lightgray;");
     }
 
 }

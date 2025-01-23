@@ -15,6 +15,7 @@ import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 
 public class HomePageController {
@@ -27,9 +28,6 @@ public class HomePageController {
 
     @FXML
     private VBox vboxMenu;
-
-    @FXML
-    private HBox topHbox;
 
     @FXML
     private ImageView logo;
@@ -46,8 +44,6 @@ public class HomePageController {
     }
 
     public void updateMenu(){
-
-        logo.setImage(new Image("file:src/main/resources/App/AssociationMember/logo.png"));
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationMember/Menu.fxml"));
         try {
             VBox box = loader.load();
@@ -105,7 +101,7 @@ public class HomePageController {
 
     @FXML
     public void  initialize() {
-        topHbox.setStyle("-fx-background-color: lightgray;");
+        logo.setImage(new Image("file:src/main/resources/App/AssociationMember/logo.png"));
 
     }
 }

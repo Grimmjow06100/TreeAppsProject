@@ -1,10 +1,8 @@
 package Demo;
 
 import App.AssociationManagement.Association;
-import App.AssociationManagement.Controller.PageAccueilController;
 import App.AssociationManagement.Visit;
 import App.AssociationMember.Member;
-import javafx.scene.Parent;
 import others.*;
 import Data.JsonManager;
 import javafx.application.Application;
@@ -28,6 +26,9 @@ public class HelloApplication extends Application {
         //affichage samy
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationMember/LoginScreen.fxml"));
         Scene scene = new Scene(loader.load());
+        scene.getStylesheets().add(
+                Objects.requireNonNull(getClass().getResource("/App/AssociationMember/LoginScreen.css")).toExternalForm()
+        );
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();

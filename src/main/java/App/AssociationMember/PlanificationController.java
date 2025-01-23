@@ -174,8 +174,6 @@ public class PlanificationController {
     @FXML
     public void  initialize() {
         System.out.println("HomePageController initialized");
-        topHbox.setStyle("-fx-background-color: lightgray;");
-
     }
 
 }

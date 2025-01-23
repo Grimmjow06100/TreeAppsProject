@@ -87,7 +87,10 @@ public class TreeListViewController {
             String genre = node.get("genre").asText();
             String espece = node.get("espece").asText();
             String lieu = node.get("lieu").asText();
-            treeList.add("idBase : "+id+" Nom: " + nom + " Genre: " + genre + " Espece: " + espece + " Lieu: " + lieu);
+            treeList.add(String.format(
+                    "🌲 ID: %s - 📛 Nom: %s - 🌿 Genre: %s - 🌳 Espèce: %s - 📍 Lieu: %s",
+                    id, nom, genre, espece, lieu));
+
         });
 
         FilteredList<String> filteredList = new FilteredList<>(treeList, _ -> true);

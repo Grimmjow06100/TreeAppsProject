@@ -6,10 +6,13 @@ import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import others.ResourceHandler;
 import javafx.scene.control.Label;
+
+import java.util.Objects;
 import java.util.Optional;
 
 public class MenuController {
@@ -41,7 +44,11 @@ public class MenuController {
         this.user=user;
         handleButtonClick();
     }
-    
+@FXML
+public void initialize() {
+
+
+}
     void handleButtonClick() {
         userLabel.setText(user.get("identifiant").asText());
         profilButton.setOnAction((ActionEvent _) -> {
@@ -50,6 +57,11 @@ public class MenuController {
                 StackPane pane = loader.load();
                 ProfilController controller = loader.getController();
                 controller.setUser(user);
+                Scene scene = profilButton.getScene();
+                scene.getStylesheets().clear();
+                scene.getStylesheets().add(
+                        Objects.requireNonNull(getClass().getResource("/App/AssociationMember/ProfilPage.css")).toExternalForm()
+                );
                 profilButton.getScene().setRoot(pane);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -63,6 +75,11 @@ public class MenuController {
                 StackPane pane = loader.load();
                 ArbreRemarquableController controller = loader.getController();
                 controller.setUser(user);
+                Scene scene = profilButton.getScene();
+                scene.getStylesheets().clear();
+                scene.getStylesheets().add(
+                        Objects.requireNonNull(getClass().getResource("/App/AssociationMember/ArbreRemarquablePage.css")).toExternalForm()
+                );
                 arbreRemarquableButton.getScene().setRoot(pane);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -76,6 +93,11 @@ public class MenuController {
                 StackPane pane = loader.load();
                 CotisationPageController controller = loader.getController();
                 controller.setUser(user);
+                Scene scene = profilButton.getScene();
+                scene.getStylesheets().clear();
+                scene.getStylesheets().add(
+                        Objects.requireNonNull(getClass().getResource("/App/AssociationMember/CotisationPage.css")).toExternalForm()
+                );
                 cotisationButton.getScene().setRoot(pane);
             } catch (Exception e) {
                 System.out.println(e.getMessage());                }
@@ -90,6 +112,11 @@ public class MenuController {
                 StackPane pane = loader.load();
                 PlanificationController controller = loader.getController();
                 controller.setUser(user,rootNodeOption.get());
+                Scene scene = profilButton.getScene();
+                scene.getStylesheets().clear();
+                scene.getStylesheets().add(
+                        Objects.requireNonNull(getClass().getResource("/App/AssociationMember/PlanificationPage.css")).toExternalForm()
+                );
                 planificationButton.getScene().setRoot(pane);
             } catch (Exception e) {
                 System.out.println(e.getMessage());                }
