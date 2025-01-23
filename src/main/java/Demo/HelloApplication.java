@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Objects;
 
@@ -23,43 +24,40 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws IOException {
 
         //affichage samy
-        ResourceHandler rh= new ResourceHandler("src/main/resources/App/AssociationMember");
-        Optional<FXMLLoader> loader= rh.getFXMLLoader("LoginScreen.fxml");
-        if(loader.isPresent()){
-            FXMLLoader fxmlLoader = loader.get();
-            Scene scene = new Scene(fxmlLoader.load());
-            stage.setTitle("Hello!");
-            stage.setScene(scene);
-            stage.show();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationMember/LoginScreen.fxml"));
+        Scene scene = new Scene(loader.load());
+        stage.setTitle("Hello!");
+        stage.setScene(scene);
+        stage.show();
 
-        }
+
 
         //affichage yoan
         Stage secondStage = new Stage(); // Nouveau Stage
-        ResourceHandler rh2 = new ResourceHandler("src/main/resources/App/GreenServiceSpace");
-        Optional<FXMLLoader> accueilLoader = rh2.getFXMLLoader("accueil-view.fxml");
+        FXMLLoader accueilLoader = new FXMLLoader(getClass().getResource("/App/GreenServiceSpace/accueil-view.fxml"));
 
-        if(accueilLoader.isPresent()){
-            Scene scene1 = new Scene(accueilLoader.get().load(), 800, 600);
-            scene1.getStylesheets().add(
-                    Objects.requireNonNull(getClass().getResource("/App/GreenServiceSpace/styles.css")).toExternalForm()
-            );
 
-            secondStage.setTitle("Gestion des espaces verts");
-            secondStage.setScene(scene1);
-            secondStage.show();
-        };
+        Scene scene1 = new Scene(accueilLoader.load(), 800, 600);
+        scene1.getStylesheets().add(
+                Objects.requireNonNull(getClass().getResource("/App/GreenServiceSpace/styles.css")).toExternalForm()
+        );
+
+        secondStage.setTitle("Gestion des espaces verts");
+        secondStage.setScene(scene1);
+        secondStage.show();
+
 
     }
     public static void MakeJsonFiles() {
         JsonManager db=  JsonManager.INSTANCE;
         db.deleteJsonFile("Members_JSON.json");
-        db.deleteJsonFile("Visits_JSON.json");
+        db.deleteJsonFile("Visites_JSON.json");
         db.deleteJsonFile("Association_JSON.json");
+        db.deleteJsonFile("Visits_JSON.json");
 
 
         db.createJsonFile("Members_JSON.json");
-        db.createJsonFile("Visits_JSON.json");
+        db.createJsonFile("Visites_JSON.json");
         db.createJsonFile("Association_JSON.json");
 
         String filename = "Arbres_JSON.json";
@@ -87,11 +85,9 @@ public class HelloApplication extends Application {
 
         db.insertInJson("Association_JSON.json", List.of(a), "nom");
 
-        Optional<Tree> tree1=db.getObjectFromJson(filename,"genre","Tetradium", Tree.class);
-        Optional<Tree> tree2=db.getObjectFromJson(filename,"genre","Platanus", Tree.class);
-        Optional<Tree> tree3=db.getObjectFromJson(filename,"genre","Styphnolobium", Tree.class);
-
-
+        Optional<Tree> tree1=db.getObjectFromJson(filename, Map.entry("genre","Tetradium"), Tree.class);
+        Optional<Tree> tree2=db.getObjectFromJson(filename,Map.entry("genre","Platanus"), Tree.class);
+        Optional<Tree> tree3=db.getObjectFromJson(filename,Map.entry("genre","Styphnolobium"), Tree.class);
 
 
         Visit v1= new Visit(50,LocalDate.of(2025, 3, 16), tree1.get());
@@ -99,7 +95,7 @@ public class HelloApplication extends Application {
         Visit v3= new Visit(100,LocalDate.of(2021, 5, 17), tree3.get());
 
 
-        db.insertInJson("Visits_JSON.json",List.of(v1, v2, v3), "date");
+        db.insertInJson("Visites_JSON.json",List.of(v1, v2, v3), "date");
 
         Nomination n1= new Nomination(tree1.get(), 3);
         Nomination n2= new Nomination(tree2.get(), 2);
@@ -107,22 +103,12 @@ public class HelloApplication extends Application {
         db.createJsonFile("Nominations_JSON.json");
         db.insertInJson("Nominations_JSON.json", List.of(n1, n2), "idBase");
 
-        m1.addVisit(v1);
-        m1.addVisit(v2);
-        m1.addVisit(v3);
-        m1.addNominations(tree1.get());
-        m1.addNominations(tree2.get());
-        m1.addNominations(tree3.get());
-        m1.addCotisationPayee(LocalDate.of(2021, 5, 15));
-        m1.addCotisationPayee(LocalDate.of(2021, 5, 16));
-        m1.addCotisationPayee(LocalDate.of(2021, 5, 17));
-
 
     }
 
 
     public static void main(String[] args) throws IOException {
-
+        MakeJsonFiles();
         launch();
 
     }

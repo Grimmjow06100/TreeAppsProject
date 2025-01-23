@@ -19,6 +19,9 @@ public enum JsonManager {
     // Initialisation de l'ObjectMapper
     static {
         objectMapper.registerModule(new JavaTimeModule()); // Support pour LocalDate
+        objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        objectMapper.configure(DeserializationFeature.READ_DATE_TIMESTAMPS_AS_NANOSECONDS, false);
     }
 
 
@@ -73,8 +76,23 @@ public enum JsonManager {
         }
     }
 
+    public Optional<JsonNode> getRootNode(String fileName){
+        File file = new File(BASE_URL + "/" + fileName);
+        if (!file.exists()) {
+            System.out.println("❌ Fichier non trouvé : " + fileName);
+            return Optional.empty();
+        }
 
-    public <T> Optional<T> getObjectFromJson(String fileName, String key, String value, Class<T> clazz) {
+        try {
+            return Optional.of(objectMapper.readTree(file));
+        } catch (IOException e) {
+            System.out.println("❌ Erreur de lecture JSON : " + e.getMessage());
+            return Optional.empty();
+        }
+    }
+
+
+    public <T> Optional<T> getObjectFromJson(String fileName, Map.Entry<String,Object> entry, Class<T> clazz) {
         File file = new File(BASE_URL + "/" + fileName);
         if (!file.exists()) {
             System.out.println("❌ Fichier non trouvé : " + fileName);
@@ -89,14 +107,14 @@ public enum JsonManager {
             }
 
             for (JsonNode node : rootNode) {
-                if (node.has(key) && node.get(key).asText().equals(value)) {
+                if (node.has(entry.getKey()) && node.get(entry.getKey()).asText().equals(entry.getValue().toString())) {
                     T obj = objectMapper.treeToValue(node, clazz);
                     System.out.println("✅ Objet trouvé et converti avec succès !");
                     return Optional.of(obj);
                 }
             }
 
-            System.out.println("❌ Aucun objet trouvé avec `" + key + "` = `" + value + "`.");
+            System.out.println("❌ Aucun objet trouvé avec `" + entry.getKey() + "` = `" + entry.getValue() + "`.");
         } catch (IOException e) {
             System.out.println("❌ Erreur de lecture JSON : " + e.getMessage());
         }
@@ -207,7 +225,7 @@ public enum JsonManager {
     }
 
 
-    public synchronized void updateJson(String fileName,Map.Entry<String,Object> entry, Object newValue) {
+    public synchronized void updateJson(String fileName,Map.Entry<String,Object> entry,Map.Entry<String,Object> values) {
         File file = new File(BASE_URL + "/" + fileName);
         if (!file.exists()) {
             System.out.println("❌ Fichier non trouvé : " + fileName);
@@ -220,25 +238,19 @@ public enum JsonManager {
                 System.out.println("❌ Erreur : Le fichier JSON doit contenir un tableau.");
                 return;
             }
-
-            boolean updated = false;
-            JsonNode newValueNode = objectMapper.valueToTree(newValue);
+            JsonNode updatedValue = JsonManager.objectMapper.valueToTree(values.getValue());
             for (JsonNode node : rootNode) {
                 ObjectNode objectNode = (ObjectNode) node;
-                if (objectNode.has(entry.getKey()) && objectNode.get(entry.getKey()).equals(entry.getValue())) {
-                    objectNode.set(entry.getKey(), newValueNode);
-                    updated = true;
-                    break;
+                if (objectNode.has(entry.getKey()) && objectNode.get(entry.getKey()).asText().equals(entry.getValue().toString())) {
+                    objectNode.set(values.getKey(),updatedValue);
+                    objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, rootNode);
+                    System.out.println("✅ Donnée modifiée avec succès !");
+                    return;
                 }
 
             }
+            System.out.println("❌ Aucune correspondance trouvée.");
 
-            if (updated) {
-                objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, rootNode);
-                System.out.println("✅ Donnée modifiée avec succès !");
-            } else {
-                System.out.println("❌ Aucune correspondance trouvée.");
-            }
 
         } catch (IOException e) {
             System.out.println("❌ Erreur d'écriture JSON : " + e.getMessage());
