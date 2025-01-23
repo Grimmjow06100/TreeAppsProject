@@ -29,5 +29,7 @@ module TreeApp {
     opens App.AssociationManagement.Controller.classificationArbres to javafx.fxml, com.fasterxml.jackson.databind, com.jfoenix;
     exports App.AssociationManagement.Controller.financesAssociation;
     opens App.AssociationManagement.Controller.financesAssociation to javafx.fxml, com.fasterxml.jackson.databind, com.jfoenix;
+    exports App.AssociationManagement.Controller.FinExerciceBudgetaire;
+    opens App.AssociationManagement.Controller.FinExerciceBudgetaire to com.fasterxml.jackson.databind, com.jfoenix, javafx.fxml;
 
 }
