@@ -13,12 +13,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
-import others.ResourceHandler;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Iterator;
-import java.util.Optional;
+
 
 public class HomePageController {
 
@@ -44,7 +41,7 @@ public class HomePageController {
 
     public void setUser(JsonNode user){
         this.user=user;
-        //updateListView();
+        updateListView();
         updateMenu();
     }
 
@@ -87,19 +84,20 @@ public class HomePageController {
 
     public void updateListView(){
         JsonNode node=user.get("visites");
-        System.out.println(user.get("nom").asText());
-        String date;
-        String nom;
-        String lieu;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        date = node.get("date").asText();
-        LocalDate visiteDate = LocalDate.parse(date, formatter);
-        if (visiteDate.isBefore(LocalDate.now())) {
-              return;
+
+        for(JsonNode n:node){
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            String date = n.get("date").asText();
+            LocalDate visiteDate = LocalDate.parse(date, formatter);
+            if (visiteDate.isBefore(LocalDate.now())) {
+                return;
+            }
+            String nom=n.get("tree").get("libelle_france").asText();
+            String lieu=n.get("tree").get("lieu").asText();
+            listViewVisites.getItems().add("visite le "+ date+" de "+nom+" à "+lieu);
         }
-        nom=node.get("tree").get("libelle_france").asText();
-        lieu=node.get("tree").get("lieu").asText();
-        listViewVisites.getItems().add("visite le "+ date+" de "+nom+" à "+lieu);
+
+
     }
 
 

@@ -4,6 +4,7 @@ package App.AssociationMember;
 
 import Data.JsonManager;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -13,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import others.Message;
 
 import java.util.List;
 import java.util.Map;
@@ -42,30 +44,32 @@ public class TreeListViewController {
             String id = selected.split("idBase : ")[1].split("Nom: ")[0];
             int idInt = Integer.parseInt(id.trim());
             System.out.println(idInt);
-            JsonManager jsonManager = JsonManager.INSTANCE;
-            Optional<JsonNode> arbreOption = jsonManager.getNode("Arbres_JSON.json", List.of(Map.entry("idBase", idInt)));
+            Optional<JsonNode> arbreOption = JsonManager.getNode("Arbres_JSON.json", List.of(Map.entry("idBase", idInt)));
             int votes = user.get("nominations").size();
             if (arbreOption.isPresent()) {
                 JsonNode arbre = arbreOption.get();
-                // Show confirmation dialog
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Confirmation de vote");
-                alert.setHeaderText(null);
-                alert.setContentText("Voulez-vous vraiment voter pour cet arbre?");
-
-                Optional<ButtonType> result = alert.showAndWait();
-                if (result.isPresent() && result.get() == ButtonType.OK) {
-                    JsonNode nomination = arbre.deepCopy();
-                    ((ObjectNode) nomination).retain("idBase", "genre", "espece", "libelle_france", "lieu");
-
-                    // Check if there are already votes
-                    if (votes >= 5) {
-                        // Remove the oldest vote
-                        ((ObjectNode) user).withArray("nominations").remove(0);
+                JsonNode nomination = arbre.deepCopy();
+                ((ObjectNode) nomination).retain("idBase", "genre", "espece", "libelle_france", "lieu");
+                ArrayNode votesArray = (ArrayNode) user.get("nominations");
+                boolean canVote = true;
+                for(JsonNode vote : votesArray){
+                    if(vote.get("idBase").asInt() == idInt){
+                        Message.showInformation("Erreur", "Vous avez déjà voté pour cet arbre");
+                        canVote = false;
+                        break;
                     }
-
-                    // Add the new vote
-                    ((ObjectNode) user).withArray("nominations").add(nomination);
+                }
+                if(canVote) {
+                    Optional<ButtonType> result = Message.showConfirmation("Confirmation", "Voulez-vous vraiment voter pour cet arbre?").showAndWait();
+                    if (result.isPresent() && result.get() == ButtonType.OK) {
+                        // Check if there are already votes
+                        if (votes >= 5) {
+                            // Remove the oldest vote
+                            votesArray.remove(0);
+                        }
+                        votesArray.add(nomination);
+                    }
+                    JsonManager.updateJsonObject("Members_JSON.json", Map.entry("identifiant", user.get("identifiant").asText()), Map.entry("nominations", votesArray));
                 }
             }
         }

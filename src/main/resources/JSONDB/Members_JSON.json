@@ -8,8 +8,26 @@
   "password" : "password123",
   "cotisationPayee" : false,
   "cotisationsPayees" : [ ],
-  "nominations" : [ ],
-  "visites" : {
+  "nominations" : [ {
+    "idBase" : 99876,
+    "genre" : "Taxus",
+    "espece" : "baccata",
+    "libelle_france" : "If",
+    "lieu" : "JARDIN DE LA MAIRIE DU VIIEME / 116 RUE DE GRENELLE"
+  }, {
+    "idBase" : 99880,
+    "genre" : "Tetradium",
+    "espece" : "daniellii",
+    "libelle_france" : "Arbre à miel",
+    "lieu" : "PARC CLICHY BATIGNOLLES MARTIN LUTHER KING / 147 RUE CARDINET"
+  }, {
+    "idBase" : 99885,
+    "genre" : "Fagus",
+    "espece" : "sylvatica",
+    "libelle_france" : "Hêtre",
+    "lieu" : "JARDIN DU RANELAGH"
+  } ],
+  "visites" : [ {
     "id" : 1,
     "cout" : 50.0,
     "tree" : {
@@ -19,7 +37,7 @@
     },
     "date" : "16-03-2025",
     "compte_rendu" : ""
-  },
+  }],
   "dateInscription" : "15-05-2021"
 }, {
   "nom" : "Doe",

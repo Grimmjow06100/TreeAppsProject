@@ -2,6 +2,7 @@ package App.AssociationMember;
 
 import Data.JsonManager;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
@@ -138,20 +139,33 @@ public class PlanificationController {
     }
 
     public void handleReservation(){
-        JsonManager jsonManager = JsonManager.INSTANCE;
+
         listViewNewVistes.setOnMouseClicked((MouseEvent event)->{
             if(event.getClickCount()==2){
                 String selectedItem = listViewNewVistes.getSelectionModel().getSelectedItem();
                 String[] parts = selectedItem.split(" - ");
                 int id=Integer.parseInt(parts[3]);
-                Optional<JsonNode> visiteNode=jsonManager.getNode("Visites_JSON.json", List.of(Map.entry("id",id)));
-                if(visiteNode.isPresent()){
-                    Optional<ButtonType>result=Message.showConfirmation("Réservation visite","Voulez-vous vraiment réserver cette visite?").showAndWait();
-                    if (result.isPresent() && result.get()==ButtonType.OK){
-                        String key=user.get("identifiant").asText();
-                       jsonManager.updateJson("Members_JSON.json",Map.entry("identifiant",key),Map.entry("visites",visiteNode.get()));
+                Optional<JsonNode> visiteNode=JsonManager.getNode("Visites_JSON.json", List.of(Map.entry("id",id)));
+                ArrayNode reservations = (ArrayNode) user.get("visites");
+                boolean canReserve=true;
+                for(JsonNode reservation:reservations){
+                    if(reservation.get("id").asInt()==id){
+                        Message.showInformation("Erreur", "Vous avez déjà réservé cette visite");
+                        canReserve=false;
+                        break;
                     }
+                }
+                if(canReserve) {
 
+                    if (visiteNode.isPresent()) {
+                        Optional<ButtonType> result = Message.showConfirmation("Réservation visite", "Voulez-vous vraiment réserver cette visite?").showAndWait();
+                        if (result.isPresent() && result.get() == ButtonType.OK) {
+                            ArrayNode array = ((ArrayNode) user.get("visites")).add(visiteNode.get());
+                            String key = user.get("identifiant").asText();
+                            JsonManager.updateJsonObject("Members_JSON.json", Map.entry("identifiant", key), Map.entry("visites", array));
+                        }
+
+                    }
                 }
 
             }

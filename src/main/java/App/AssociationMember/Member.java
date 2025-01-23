@@ -71,19 +71,19 @@ public class Member extends Personne{
     public void addNominations(Tree tree) {
        JsonManager json = JsonManager.INSTANCE;
         nominations.add(tree);
-        json.updateJson("Members_JSON.json", Map.entry("identifiant", identifiant), Map.entry("nominations",nominations));
+        json.updateJsonObject("Members_JSON.json", Map.entry("identifiant", identifiant), Map.entry("nominations",nominations));
     }
 
     public void addCotisationPayee(LocalDate date) {
         JsonManager json = JsonManager.INSTANCE;
         cotisationsPayees.add(date);
-        json.updateJson("Members_JSON.json", Map.entry("identifiant", identifiant), Map.entry("cotisationsPayees",cotisationsPayees));
+        json.updateJsonObject("Members_JSON.json", Map.entry("identifiant", identifiant), Map.entry("cotisationsPayees",cotisationsPayees));
     }
 
     public void addVisit(Visit visit) {
         JsonManager json = JsonManager.INSTANCE;
         visites.add(visit);
-        json.updateJson("Members_JSON.json", Map.entry("identifiant", identifiant), Map.entry("visites",visites));
+        json.updateJsonObject("Members_JSON.json", Map.entry("identifiant", identifiant), Map.entry("visites",visites));
     }
 
 
