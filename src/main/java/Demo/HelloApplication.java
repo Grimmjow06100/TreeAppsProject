@@ -59,7 +59,7 @@ public class HelloApplication extends Application {
 
         if (accueilFXMLLoader.isPresent()) {
             FXMLLoader loader2 = accueilFXMLLoader.get();
-            Scene accueilScene = new Scene(loader2.load(), 800, 600);
+            Scene accueilScene = new Scene(loader2.load(), 600, 400);
 
             accueilStage.setTitle("Gestion de l'association");
             accueilStage.setScene(accueilScene);

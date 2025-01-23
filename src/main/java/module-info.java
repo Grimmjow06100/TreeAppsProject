@@ -7,6 +7,7 @@ module TreeApp {
     requires net.datafaker;
     requires com.fasterxml.jackson.datatype.jsr310;
     requires com.jfoenix;
+    requires java.desktop;
 
     exports Demo;
     exports others;

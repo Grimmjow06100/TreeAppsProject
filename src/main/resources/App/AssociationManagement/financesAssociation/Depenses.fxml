@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.AssociationManagement.Controller.financesAssociation.DepensesController">
     <children>
         <VBox fx:id="vbox1" layoutY="1.0">
             <children>
@@ -32,7 +32,7 @@
             <children>
                 <Pane fx:id="pane1" prefHeight="47.0" prefWidth="600.0">
                     <children>
-                        <Button fx:id="retourButtonDepenses" mnemonicParsing="false" text="Retour" />
+                        <Button fx:id="retourButtonDepenses" mnemonicParsing="false" onAction="#onButtonRetourClick" text="Retour" />
                         <Label fx:id="titreLabelDepenses" layoutX="274.0" layoutY="25.0" text="Dépenses" />
                     </children>
                 </Pane>

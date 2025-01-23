@@ -1,83 +1,95 @@
 package App.AssociationManagement.Controller.financesAssociation;
 
 import App.AssociationManagement.Controller.PageAccueilController;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class FinancesAssociationController {
-    Stage primaryStage;
-    PageAccueilController pageAccueilController;
-    CotisationsController cotisationsController;
-    DepensesController depensesController;
-    DonsSubventionsController donsSubventionsController;
 
     @FXML
-    Button retourButtonFinances;
-
-    @FXML
-    Button donsSubventionsButton;
-
-    @FXML
-    Button cotisationsButton;
-
-    @FXML
-    Button depensesButton;
-
-    //Constructeur
-    public FinancesAssociationController() {
-        this.primaryStage = new Stage();
-        this.pageAccueilController = new PageAccueilController(primaryStage);
-        this.cotisationsController = new CotisationsController(this, primaryStage);
-        this.depensesController = new DepensesController(this, primaryStage);
-        this.donsSubventionsController = new DonsSubventionsController(this, primaryStage);
-    }
-
-    public FinancesAssociationController(PageAccueilController pageAccueilController, Stage stage) {
-        this.primaryStage = stage;
-        this.pageAccueilController = pageAccueilController;
-        this.cotisationsController = new CotisationsController(this, primaryStage);
-        this.depensesController = new DepensesController(this, primaryStage);
-        this.donsSubventionsController = new DonsSubventionsController(this, primaryStage);
-    }
-
-    @FXML
-    private void initialize() {
-        retourButtonFinances.setOnAction(event -> retourPageAccueil());
-        donsSubventionsButton.setOnAction(event -> ouvrirDonsSubventions());
-        cotisationsButton.setOnAction(event -> ouvrirCotisations());
-        depensesButton.setOnAction(event -> ouvrirDepenses());
-    }
-
-    public void show() {
+    protected void onButtonRetourClick(ActionEvent event){
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationManagement/financesAssociation/FinancesAssociation.fxml"));
-            loader.setController(this);
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-            primaryStage.setScene(scene);
-            primaryStage.show();
-        } catch (Exception e) {
+            // Charger la nouvelle vue
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationManagement/PageAccueil.fxml"));
+            Parent arbreView = loader.load();
+
+            // Obtenir la scène actuelle à partir de l'événement
+            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+
+            // Définir la nouvelle scène
+            stage.setScene(new Scene(arbreView,600,400));
+            //stage.getScene().getStylesheets().add(Objects.requireNonNull(getClass().getResource("/App/AssociationManagement/styles.css")).toExternalForm());
+            stage.setTitle("Gestion de l'association");
+            stage.show();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void retourPageAccueil() {
-        pageAccueilController.show();
+    @FXML
+    protected void onButtonDonsSubventionsClick(ActionEvent event){
+        try {
+            // Charger la nouvelle vue
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationManagement/financesAssociation/DonsSubventions.fxml"));
+            Parent arbreView = loader.load();
+
+            // Obtenir la scène actuelle à partir de l'événement
+            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+
+            // Définir la nouvelle scène
+            stage.setScene(new Scene(arbreView,600,400));
+            //stage.getScene().getStylesheets().add(Objects.requireNonNull(getClass().getResource("/App/AssociationManagement/styles.css")).toExternalForm());
+            stage.setTitle("Gestion des dons et des subventions de l'association");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void ouvrirCotisations() {
-        cotisationsController.show();
+    @FXML
+    protected void onButtonCotisationsClick(ActionEvent event){
+        try {
+            // Charger la nouvelle vue
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationManagement/financesAssociation/Cotisations.fxml"));
+            Parent arbreView = loader.load();
+
+            // Obtenir la scène actuelle à partir de l'événement
+            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+
+            // Définir la nouvelle scène
+            stage.setScene(new Scene(arbreView,600,400));
+            //stage.getScene().getStylesheets().add(Objects.requireNonNull(getClass().getResource("/App/AssociationManagement/styles.css")).toExternalForm());
+            stage.setTitle("Gestion des cotisations de l'association");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void ouvrirDepenses() {
-        depensesController.show();
+    @FXML
+    protected void onButtonDepensesClick(ActionEvent event){
+        try {
+            // Charger la nouvelle vue
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationManagement/financesAssociation/Depenses.fxml"));
+            Parent arbreView = loader.load();
+
+            // Obtenir la scène actuelle à partir de l'événement
+            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+
+            // Définir la nouvelle scène
+            stage.setScene(new Scene(arbreView,600,400));
+            //stage.getScene().getStylesheets().add(Objects.requireNonNull(getClass().getResource("/App/AssociationManagement/styles.css")).toExternalForm());
+            stage.setTitle("Gestion des dépenses de l'association");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void ouvrirDonsSubventions() {
-        donsSubventionsController.show();
-    }
 }

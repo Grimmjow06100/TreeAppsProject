@@ -1,5 +1,6 @@
 package App.AssociationManagement.Controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -7,44 +8,26 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class VisiteArbreController {
-    Stage primaryStage;
-    PageAccueilController pageAccueilController;
 
     @FXML
-    Button retourButtonVisite;
-
-    //Constructeur
-    public VisiteArbreController() {
-        this.primaryStage = new Stage();
-        this.pageAccueilController = new PageAccueilController(primaryStage);
-    }
-
-    public VisiteArbreController(PageAccueilController pageAccueilController, Stage stage) {
-        this.pageAccueilController = pageAccueilController;
-        this.primaryStage = stage;
-    }
-
-    @FXML
-    private void initialize() {
-        retourButtonVisite.setOnAction(event -> retourPageAccueil());
-    }
-
-
-    //Retour sur le menu principal
-    public void retourPageAccueil() {
-        pageAccueilController.show();
-    }
-
-    public void show() {
+    protected void onButtonRetourClick(ActionEvent event){
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationManagement/VisiteArbre.fxml"));
-            loader.setController(this);
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-            primaryStage.setScene(scene);
-            primaryStage.show();
-        } catch (Exception e) {
+            // Charger la nouvelle vue
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationManagement/PageAccueil.fxml"));
+            Parent arbreView = loader.load();
+
+            // Obtenir la scène actuelle à partir de l'événement
+            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+
+            // Définir la nouvelle scène
+            stage.setScene(new Scene(arbreView,600,400));
+            //stage.getScene().getStylesheets().add(Objects.requireNonNull(getClass().getResource("/App/AssociationManagement/styles.css")).toExternalForm());
+            stage.setTitle("Gestion de l'association");
+            stage.show();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

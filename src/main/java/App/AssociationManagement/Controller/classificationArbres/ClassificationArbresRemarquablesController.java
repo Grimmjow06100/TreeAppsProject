@@ -1,109 +1,33 @@
 package App.AssociationManagement.Controller.classificationArbres;
 
-import App.AssociationManagement.Controller.PageAccueilController;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class ClassificationArbresRemarquablesController {
-    Stage primaryStage;
-    PageAccueilController pageAccueilController;
 
     @FXML
-    MenuBar menuBar;
-
-    @FXML
-    MenuItem menuItem1;
-
-    @FXML
-    MenuItem menuItem2;
-
-    @FXML
-    Button retourButtonClassement;
-
-    @FXML
-    Button listeButton;
-
-    @FXML
-    Button classementButton;
-
-    //Constructeur
-    public ClassificationArbresRemarquablesController() {
-        this.primaryStage = new Stage();
-        this.pageAccueilController = new PageAccueilController(primaryStage);
-    }
-
-    public ClassificationArbresRemarquablesController(PageAccueilController pageAccueilController, Stage stage) {
-        this.pageAccueilController = pageAccueilController;
-        this.primaryStage = stage;
-    }
-
-    @FXML
-    public void initialize(){
-        //actions à effectuer lors de l'initialisation de la vue
-        /*
-        arbresClassement = FXCollections.observableArrayList(
-                new Arbre("Chêne", "Quercus robur"),
-                new Arbre("Pin", "Pinus sylvestris")
-        );
-
-        arbreListViewClassement.setItems(arbresClassement.stream()
-                .map(a -> a.getNomFrancais() + " (" + a.getEspece() + ")")
-                .collect(Collectors.toCollection(FXCollections::observableArrayList)));
-
-        arbreListViewClassement.setOnMouseClicked(event -> ouvrirDetails(arbreListViewClassement.getSelectionModel().getSelectedItem()));
-        */
-
-        retourButtonClassement.setOnAction(event -> retourPageAccueil());
-        //TODO listeButton.setOnAction(event -> classificationArbresRemarquablesController.listeArbres());
-        //TODO classementButton.setOnAction(event -> classificationArbresRemarquablesController.classementArbres());
-    }
-
-    //Retour sur le menu principal
-    public void retourPageAccueil() {
-        pageAccueilController.show();
-    }
-
-    public void show(){
+    protected void onButtonRetourClick(ActionEvent event){
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationManagement/classificationArbres/ClassificationArbresRemarquables.fxml"));
-            loader.setController(this);
-            Parent root = loader.load();
-            primaryStage.setScene(new Scene(root));
-            primaryStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+            // Charger la nouvelle vue
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationManagement/PageAccueil.fxml"));
+            Parent arbreView = loader.load();
 
-    //Méthode pour afficher la liste des arbres remarquables données par la municipalité
+            // Obtenir la scène actuelle à partir de l'événement
+            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
 
-    //Méthode pour afficher le classement des arbres remarquables votés par les membres
-
-    /* TODO
-    private void ouvrirDetails(int idArbre) {
-        // Charger la fenêtre des détails
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/details_arbre.fxml"));
-            Parent root = loader.load();
-
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
+            // Définir la nouvelle scène
+            stage.setScene(new Scene(arbreView,600,400));
+            //stage.getScene().getStylesheets().add(Objects.requireNonNull(getClass().getResource("/App/AssociationManagement/styles.css")).toExternalForm());
+            stage.setTitle("Gestion de l'association");
             stage.show();
-
-            // Fermer la fenêtre en cliquant ailleurs
-            root.setOnMouseClicked(e -> stage.close());
-
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    */
 }

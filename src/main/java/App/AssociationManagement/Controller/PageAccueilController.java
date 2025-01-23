@@ -1,71 +1,72 @@
 package App.AssociationManagement.Controller;
 
-import App.AssociationManagement.Controller.classificationArbres.ClassificationArbresRemarquablesController;
-import App.AssociationManagement.Controller.financesAssociation.FinancesAssociationController;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
+
 public class PageAccueilController {
-    Stage primaryStage;
-    FinancesAssociationController financesAssociationController;
-    ClassificationArbresRemarquablesController classificationArbresRemarquablesController;
-    VisiteArbreController visiteArbreController;
 
     @FXML
-    Button financesButton;
-
-    @FXML
-    Button votesArbresButton;
-
-    @FXML
-    Button visitesArbresButton;
-
-    //Constructeur
-    public PageAccueilController() {
-        this.primaryStage = new Stage();
-        this.financesAssociationController = new FinancesAssociationController(this, primaryStage);
-        this.classificationArbresRemarquablesController = new ClassificationArbresRemarquablesController(this, primaryStage);
-        this.visiteArbreController = new VisiteArbreController(this, primaryStage);
-    }
-
-    public PageAccueilController(Stage stage) {
-        this.primaryStage = stage;
-        this.financesAssociationController = new FinancesAssociationController(this, primaryStage);
-        this.classificationArbresRemarquablesController = new ClassificationArbresRemarquablesController(this, primaryStage);
-        this.visiteArbreController = new VisiteArbreController(this, primaryStage);
-    }
-
-    public void financesAssociation() {
-        financesAssociationController.show();
-    }
-
-    public void classementArbres() {
-        classificationArbresRemarquablesController.show();
-    }
-
-    public void visiteArbres() {
-        visiteArbreController.show();
-    }
-
-    @FXML
-    public void initialize() {
-        financesButton.setOnAction(event -> financesAssociation());
-        votesArbresButton.setOnAction(event -> classementArbres());
-        visitesArbresButton.setOnAction(event -> visiteArbres());
-    }
-
-    public void show(){
+    protected void onButtonArbresClick(ActionEvent event){
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationManagement/PageAccueil.fxml"));
-            Parent root = loader.load();
-            primaryStage.setScene(new Scene(root));
-            //primaryStage.show();
+            // Charger la nouvelle vue
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationManagement/classificationArbres/ClassificationArbresRemarquables.fxml"));
+            Parent arbreView = loader.load();
+
+            // Obtenir la scène actuelle à partir de l'événement
+            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+
+            // Définir la nouvelle scène
+            stage.setScene(new Scene(arbreView,600,400));
+            //stage.getScene().getStylesheets().add(Objects.requireNonNull(getClass().getResource("/App/AssociationManagement/styles.css")).toExternalForm());
+            stage.setTitle("Arbres Remarquables");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    protected void onButtonFinancesClick(ActionEvent event) {
+        try {
+            // Charger la nouvelle vue
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationManagement/financesAssociation/FinancesAssociation.fxml"));
+            Parent financesView = loader.load();
+
+            // Obtenir la scène actuelle à partir de l'événement
+            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+
+            // Définir la nouvelle scène
+            stage.setScene(new Scene(financesView, 600,400));
+            //stage.getScene().getStylesheets().add(Objects.requireNonNull(getClass().getResource("/App/AssociationManagement/styles.css")).toExternalForm());
+            stage.setTitle("Finances de l'association");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    protected void onButtonVisitesClick(ActionEvent event) {
+        try {
+            // Charger la nouvelle vue
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationManagement/VisitesArbres.fxml"));
+            Parent visiteView = loader.load();
+
+            // Obtenir la scène actuelle à partir de l'événement
+            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+
+            // Définir la nouvelle scène
+            stage.setScene(new Scene(visiteView, 600,400));
+            //stage.getScene().getStylesheets().add(Objects.requireNonNull(getClass().getResource("/App/AssociationManagement/styles.css")).toExternalForm());
+            stage.setTitle("Visites d'arbres");
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
