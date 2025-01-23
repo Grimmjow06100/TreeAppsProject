@@ -6,8 +6,8 @@
   "dateNaissance" : "15-05-1996",
   "identifiant" : "johnDoe",
   "password" : "password123",
-  "cotisationPayee" : false,
-  "cotisationsPayees" : [ ],
+  "cotisationPayee" : true,
+  "cotisationsPayees" : [ "23/01/2025" ],
   "nominations" : [ {
     "idBase" : 99876,
     "genre" : "Taxus",
@@ -26,6 +26,12 @@
     "espece" : "sylvatica",
     "libelle_france" : "Hêtre",
     "lieu" : "JARDIN DU RANELAGH"
+  }, {
+    "idBase" : 99929,
+    "genre" : "Ostrya",
+    "espece" : "carpinifolia",
+    "libelle_france" : "Charme-Houblon",
+    "lieu" : "JARDIN DU RANELAGH"
   } ],
   "visites" : [ {
     "id" : 1,
@@ -37,7 +43,7 @@
     },
     "date" : "16-03-2025",
     "compte_rendu" : ""
-  }],
+  } ],
   "dateInscription" : "15-05-2021"
 }, {
   "nom" : "Doe",

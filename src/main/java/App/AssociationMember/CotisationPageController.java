@@ -99,19 +99,32 @@ public class CotisationPageController {
                     Message.showInformation("Cotisation déjà payée", "Vous avez déjà payé votre cotisation pour cette année");
                     return;
                 }
-                JsonManager j= JsonManager.INSTANCE;
-                Optional<JsonNode> association=j.getNode("Association_JSON.json");
-                if(association.isPresent()) {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationMember/PaymentPage.fxml"));
-                    GridPane paiementCotisation = loader.load();
-                    PaymentController controller = loader.getController();
-                    controller.set(50.00, user, association.get());
-                    Stage stage = new Stage();
-                    stage.setTitle("Paiement Cotisation");
-                    stage.setScene(new Scene(paiementCotisation, 700, 400));
-                    stage.show();
+
+                JsonNode rootNode=JsonManager.objectMapper.readTree("Association_JSON.json");
+                JsonNode association=null;
+                if(!rootNode.isArray()){
+                    System.out.println("❌ Erreur : Le fichier JSON doit contenir un tableau.");
+                    return;
                 }
-                else System.out.println("Error: Association_JSON.json not found");
+                for(JsonNode r:rootNode){
+                    if(r.get("nom").equals("Arre Assos")){
+                        association=r;
+                        break;
+                    }
+                }
+                if(association==null){
+                    System.out.println("❌ Erreur : Association non trouvée.");
+                    return;
+                }
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationMember/PaymentPage.fxml"));
+                GridPane paiementCotisation = loader.load();
+                PaymentController controller = loader.getController();
+                controller.set(50.00, user, association);
+                Stage stage = new Stage();
+                stage.setTitle("Paiement Cotisation");
+                stage.setScene(new Scene(paiementCotisation, 700, 400));
+                stage.show();
+
             } catch (IOException e) {
                 e.printStackTrace();
             }

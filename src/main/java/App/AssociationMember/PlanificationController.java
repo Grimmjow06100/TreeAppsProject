@@ -18,11 +18,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import others.Message;
-
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -145,7 +142,7 @@ public class PlanificationController {
                 String selectedItem = listViewNewVistes.getSelectionModel().getSelectedItem();
                 String[] parts = selectedItem.split(" - ");
                 int id=Integer.parseInt(parts[3]);
-                Optional<JsonNode> visiteNode=JsonManager.getNode("Visites_JSON.json", List.of(Map.entry("id",id)));
+                Optional<JsonNode> visiteNode=JsonManager.getNode("Visites_JSON.json",Map.entry("id",id));
                 ArrayNode reservations = (ArrayNode) user.get("visites");
                 boolean canReserve=true;
                 for(JsonNode reservation:reservations){

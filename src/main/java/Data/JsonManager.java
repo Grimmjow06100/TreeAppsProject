@@ -124,7 +124,7 @@ public enum JsonManager {
 
 
 
-    // ✅ Recherche d'objets dans un fichier JSON par clé/valeur
+    // ✅ Recherche d'objets dans un fichier JSON par cléUnique/valeur
     public static synchronized List<JsonNode> getNodeList(String fileName, List<Map.Entry<String,String>>entries) {
         File file = new File(BASE_URL + "/" + fileName);
         if (!file.exists()) {
@@ -141,15 +141,12 @@ public enum JsonManager {
 
             List<JsonNode> results = new ArrayList<>();
             for (JsonNode node : rootNode) {
-                boolean allMatch = true; // ✅ On suppose d'abord que tout correspond
                 for(Map.Entry<String,String>entry:entries){
-                    if (!node.has(entry.getKey()) || !node.get(entry.getKey()).asText().equals(entry.getValue())) {
-                        allMatch = false;
-                        break;
+                    if (node.has(entry.getKey()) && node.get(entry.getKey()).asText().equals(entry.getValue())) {
+                        results.add(node);
                     }
                 }
-                if(allMatch)
-                    results.add(node);
+
             }
 
             return results.isEmpty() ? Collections.emptyList() : results;
@@ -159,8 +156,8 @@ public enum JsonManager {
         }
     }
 
-    // ✅ Recherche d'un objet unique dans un fichier JSON par clé/valeur
-    public static synchronized Optional<JsonNode> getNode(String fileName, List<Map.Entry<String ,Object>> entries) {
+    // ✅ Recherche d'un objet unique dans un fichier JSON par cléUnique/valeur
+    public static synchronized Optional<JsonNode> getNode(String fileName, Map.Entry<String ,Object> entry) {
         File file = new File(BASE_URL + "/" + fileName);
         if (!file.exists()) {
             System.out.println("❌ Fichier non trouvé : " + fileName);
@@ -174,17 +171,12 @@ public enum JsonManager {
                 return Optional.empty();
             }
             for (JsonNode node : rootNode) {
-                boolean allMatch = true; // ✅ On suppose d'abord que tout correspond
-                for(Map.Entry<String ,Object> entry : entries){
-                    String key = entry.getKey();
-                    Object value = entry.getValue();
-                    if (!node.has(entry.getKey()) || !node.get(key).asText().equals(value.toString())) {
-                        allMatch = false;
-                        break;
-                    }
-                }
-                if(allMatch)
+
+                String key = entry.getKey();
+                JsonNode entryValue = objectMapper.valueToTree(entry.getValue());
+                if (node.has(key) && node.get(key).equals(entryValue)) {
                     return Optional.of(node);
+                }
 
             }
 
@@ -196,17 +188,36 @@ public enum JsonManager {
         return Optional.empty();
     }
 
-    public static Optional<JsonNode> getNode(String filename){
-        File file = new File(BASE_URL + "/" + filename);
+    public static Optional<JsonNode> getNodeAllMatch(String fileName,List<Map.Entry<String,Object>>entries){
+        File file = new File(BASE_URL + "/" + fileName);
         if (!file.exists()) {
-            System.out.println("❌ Fichier non trouvé : " + filename);
+            System.out.println("❌ Fichier non trouvé : " + fileName);
             return Optional.empty();
         }
 
         try {
             JsonNode rootNode = objectMapper.readTree(file);
-            Iterator<JsonNode> iterator = rootNode.elements();
-            return Optional.of(iterator.next());
+            if (!rootNode.isArray()) {
+                System.out.println("❌ Erreur : Le fichier JSON doit contenir un tableau.");
+                return Optional.empty();
+            }
+
+            boolean allMatch;
+            for (JsonNode node : rootNode) {
+                allMatch=true;
+                for(Map.Entry<String,Object>entry:entries){
+                    String key=entry.getKey();
+                    JsonNode entryValue=objectMapper.valueToTree(entry.getValue());
+                    if (!node.has(key) || !node.get(key).equals(entryValue)) {
+                        allMatch=false;
+                        break;
+                    }
+                }
+                if(allMatch) return Optional.of(node);
+
+            }
+
+            return Optional.empty();
         } catch (IOException e) {
             System.out.println("❌ Erreur de lecture JSON : " + e.getMessage());
             return Optional.empty();
@@ -226,9 +237,10 @@ public enum JsonManager {
                 System.out.println("❌ Erreur : Le fichier JSON doit contenir un tableau.");
                 return ;
             }
+            JsonNode entryValue=objectMapper.valueToTree(entry.getValue());
             for (Iterator<JsonNode> it = rootNode.iterator(); it.hasNext();) {
                 JsonNode node=it.next();
-                if(node.has(entry.getKey())&&node.get(entry.getKey()).asText().equals(entry.getValue().toString())){
+                if(node.has(entry.getKey())&&node.get(entry.getKey()).equals(entryValue)){
                     it.remove();
                 }
             }
@@ -243,7 +255,6 @@ public enum JsonManager {
         
         for(Map.Entry<String,Object> update : updateList){
             String key=update.getKey();
-            String value=update.getKey().toString();
             JsonNode jsonValue=objectMapper.valueToTree(update.getValue());
             ObjectNode obj=(ObjectNode) node;
             if(node.has(key)){
@@ -268,9 +279,10 @@ public enum JsonManager {
                 return;
             }
             JsonNode updatedValue = JsonManager.objectMapper.valueToTree(values.getValue());
+            JsonNode entryValue=objectMapper.valueToTree(entry.getValue());
             for (JsonNode node : rootNode) {
                 ObjectNode objectNode = (ObjectNode) node;
-                if (objectNode.has(entry.getKey()) && objectNode.get(entry.getKey()).asText().equals(entry.getValue().toString())) {
+                if (objectNode.has(entry.getKey()) && objectNode.get(entry.getKey()).equals(entryValue)) {
                     objectNode.set(values.getKey(),updatedValue);
                     objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, rootNode);
                     System.out.println("✅ Donnée modifiée avec succès !");

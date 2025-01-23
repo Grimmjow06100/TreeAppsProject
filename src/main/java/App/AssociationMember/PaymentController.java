@@ -78,12 +78,16 @@ public class PaymentController {
             Message.showInformation("Paiement", "Paiement accepté ✅");
 
             ArrayNode cotisations = (ArrayNode) user.get("cotisationsPayees");
+            System.out.println(cotisations);
+            double budget = association.get("budget").asDouble();
             cotisations.add(LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
             payer.setDisable(true);
 
-            /// updateDatabase
-            JsonManager.updateNode(user, List.of(Map.entry("cotisationPayee", true)));
-            JsonManager.updateNode(association,List.of(Map.entry("budget",association.get("budget").asDouble()+50.00)));
+
+            //UpdateDataBase
+            JsonManager.updateJsonObject("Members_JSON.json",Map.entry("identifiant",user.get("identifiant")),Map.entry("cotisationsPayees",cotisations));
+            JsonManager.updateJsonObject("Members_JSON.json",Map.entry("identifiant",user.get("identifiant")),Map.entry("cotisationPayee",true));
+            JsonManager.updateJsonObject("Association_JSON.json",Map.entry("nom",association.get("nom")),Map.entry("budget",budget+50.0));
 
         } else {
             Message.showAlert("Validation Error", "Please fill in all fields correctly.");
