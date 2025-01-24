@@ -7,6 +7,7 @@ import java.time.LocalTime;
 
 public class Notification {
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private String message;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
@@ -16,13 +17,15 @@ public class Notification {
     private LocalTime time;
 
 
-    Notification(String message, LocalDate date){
+    public Notification(String message){
         this.message = message;
-        this.date = date;
+        this.date=LocalDate.now();
+        this.time=LocalTime.now();
     }
-    Notification(){
+    public Notification(){
         this.message = "";
-        this.date =null;
+        this.date=null;
+        this.time=null;
     }
 
     private String getMessage(){
@@ -30,5 +33,8 @@ public class Notification {
     }
     private LocalDate getDate(){
         return date;
+    }
+    private LocalTime getTime(){
+        return time;
     }
 }

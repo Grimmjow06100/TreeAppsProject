@@ -62,19 +62,19 @@ public class HelloApplication extends Application {
 
     }
     public static void MakeJsonFiles() {
-        JsonManager db=  JsonManager.INSTANCE;
-        db.deleteJsonFile("Members_JSON.json");
-        db.deleteJsonFile("Visites_JSON.json");
-        db.deleteJsonFile("Association_JSON.json");
-        db.deleteJsonFile("Visits_JSON.json");
+        
+        JsonManager.deleteJsonFile("Members_JSON.json");
+        JsonManager.deleteJsonFile("Visites_JSON.json");
+        JsonManager.deleteJsonFile("Association_JSON.json");
+        JsonManager.deleteJsonFile("Visits_JSON.json");
 
 
-        db.createJsonFile("Members_JSON.json");
-        db.createJsonFile("Visites_JSON.json");
-        db.createJsonFile("Association_JSON.json");
+        JsonManager.createJsonFile("Members_JSON.json");
+        JsonManager.createJsonFile("Visites_JSON.json");
+        JsonManager.createJsonFile("Association_JSON.json");
 
         String filename = "Arbres_JSON.json";
-        File file = new File(db.BASE_URL+"/"+filename);
+        File file = new File(JsonManager.BASE_URL+"/"+filename);
 
         Personne p1= new Personne("Doe", "John", 25, LocalDate.of(1996, 5, 15),"balec");
         Personne p2= new Personne("Doe", "Jane", 22, LocalDate.of(1999, 8, 25),"balec");
@@ -88,7 +88,7 @@ public class HelloApplication extends Application {
         Member m5= new Member(p5, "DoeEve", "password131415",LocalDate.of(2021, 5, 15));
 
         System.out.println(m1);
-        db.insertInJson("Members_JSON.json", List.of(m1, m2, m3, m4, m5), "identifiant");
+        JsonManager.insertInJson("Members_JSON.json", List.of(m1, m2, m3, m4, m5), "identifiant");
 
         Don d= new Don(100, "kaka");
         Facture f= new Facture(100, "kaka",false);
@@ -96,31 +96,32 @@ public class HelloApplication extends Application {
 
         Association a= new Association("Arre Assoc",500,List.of(d),List.of(f));
 
-        db.insertInJson("Association_JSON.json", List.of(a), "nom");
+        JsonManager.insertInJson("Association_JSON.json", List.of(a), "nom");
 
-        Optional<Tree> tree1=db.getObjectFromJson(filename, Map.entry("genre","Tetradium"), Tree.class);
-        Optional<Tree> tree2=db.getObjectFromJson(filename,Map.entry("genre","Platanus"), Tree.class);
-        Optional<Tree> tree3=db.getObjectFromJson(filename,Map.entry("genre","Styphnolobium"), Tree.class);
-
-
-        Visit v1= new Visit(50,LocalDate.of(2025, 3, 16), tree1.get());
-        Visit v2= new Visit(150,LocalDate.of(2021, 5, 16), tree2.get());
-        Visit v3= new Visit(100,LocalDate.of(2021, 5, 17), tree3.get());
+        Optional<Tree> tree1=JsonManager.getObjectFromJson(filename, Map.entry("genre","Tetradium"), Tree.class);
+        Optional<Tree> tree2=JsonManager.getObjectFromJson(filename,Map.entry("genre","Platanus"), Tree.class);
+        Optional<Tree> tree3=JsonManager.getObjectFromJson(filename,Map.entry("genre","Styphnolobium"), Tree.class);
 
 
-        db.insertInJson("Visites_JSON.json",List.of(v1, v2, v3), "date");
+        Visit v1= new Visit(50,LocalDate.of(2025, 3, 16), tree1.get(),null);
+        Visit v2= new Visit(150,LocalDate.of(2025, 5, 16), tree2.get(),null);
+        Visit v3= new Visit(100,LocalDate.of(2025, 5, 17), tree3.get(),m1);
+
+
+        JsonManager.insertInJson("Visites_JSON.json",List.of(v1, v2, v3), "date");
 
         Nomination n1= new Nomination(tree1.get(), 3);
         Nomination n2= new Nomination(tree2.get(), 2);
 
-        db.createJsonFile("Nominations_JSON.json");
-        db.insertInJson("Nominations_JSON.json", List.of(n1, n2), "idBase");
+        JsonManager.createJsonFile("Nominations_JSON.json");
+        JsonManager.insertInJson("Nominations_JSON.json", List.of(n1, n2), "idBase");
 
 
     }
 
 
     public static void main(String[] args) throws IOException {
+        MakeJsonFiles();
         launch();
 
     }
