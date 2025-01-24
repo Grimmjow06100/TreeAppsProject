@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
@@ -41,23 +42,22 @@
             </Pane>
          </children>
       </VBox>
-      <HBox layoutY="74.0" prefHeight="274.0" prefWidth="600.0">
+      <HBox alignment="CENTER_LEFT" layoutY="74.0" prefHeight="274.0" prefWidth="600.0">
          <children>
-            <VBox alignment="CENTER" prefHeight="274.0" prefWidth="300.0" />
-            <VBox alignment="CENTER" prefHeight="166.0" prefWidth="300.0" spacing="10.0">
+            <VBox alignment="CENTER" prefHeight="274.0" prefWidth="448.0" spacing="10.0">
                <children>
                   <TextField fx:id="nomTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" promptText="Nom" VBox.vgrow="NEVER" />
                   <TextField fx:id="prenomTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" promptText="Prénom" />
                   <DatePicker fx:id="dateNaissanceDatePicker" promptText="Date de naissance" />
-                  <HBox prefHeight="111.0" prefWidth="300.0">
+                  <HBox alignment="CENTER" prefHeight="30.0" prefWidth="300.0">
                      <children>
-                        <VBox alignment="CENTER" prefHeight="111.0" prefWidth="145.0" spacing="20.0">
+                        <VBox alignment="CENTER" prefHeight="111.0" prefWidth="170.0" spacing="10.0">
                            <children>
                               <TextField fx:id="adresseTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="140.0" promptText="Adresse" />
                               <TextField fx:id="compAdresseTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="140.0" promptText="Complément d'adresse" />
                            </children>
                         </VBox>
-                        <VBox alignment="CENTER" prefHeight="111.0" prefWidth="145.0" spacing="20.0">
+                        <VBox alignment="CENTER" prefHeight="111.0" prefWidth="145.0" spacing="10.0">
                            <children>
                               <TextField fx:id="codePostalTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="100.0" promptText="Code postal" />
                               <TextField fx:id="villeTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="100.0" promptText="Ville" />
@@ -65,6 +65,13 @@
                         </VBox>
                      </children>
                   </HBox>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="274.0" prefWidth="300.0" spacing="10.0">
+               <children>
+                  <TextField fx:id="identifiantTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="160.0" promptText="Identifiant" />
+                  <PasswordField fx:id="passwordTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="160.0" promptText="Mot de passe" />
+                  <PasswordField fx:id="confirmationPasswordTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="160.0" promptText="Confirmer le mot de passe" />
                </children>
             </VBox>
          </children>
