@@ -12,6 +12,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.AssociationManagement.Controller.gestionMembres.GestionMembresController">
    <children>
@@ -45,17 +46,26 @@
       </VBox>
       <HBox alignment="CENTER_LEFT" layoutY="74.0" prefHeight="47.0" prefWidth="600.0" spacing="10.0">
          <children>
-            <ImageView fx:id="presidentImage" fitHeight="32.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="presidentImage" fitHeight="30.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@iconePresidentAsso.png" />
                </image>
             </ImageView>
-            <Label fx:id="presidentLabel" text="Président(e)" />
-            <Region prefHeight="47.0" prefWidth="306.0" />
+            <VBox alignment="CENTER" prefHeight="47.0" prefWidth="82.0" spacing="2.0">
+               <children>
+                  <Label fx:id="presidentLabel" text="Président(e)" textAlignment="CENTER" />
+                  <Label fx:id="presidentLabel1" text="Nom prénom" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Italic" size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <Region prefHeight="47.0" prefWidth="273.0" />
             <Button fx:id="elirePresidentButton" mnemonicParsing="false" onAction="#onButtonElirePresidentClick" text="Elire un nouveau président" />
          </children>
          <padding>
-            <Insets left="5.0" />
+            <Insets left="10.0" />
          </padding>
          <opaqueInsets>
             <Insets />
@@ -66,7 +76,7 @@
             <Button fx:id="listeMembresButton" mnemonicParsing="false" onAction="#onButtonListeMembresClick" text="Voir la liste des membres" />
          </children>
       </HBox>
-      <HBox alignment="CENTER" layoutY="244.0" prefHeight="156.0" prefWidth="600.0" spacing="80.0">
+      <HBox alignment="CENTER" layoutY="244.0" prefHeight="156.0" prefWidth="600.0" spacing="60.0">
          <children>
             <Button fx:id="inscriptionButton" mnemonicParsing="false" onAction="#onButtonInscriptionClick" text="Inscrire un membre" />
             <Button fx:id="desinscriptionButton" mnemonicParsing="false" onAction="#onButtonDesinscriptionClick" text="Désinscrire un membre" />

@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
@@ -39,6 +41,34 @@
             </Pane>
          </children>
       </VBox>
+      <HBox layoutY="74.0" prefHeight="274.0" prefWidth="600.0">
+         <children>
+            <VBox alignment="CENTER" prefHeight="274.0" prefWidth="300.0" />
+            <VBox alignment="CENTER" prefHeight="166.0" prefWidth="300.0" spacing="10.0">
+               <children>
+                  <TextField fx:id="nomTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" promptText="Nom" VBox.vgrow="NEVER" />
+                  <TextField fx:id="prenomTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" promptText="Prénom" />
+                  <DatePicker fx:id="dateNaissanceDatePicker" promptText="Date de naissance" />
+                  <HBox prefHeight="111.0" prefWidth="300.0">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="111.0" prefWidth="145.0" spacing="20.0">
+                           <children>
+                              <TextField fx:id="adresseTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="140.0" promptText="Adresse" />
+                              <TextField fx:id="compAdresseTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="140.0" promptText="Complément d'adresse" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="111.0" prefWidth="145.0" spacing="20.0">
+                           <children>
+                              <TextField fx:id="codePostalTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="100.0" promptText="Code postal" />
+                              <TextField fx:id="villeTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="100.0" promptText="Ville" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
       <HBox alignment="CENTER" layoutY="353.0" prefHeight="47.0" prefWidth="600.0" spacing="450.0">
          <children>
             <Button fx:id="annulerButton" mnemonicParsing="false" onAction="#onButtonAnnulerClick" text="Annuler" />
