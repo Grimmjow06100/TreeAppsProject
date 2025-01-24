@@ -25,19 +25,19 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
+        /*
         //affichage samy
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationMember/LoginScreen.fxml"));
         Scene scene = new Scene(loader.load());
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
-
+        */
 
 
         //affichage yoan
         Stage secondStage = new Stage(); // Nouveau Stage
         FXMLLoader accueilLoader = new FXMLLoader(getClass().getResource("/App/GreenServiceSpace/accueil-view.fxml"));
-
 
         Scene scene1 = new Scene(accueilLoader.load(), 800, 600);
         scene1.getStylesheets().add(
@@ -48,7 +48,7 @@ public class HelloApplication extends Application {
         secondStage.setScene(scene1);
         secondStage.show();
 
-
+        /*
         //affichage ny
         Stage accueilStage = new Stage();
         FXMLLoader pageAccueilLoader = new FXMLLoader(getClass().getResource("/App/AssociationManagement/PageAccueil/PageAccueil.fxml"));
@@ -57,7 +57,7 @@ public class HelloApplication extends Application {
         accueilStage.setTitle("Gestion de l'association");
         accueilStage.setScene(accueilScene);
         accueilStage.show();
-
+*/
 
     }
     public static void MakeJsonFiles() {
