@@ -1,9 +1,13 @@
 package App.GreenSpaceService;
 
+import Data.JsonManager;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
-public class ThreeOptionController {
+import java.util.Objects;
+
+public class TreeOptionController {
 
     @FXML
     private Label idLabel;
@@ -27,9 +31,17 @@ public class ThreeOptionController {
     private Label circonferenceLabel;
     @FXML
     private Label developpementStageLabel;
+    @FXML
+    private Button deleteButton;
+    @FXML
+    private Button saveButton;
+
+    private Tree tree; // L'arbre courant
+    private TreeListController parentController; // Référence au contrôleur principal
 
     // Méthode pour définir les informations d'un arbre
     public void setTreeInfo(Tree tree) {
+        this.tree = tree;
         idLabel.setText("ID : " + tree.getId());
         nomLabel.setText("Nom : " + tree.getNom());
         genreLabel.setText("Genre : " + tree.getGenre());
@@ -41,5 +53,30 @@ public class ThreeOptionController {
         hauteurLabel.setText("Hauteur : " + tree.getHauteur());
         circonferenceLabel.setText("Circonférence : " + tree.getCirconference());
         developpementStageLabel.setText("Stade de développement : " + tree.getDeveloppementStage());
+        if(Objects.equals(tree.getRemarquable(), "OUI")){
+            deleteButton.setDisable(true);
+            saveButton.setDisable(true);
+        }
+    }
+
+    // Méthode pour recevoir la référence au contrôleur parent
+    public void setParentController(TreeListController parentController) {
+        this.parentController = parentController;
+    }
+
+    @FXML
+    public void onDeleteButtonClick() {
+        if (tree != null && parentController != null) {
+            // Supprimer l'arbre du fichier JSON
+            boolean isRemoved = JsonManager.INSTANCE.removeNode("Arbres_JSON_test.json", tree.getId());
+
+            if (isRemoved) {
+                // Supprimer l'arbre de la table et fermer la fenêtre
+                parentController.removeTree(tree);
+                idLabel.getScene().getWindow().hide();
+            } else {
+                System.out.println("❌ Impossible de supprimer l'arbre du fichier JSON.");
+            }
+        }
     }
 }

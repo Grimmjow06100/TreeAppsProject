@@ -19,10 +19,9 @@ import javafx.util.Callback;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
-public class TreeListController2 {
+public class TreeListController {
 
     @FXML
     private TableView<Tree> treeTableView;
@@ -45,7 +44,7 @@ public class TreeListController2 {
     @FXML
     private TableColumn<Tree, String> colLieu;
 
-    ObservableList<Tree> treeList = FXCollections.observableArrayList(); // Liste observable pour le TableView
+    ObservableList<Tree> treeList = FXCollections.observableArrayList();
 
     @FXML
     public void OnActionButtonClicked5(ActionEvent actionEvent) {
@@ -75,7 +74,6 @@ public class TreeListController2 {
         colLieu.setCellValueFactory(new PropertyValueFactory<>("lieu"));
 
         addButtonToTable();
-        // Charger les données JSON et remplir le tableau
         loadTreeData();
         treeTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         treeTableView.setSelectionModel(null);
@@ -83,9 +81,7 @@ public class TreeListController2 {
 
     public void loadTreeData() {
         JsonManager jsonManager = JsonManager.INSTANCE;
-
-        // Lecture des données JSON
-        List<JsonNode> arbreList = jsonManager.getNodeWithoutFilter("Arbres_JSON.json");
+        List<JsonNode> arbreList = jsonManager.getNodeWithoutFilter("Arbres_JSON_test.json");
 
         // Convertir les données JSON en objets Tree et les ajouter à la liste
         arbreList.forEach((JsonNode node) -> {
@@ -101,7 +97,6 @@ public class TreeListController2 {
             String circonference = node.get("circonference").asText();
             String developpementStage = node.get("stade_de_developpement").asText();
 
-
             treeList.add(new Tree(id, nom, genre, espece, lieu, remarquable,latitude,
                     longitude,hauteur,circonference,developpementStage));
         });
@@ -110,6 +105,10 @@ public class TreeListController2 {
         treeTableView.setItems(treeList);
     }
 
+    public void removeTree(Tree tree) {
+        treeList.remove(tree); // Supprime de la liste observable
+        treeTableView.setItems(treeList); // Met à jour la TableView
+    }
 
     private void addButtonToTable() {
         // Ajout de la colonne pour les boutons
@@ -134,10 +133,11 @@ public class TreeListController2 {
                                 Parent root = TreeLoader.load();
 
                                 // Récupérer le contrôleur
-                                ThreeOptionController controller = TreeLoader.getController();
+                                TreeOptionController controller = TreeLoader.getController();
 
                                 // Passer les informations de l'arbre au contrôleur
                                 controller.setTreeInfo(tree);
+                                controller.setParentController(TreeListController.this); // Passer la référence au contrôleur parent
 
                                 // Configurer et afficher la scène
                                 Scene scene1 = new Scene(root);
