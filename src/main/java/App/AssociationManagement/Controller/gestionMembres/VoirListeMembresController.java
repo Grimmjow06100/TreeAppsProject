@@ -2,6 +2,7 @@ package App.AssociationManagement.Controller.gestionMembres;
 
 import Data.JsonManager;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -85,24 +86,19 @@ public class VoirListeMembresController {
 
     @FXML
     public void initialize() {
-        JsonManager jsonManager = JsonManager.INSTANCE;
         memberList = FXCollections.observableArrayList();
 
-        List<JsonNode> membreList = jsonManager.getNodeList("Members_JSON.json", List.of());
-        System.out.println("Nombre de membres dans la liste : " + memberList.size());
-        if (membreList.isEmpty()) {
-            System.out.println("Aucun membre trouvé. Vérifie le chemin du fichier JSON.");
-        } else {
-            System.out.println(membreList.size() + " membres chargés.");
+        Optional<JsonNode> memberRoot = JsonManager.getRootNode("Members_JSON.json");
+        if(memberRoot.isPresent()){
+            ArrayNode membreArray = (ArrayNode) memberRoot.get();
+            membreArray.forEach((JsonNode node) -> {
+                String identifiant = node.get("identifiant").asText();
+                String nom = node.get("nom").asText();
+                String prenom = node.get("prenom").asText();
+                String age = node.get("age").asText();
+                memberList.add("Identifiant: " + identifiant + " Nom: " + prenom + " " + nom + " Âge: " + age);
+            });
         }
-        membreList.forEach((JsonNode node) -> {
-            String identifiant = node.get("identifiant").asText();
-            String nom = node.get("nom").asText();
-            String prenom = node.get("prenom").asText();
-            String age = node.get("age").asText();
-
-            memberList.add("Identifiant: " + identifiant + " Nom: " + prenom + " " + nom + " Âge: " + age);
-        });
 
         FilteredList<String> filteredList = new FilteredList<>(memberList, _ -> true);
         nomMembreTextField.textProperty().addListener((_, _, newValue) -> {

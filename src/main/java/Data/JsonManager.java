@@ -107,7 +107,9 @@ public enum JsonManager {
             }
 
             for (JsonNode node : rootNode) {
-                if (node.has(entry.getKey()) && node.get(entry.getKey()).asText().equals(entry.getValue().toString())) {
+                JsonNode nodeValue=objectMapper.valueToTree(entry.getValue());
+                String key=entry.getKey();
+                if (node.has(key) && node.get(key).equals(nodeValue)) {
                     T obj = objectMapper.treeToValue(node, clazz);
                     System.out.println("✅ Objet trouvé et converti avec succès !");
                     return Optional.of(obj);
@@ -125,7 +127,7 @@ public enum JsonManager {
 
 
     // ✅ Recherche d'objets dans un fichier JSON par cléUnique/valeur
-    public static synchronized List<JsonNode> getNodeList(String fileName, List<Map.Entry<String,String>>entries) {
+    public static synchronized List<JsonNode> getNodeList(String fileName, List<Map.Entry<String,Object>>entries) {
         File file = new File(BASE_URL + "/" + fileName);
         if (!file.exists()) {
             System.out.println("❌ Fichier non trouvé : " + fileName);
@@ -141,8 +143,10 @@ public enum JsonManager {
 
             List<JsonNode> results = new ArrayList<>();
             for (JsonNode node : rootNode) {
-                for(Map.Entry<String,String>entry:entries){
-                    if (node.has(entry.getKey()) && node.get(entry.getKey()).asText().equals(entry.getValue())) {
+                for(Map.Entry<String,Object>entry:entries){
+                    JsonNode nodeValue=objectMapper.valueToTree(entry.getValue());
+                    String key=entry.getKey();
+                    if (node.has(key) && node.get(key).equals(nodeValue)) {
                         results.add(node);
                     }
                 }
