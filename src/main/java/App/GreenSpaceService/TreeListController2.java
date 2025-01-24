@@ -45,7 +45,7 @@ public class TreeListController2 {
     @FXML
     private TableColumn<Tree, String> colLieu;
 
-    private ObservableList<Tree> treeList = FXCollections.observableArrayList(); // Liste observable pour le TableView
+    ObservableList<Tree> treeList = FXCollections.observableArrayList(); // Liste observable pour le TableView
 
     @FXML
     public void OnActionButtonClicked5(ActionEvent actionEvent) {
@@ -78,7 +78,7 @@ public class TreeListController2 {
         // Charger les données JSON et remplir le tableau
         loadTreeData();
         treeTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-
+        treeTableView.setSelectionModel(null);
     }
 
     public void loadTreeData() {
@@ -95,14 +95,20 @@ public class TreeListController2 {
             String espece = node.get("espece").asText();
             String lieu = node.get("lieu").asText();
             String remarquable = node.get("remarquable").asText();
+            String latitude = node.get("latitude").asText();
+            String longitude = node.get("longitude").asText();
+            String hauteur = node.get("hauteur").asText();
+            String circonference = node.get("circonference").asText();
+            String developpementStage = node.get("stade_de_developpement").asText();
 
-            treeList.add(new Tree(id, nom, genre, espece, lieu,remarquable));
+
+            treeList.add(new Tree(id, nom, genre, espece, lieu, remarquable,latitude,
+                    longitude,hauteur,circonference,developpementStage));
         });
 
         // Ajouter les données au TableView
         treeTableView.setItems(treeList);
     }
-
 
 
     private void addButtonToTable() {
@@ -114,14 +120,33 @@ public class TreeListController2 {
 
                     private final Button btn = new Button("infos");
 
-
                     {
                         btn.setOnAction(event -> {
                             // Obtenir l'arbre correspondant à cette ligne
                             Tree tree = getTableView().getItems().get(getIndex());
-                            if(Objects.equals(tree.getRemarquable(), "NON")) { //filtre pour empecher la suppression
-                                // Supprimer l'arbre de la liste
-                                treeList.remove(tree);
+
+                            // Créer une nouvelle fenêtre pour afficher les infos de l'arbre
+                            try {
+                                Stage secondStage = new Stage(); // Nouveau Stage
+                                FXMLLoader TreeLoader = new FXMLLoader(getClass().getResource("/App/GreenServiceSpace/three-option-view.fxml"));
+
+                                // Charger la vue
+                                Parent root = TreeLoader.load();
+
+                                // Récupérer le contrôleur
+                                ThreeOptionController controller = TreeLoader.getController();
+
+                                // Passer les informations de l'arbre au contrôleur
+                                controller.setTreeInfo(tree);
+
+                                // Configurer et afficher la scène
+                                Scene scene1 = new Scene(root);
+                                secondStage.setTitle("Infos arbre");
+                                secondStage.setScene(scene1);
+                                secondStage.show();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                                // Ajouter un message d'erreur utilisateur ou un log si nécessaire
                             }
                         });
 

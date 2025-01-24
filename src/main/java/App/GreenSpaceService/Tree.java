@@ -7,15 +7,26 @@ public class Tree {
     private String espece;
     private String lieu;
     private String remarquable;
+    private String latitude;
+    private String longitude;
+    private String circonference;
+    private String hauteur;
+    private String developpementStage;
 
     // Constructeur
-    public Tree(String id, String nom, String genre, String espece, String lieu, String remarquable) {
+    public Tree(String id, String nom, String genre, String espece, String lieu, String remarquable
+    , String lattitude, String longitude, String circonference, String hauteur, String developpementStage) {
         this.id = id;
         this.nom = nom;
         this.genre = genre;
         this.espece = espece;
         this.lieu = lieu;
         this.remarquable = remarquable;
+        this.latitude = lattitude;
+        this.longitude = longitude;
+        this.circonference = circonference;
+        this.hauteur = hauteur;
+        this.developpementStage = developpementStage;
     }
 
     // Getters et Setters
@@ -61,5 +72,23 @@ public class Tree {
 
     public String getRemarquable() {
         return remarquable;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public String getCirconference() {
+        return circonference;
+    }
+    public String getHauteur() {
+        return hauteur;
+    }
+    public String getDeveloppementStage() {
+        return developpementStage;
     }
 }

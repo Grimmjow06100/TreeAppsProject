@@ -18,7 +18,7 @@
       <HBox spacing="20.0">
          <children>
                 <Button id="returnButton1" mnemonicParsing="false" onAction="#OnActionButtonClicked5" prefHeight="55.0" prefWidth="123.0" stylesheets="@styles.css" text="Retour" />
-                <TableView fx:id="treeTableView" prefHeight="683.0" prefWidth="600.0">
+                <TableView fx:id="treeTableView" prefHeight="683.0" prefWidth="600.0" stylesheets="@TableStyle.css">
                     <columns>
                         <TableColumn fx:id="colId" prefWidth="60.000001311302185" styleClass="column-header" text="ID" />
                         <TableColumn fx:id="colNom" prefWidth="74.66667556762695" styleClass="column-header" text="Nom" />
