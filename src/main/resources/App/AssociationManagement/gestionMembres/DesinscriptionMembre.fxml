@@ -5,10 +5,11 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.AssociationManagement.Controller.finExerciceBudgetaire.DemandesSubventionsDonsController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.AssociationManagement.Controller.gestionMembres.DesinscriptionMembreController">
    <children>
       <VBox fx:id="vbox1" layoutY="1.0">
          <children>
@@ -33,10 +34,16 @@
             <Pane fx:id="pane1" prefHeight="47.0" prefWidth="600.0">
                <children>
                   <Button fx:id="retourButtonCotisations" mnemonicParsing="false" onAction="#onButtonRetourClick" text="Retour" />
-                  <Label fx:id="titreLabelCotisations" layoutX="143.0" layoutY="25.0" text="Demandes des subventions/dons et gestion de la trésorerie" />
+                  <Label fx:id="titreLabelCotisations" layoutX="225.0" layoutY="25.0" text="Désinscription d'un membre" />
                </children>
             </Pane>
          </children>
       </VBox>
+      <HBox alignment="CENTER" layoutY="353.0" prefHeight="47.0" prefWidth="600.0" spacing="450.0">
+         <children>
+            <Button fx:id="annulerButton" mnemonicParsing="false" onAction="#onButtonAnnulerClick" text="Annuler" />
+            <Button fx:id="validerButton" mnemonicParsing="false" onAction="#onButtonValiderClick" text="Valider" />
+         </children>
+      </HBox>
    </children>
 </Pane>

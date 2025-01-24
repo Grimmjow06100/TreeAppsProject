@@ -1,4 +1,4 @@
-package App.AssociationManagement.Controller.FinExerciceBudgetaire;
+package App.AssociationManagement.Controller.finExerciceBudgetaire;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class RevocationMembresController {
+public class ConstitutionTransmissionListeArbresRemarquablesController {
 
     @FXML
     protected void onButtonRetourClick(ActionEvent event){

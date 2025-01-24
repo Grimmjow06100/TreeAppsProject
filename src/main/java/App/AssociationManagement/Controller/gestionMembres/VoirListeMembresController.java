@@ -1,4 +1,4 @@
-package App.AssociationManagement.Controller.FinExerciceBudgetaire;
+package App.AssociationManagement.Controller.gestionMembres;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,13 +9,13 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class RapportActiviteController {
+public class VoirListeMembresController {
 
     @FXML
-    protected void onButtonRetourClick(ActionEvent event){
+    protected void onButtonRetourClick(ActionEvent event) {
         try {
             // Charger la nouvelle vue
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationManagement/finExerciceBudgetaire/AccueilFinExerciceBudgetaire.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationManagement/gestionMembres/GestionMembres.fxml"));
             Parent membreView = loader.load();
 
             // Obtenir la scène actuelle à partir de l'événement
@@ -24,7 +24,7 @@ public class RapportActiviteController {
             // Définir la nouvelle scène
             stage.setScene(new Scene(membreView, 600, 400));
             //stage.getScene().getStylesheets().add(Objects.requireNonNull(getClass().getResource("/App/AssociationManagement/styles.css")).toExternalForm());
-            stage.setTitle("Exercice Budgétaire");
+            stage.setTitle("Gestion des membres de l'association");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

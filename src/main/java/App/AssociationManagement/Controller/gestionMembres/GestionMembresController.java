@@ -1,4 +1,4 @@
-package App.AssociationManagement.Controller.FinExerciceBudgetaire;
+package App.AssociationManagement.Controller.gestionMembres;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class AccueilFinExerciceBudgetaireController {
+public class GestionMembresController {
 
     @FXML
     protected void onButtonRetourClick(ActionEvent event){
@@ -32,19 +32,19 @@ public class AccueilFinExerciceBudgetaireController {
     }
 
     @FXML
-    protected void onButtonRevocationClick(ActionEvent event){
+    protected void onButtonListeMembresClick(ActionEvent event) {
         try {
             // Charger la nouvelle vue
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationManagement/finExerciceBudgetaire/RevocationMembres.fxml"));
-            Parent arbreView = loader.load();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationManagement/gestionMembres/ListeMembres.fxml"));
+            Parent membreView = loader.load();
 
             // Obtenir la scène actuelle à partir de l'événement
             Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
 
             // Définir la nouvelle scène
-            stage.setScene(new Scene(arbreView,600,400));
+            stage.setScene(new Scene(membreView, 600, 400));
             //stage.getScene().getStylesheets().add(Objects.requireNonNull(getClass().getResource("/App/AssociationManagement/styles.css")).toExternalForm());
-            stage.setTitle("Révocation des membres");
+            stage.setTitle("Liste des membres de l'association");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -52,19 +52,19 @@ public class AccueilFinExerciceBudgetaireController {
     }
 
     @FXML
-    protected void onButtonTransmissionListeArbresRemarquablesClick(ActionEvent event){
+    protected void onButtonInscriptionClick(ActionEvent event) {
         try {
             // Charger la nouvelle vue
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationManagement/finExerciceBudgetaire/RevocationMembres.fxml"));
-            Parent arbreView = loader.load();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationManagement/gestionMembres/InscriptionMembre.fxml"));
+            Parent membreView = loader.load();
 
             // Obtenir la scène actuelle à partir de l'événement
             Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
 
             // Définir la nouvelle scène
-            stage.setScene(new Scene(arbreView,600,400));
+            stage.setScene(new Scene(membreView, 600, 400));
             //stage.getScene().getStylesheets().add(Objects.requireNonNull(getClass().getResource("/App/AssociationManagement/styles.css")).toExternalForm());
-            stage.setTitle("Constitution et transmission de la liste des arbres remarquables");
+            stage.setTitle("Inscrire un membre");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -72,19 +72,19 @@ public class AccueilFinExerciceBudgetaireController {
     }
 
     @FXML
-    protected void onButtonRapportActiviteButtonClick(ActionEvent event){
+    protected void onButtonDesinscriptionClick(ActionEvent event) {
         try {
             // Charger la nouvelle vue
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationManagement/finExerciceBudgetaire/RevocationMembres.fxml"));
-            Parent arbreView = loader.load();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationManagement/gestionMembres/DesinscriptionMembre.fxml"));
+            Parent membreView = loader.load();
 
             // Obtenir la scène actuelle à partir de l'événement
             Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
 
             // Définir la nouvelle scène
-            stage.setScene(new Scene(arbreView,600,400));
+            stage.setScene(new Scene(membreView, 600, 400));
             //stage.getScene().getStylesheets().add(Objects.requireNonNull(getClass().getResource("/App/AssociationManagement/styles.css")).toExternalForm());
-            stage.setTitle("Rapport d'activité");
+            stage.setTitle("Inscrire un membre");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -92,19 +92,19 @@ public class AccueilFinExerciceBudgetaireController {
     }
 
     @FXML
-    protected void onButtonDemandesSubventionsDonsClick(ActionEvent event){
+    protected void onButtonRadiationClick(ActionEvent event) {
         try {
             // Charger la nouvelle vue
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationManagement/finExerciceBudgetaire/RevocationMembres.fxml"));
-            Parent arbreView = loader.load();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationManagement/gestionMembres/RadiationMembre.fxml"));
+            Parent membreView = loader.load();
 
             // Obtenir la scène actuelle à partir de l'événement
             Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
 
             // Définir la nouvelle scène
-            stage.setScene(new Scene(arbreView,600,400));
+            stage.setScene(new Scene(membreView, 600, 400));
             //stage.getScene().getStylesheets().add(Objects.requireNonNull(getClass().getResource("/App/AssociationManagement/styles.css")).toExternalForm());
-            stage.setTitle("Demandes de subventions/dons et gestion de la trésorerie");
+            stage.setTitle("Radiation d'un membre");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -112,7 +112,22 @@ public class AccueilFinExerciceBudgetaireController {
     }
 
     @FXML
-    protected void onButtonFinExerciceBudgetaireTotaleClick(ActionEvent event){
-        //TODO : implémenter le code pour faire les 4 actions précédentes en un seul clic
+    protected void onButtonElirePresidentClick(ActionEvent event) {
+        try {
+            // Charger la nouvelle vue
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationManagement/gestionMembres/ElectionPresident.fxml"));
+            Parent membreView = loader.load();
+
+            // Obtenir la scène actuelle à partir de l'événement
+            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+
+            // Définir la nouvelle scène
+            stage.setScene(new Scene(membreView, 600, 400));
+            //stage.getScene().getStylesheets().add(Objects.requireNonNull(getClass().getResource("/App/AssociationManagement/styles.css")).toExternalForm());
+            stage.setTitle("Elire un nouveau président");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

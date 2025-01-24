@@ -1,4 +1,4 @@
-package App.AssociationManagement.Controller.FinExerciceBudgetaire;
+package App.AssociationManagement.Controller.finExerciceBudgetaire;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
