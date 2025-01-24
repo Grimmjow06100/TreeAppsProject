@@ -38,6 +38,40 @@ public enum JsonManager {
         }
     }
 
+    // Méthode pour supprimer un nœud d'un fichier JSON
+    public boolean removeNode(String fileName, String idBase) {
+        File file = new File(BASE_URL + "/" + fileName);
+        if (!file.exists()) {
+            System.out.println("❌ Fichier non trouvé : " + fileName);
+            return false;
+        }
+
+        try {
+            JsonNode rootNode = objectMapper.readTree(file);
+            if (rootNode.isArray()) {
+                ArrayNode arrayNode = (ArrayNode) rootNode;
+
+                // Rechercher et supprimer l'objet avec l'ID donné
+                for (int i = 0; i < arrayNode.size(); i++) {
+                    JsonNode node = arrayNode.get(i);
+                    if (node.has("idBase") && node.get("idBase").asText().equals(idBase)) {
+                        arrayNode.remove(i);
+
+                        // Écrire le JSON modifié dans le fichier
+                        objectMapper.writeValue(file, arrayNode);
+                        System.out.println("✅ Nœud supprimé avec succès !");
+                        return true;
+                    }
+                }
+            } else {
+                System.out.println("❌ Le fichier JSON doit contenir un tableau.");
+            }
+        } catch (IOException e) {
+            System.out.println("❌ Erreur lors de la modification du fichier JSON : " + e.getMessage());
+        }
+        return false;
+    }
+
     // ✅ Ajout d'un ou plusieurs objets dans un fichier JSON
     public static synchronized void insertInJson(String fileName, List<Object> newData, String keyField) {
         File file = new File(BASE_URL + "/" + fileName);
@@ -340,6 +374,37 @@ public enum JsonManager {
         } else {
             System.out.println("❌ Impossible de supprimer le fichier.");
         }
+    }
+
+    public boolean updateTreeRemarkableStatus(String fileName, String idBase, String newStatus) {
+        File file = new File(BASE_URL + "/" + fileName);
+        if (!file.exists()) {
+            System.out.println("❌ Fichier non trouvé : " + fileName);
+            return false;
+        }
+
+        try {
+            JsonNode rootNode = objectMapper.readTree(file);
+            if (rootNode.isArray()) {
+                ArrayNode arrayNode = (ArrayNode) rootNode;
+
+                // Rechercher l'arbre avec l'ID donné
+                for (JsonNode node : arrayNode) {
+                    if (node.has("idBase") && node.get("idBase").asText().equals(idBase)) {
+                        ((ObjectNode) node).put("remarquable", newStatus);
+                        // Écrire les modifications dans le fichier
+                        objectMapper.writeValue(file, arrayNode);
+                        System.out.println("✅ Arbre mis à jour dans le fichier JSON !");
+                        return true;
+                    }
+                }
+            } else {
+                System.out.println("❌ Le fichier JSON doit contenir un tableau.");
+            }
+        } catch (IOException e) {
+            System.out.println("❌ Erreur lors de la mise à jour du fichier JSON : " + e.getMessage());
+        }
+        return false;
     }
 
 }
