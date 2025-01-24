@@ -89,6 +89,12 @@ public class VoirListeMembresController {
         memberList = FXCollections.observableArrayList();
 
         List<JsonNode> membreList = jsonManager.getNodeList("Members_JSON.json", List.of());
+        System.out.println("Nombre de membres dans la liste : " + memberList.size());
+        if (membreList.isEmpty()) {
+            System.out.println("Aucun membre trouvé. Vérifie le chemin du fichier JSON.");
+        } else {
+            System.out.println(membreList.size() + " membres chargés.");
+        }
         membreList.forEach((JsonNode node) -> {
             String identifiant = node.get("identifiant").asText();
             String nom = node.get("nom").asText();
