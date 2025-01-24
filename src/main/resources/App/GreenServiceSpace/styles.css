@@ -17,6 +17,12 @@
     -fx-padding: 15;
 }
 
+.table-view .column-header {
+    -fx-font-size: 10px; /* Ajustez la taille de la police ici */
+    -fx-font-weight: normal; /* Optionnel : Définir le poids de la police (normal, bold, etc.) */
+    -fx-text-fill: black; /* Optionnel : Couleur du texte */
+}
+
 .header-label {
     -fx-font-size: 32px;
     -fx-font-weight: bold;

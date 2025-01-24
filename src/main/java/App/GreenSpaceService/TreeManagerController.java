@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
-public class ThreeListController {
+public class TreeManagerController {
 
     @FXML
     void OnButtonReturnClickArbre(ActionEvent event){
@@ -33,4 +33,27 @@ public class ThreeListController {
             e.printStackTrace(); // Log de l'exception pour diagnostiquer les erreurs
         }
     }
+
+    @FXML
+    void OnButtonThreeListClick(ActionEvent event){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/GreenServiceSpace/three-list-view.fxml"));
+            Parent secondView = loader.load();
+
+            // Obtenir le Stage actuel
+            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+
+            // Remplacer la scène actuelle par celle de la deuxième vue
+            stage.setScene(new Scene(secondView, 800, 600));
+            //stage.getScene().getStylesheets().add(
+                  //  Objects.requireNonNull(getClass().getResource("/App/GreenServiceSpace/styles.css")).toExternalForm()
+           // );
+            stage.setTitle("Liste des arbres");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace(); // Log de l'exception pour diagnostiquer les erreurs
+        }
+    }
+
+
 }

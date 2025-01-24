@@ -38,7 +38,7 @@ public class GreenAccueilController {
     protected void onButtonArbreClick(ActionEvent event) {
         try {
             // Charger la nouvelle vue
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/GreenServiceSpace/three-list-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/GreenServiceSpace/three-manager-view.fxml"));
             Parent arbreView = loader.load();
 
             // Obtenir la scène actuelle à partir de l'événement
