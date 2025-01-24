@@ -79,4 +79,15 @@ public class TreeOptionController {
             }
         }
     }
+
+    @FXML
+    public void onTransformToRemarkableButtonClick() {
+        if (tree != null && parentController != null) {
+            // Mettre à jour l'arbre comme remarquable
+            parentController.updateTreeRemarkableStatus(tree, "OUI");
+
+            // Fermer la fenêtre après la mise à jour
+            idLabel.getScene().getWindow().hide();
+        }
+    }
 }

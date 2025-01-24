@@ -91,4 +91,8 @@ public class Tree {
     public String getDeveloppementStage() {
         return developpementStage;
     }
+
+    public void setRemarquable(String remarquable) {
+        this.remarquable = remarquable;
+    }
 }

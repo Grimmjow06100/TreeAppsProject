@@ -169,4 +169,20 @@ public class TreeListController {
 
         colActions.setCellFactory(cellFactory);
     }
+
+    public void updateTreeRemarkableStatus(Tree tree, String newStatus) {
+        // Mettre à jour l'arbre dans le fichier JSON
+        boolean isUpdated = JsonManager.INSTANCE.updateTreeRemarkableStatus("Arbres_JSON_test.json", tree.getId(), newStatus);
+
+        if (isUpdated) {
+            // Mettre à jour l'objet Tree dans la liste observable
+            tree.setRemarquable(newStatus);
+
+            // Rafraîchir la TableView
+            treeTableView.refresh();
+            System.out.println("✅ Arbre mis à jour : " + tree.getId() + " est maintenant " + newStatus);
+        } else {
+            System.out.println("❌ Impossible de mettre à jour l'arbre dans le fichier JSON.");
+        }
+    }
 }

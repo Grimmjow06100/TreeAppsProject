@@ -30,7 +30,7 @@
                   <VBox alignment="CENTER" spacing="20.0">
                      <children>
                         <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#onDeleteButtonClick" prefHeight="100.0" prefWidth="176.0" style="-fx-background-color: rgba(246, 139, 87,0.8);" stylesheets="@styles.css" text="Supprimer l'arbre" />
-                        <Button fx:id="saveButton" mnemonicParsing="false" prefHeight="100.0" prefWidth="173.0" style="-fx-background-color: rgba(46, 139, 87,0.8); -fx-wrap-text: true;" stylesheets="@styles.css" text="Arbre remarquable" textAlignment="CENTER" />
+                        <Button fx:id="saveButton" mnemonicParsing="false" onAction="#onTransformToRemarkableButtonClick" prefHeight="100.0" prefWidth="173.0" style="-fx-background-color: rgba(46, 139, 87,0.8); -fx-wrap-text: true;" stylesheets="@styles.css" text="Arbre remarquable" textAlignment="CENTER" />
                      </children>
                   </VBox>
                </children>
