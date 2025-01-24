@@ -85,7 +85,7 @@ public class TreeListController2 {
         JsonManager jsonManager = JsonManager.INSTANCE;
 
         // Lecture des données JSON
-        List<JsonNode> arbreList = jsonManager.getNodeList("Arbres_JSON.json", List.of(Map.entry("remarquable", "NON")));
+        List<JsonNode> arbreList = jsonManager.getNodeWithoutFilter("Arbres_JSON.json");
 
         // Convertir les données JSON en objets Tree et les ajouter à la liste
         arbreList.forEach((JsonNode node) -> {
@@ -94,8 +94,9 @@ public class TreeListController2 {
             String genre = node.get("genre").asText();
             String espece = node.get("espece").asText();
             String lieu = node.get("lieu").asText();
+            String remarquable = node.get("remarquable").asText();
 
-            treeList.add(new Tree(id, nom, genre, espece, lieu));
+            treeList.add(new Tree(id, nom, genre, espece, lieu,remarquable));
         });
 
         // Ajouter les données au TableView
@@ -111,18 +112,21 @@ public class TreeListController2 {
             public TableCell<Tree, Void> call(final TableColumn<Tree, Void> param) {
                 return new TableCell<>() {
 
-                    private final Button btn = new Button("Supprimer");
+                    private final Button btn = new Button("infos");
+
 
                     {
                         btn.setOnAction(event -> {
                             // Obtenir l'arbre correspondant à cette ligne
                             Tree tree = getTableView().getItems().get(getIndex());
-                            // Supprimer l'arbre de la liste
-                            treeList.remove(tree);
+                            if(Objects.equals(tree.getRemarquable(), "NON")) { //filtre pour empecher la suppression
+                                // Supprimer l'arbre de la liste
+                                treeList.remove(tree);
+                            }
                         });
 
                         // Ajout de style CSS au bouton
-                        btn.setStyle("-fx-background-color: red; -fx-text-fill: white; -fx-border-radius: 5; -fx-background-radius: 5;");
+                        btn.setStyle("-fx-background-color: rgba(46, 139, 87,0.5); -fx-text-fill: white; -fx-border-radius: 5; -fx-background-radius: 5;");
                     }
 
                     @Override

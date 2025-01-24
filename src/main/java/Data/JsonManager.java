@@ -188,6 +188,36 @@ public enum JsonManager {
         return Optional.empty();
     }
 
+    //Renvoie dans une liste le noeud sans appliquer de clé
+    public synchronized List<JsonNode> getNodeWithoutFilter(String fileName) {
+        File file = new File(BASE_URL + "/" + fileName);
+        List<JsonNode> resultList = new ArrayList<>();
+
+        if (!file.exists()) {
+            System.out.println("❌ Fichier non trouvé : " + fileName);
+            return resultList; // Retourne une liste vide
+        }
+
+        try {
+            // Lire le fichier JSON
+            JsonNode rootNode = objectMapper.readTree(file);
+
+            // Vérifier si le fichier JSON contient un tableau
+            if (!rootNode.isArray()) {
+                System.out.println("❌ Erreur : Le fichier JSON doit contenir un tableau.");
+                return resultList; // Retourne une liste vide
+            }
+
+            // Parcourir et ajouter chaque nœud à la liste
+            rootNode.forEach(resultList::add);
+
+        } catch (IOException e) {
+            System.out.println("❌ Erreur de lecture JSON : " + e.getMessage());
+        }
+
+        return resultList; // Retourne la liste des nœuds
+    }
+
     public static Optional<JsonNode> getNodeAllMatch(String fileName,List<Map.Entry<String,Object>>entries){
         File file = new File(BASE_URL + "/" + fileName);
         if (!file.exists()) {

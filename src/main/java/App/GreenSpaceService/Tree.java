@@ -6,14 +6,16 @@ public class Tree {
     private String genre;
     private String espece;
     private String lieu;
+    private String remarquable;
 
     // Constructeur
-    public Tree(String id, String nom, String genre, String espece, String lieu) {
+    public Tree(String id, String nom, String genre, String espece, String lieu, String remarquable) {
         this.id = id;
         this.nom = nom;
         this.genre = genre;
         this.espece = espece;
         this.lieu = lieu;
+        this.remarquable = remarquable;
     }
 
     // Getters et Setters
@@ -55,5 +57,9 @@ public class Tree {
 
     public void setLieu(String lieu) {
         this.lieu = lieu;
+    }
+
+    public String getRemarquable() {
+        return remarquable;
     }
 }

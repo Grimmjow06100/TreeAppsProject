@@ -20,12 +20,12 @@
                 <Button id="returnButton1" mnemonicParsing="false" onAction="#OnActionButtonClicked5" prefHeight="55.0" prefWidth="123.0" stylesheets="@styles.css" text="Retour" />
                 <TableView fx:id="treeTableView" prefHeight="683.0" prefWidth="600.0">
                     <columns>
-                        <TableColumn fx:id="colId" prefWidth="73.3333410024643" styleClass="column-header" text="ID" />
-                        <TableColumn fx:id="colNom" prefWidth="123.33333587646484" styleClass="column-header" text="Nom" />
-                        <TableColumn fx:id="colGenre" prefWidth="149.9999542236328" styleClass="column-header" text="Genre" />
-                        <TableColumn fx:id="colEspece" prefWidth="118.66665649414062" styleClass="column-header" text="Espèce" />
-                        <TableColumn fx:id="colLieu" prefWidth="136.66671752929688" styleClass="column-header" text="Lieu" />
-                        <TableColumn fx:id="colActions" prefWidth="150" styleClass="column-header" text="Actions" />
+                        <TableColumn fx:id="colId" prefWidth="60.000001311302185" styleClass="column-header" text="ID" />
+                        <TableColumn fx:id="colNom" prefWidth="74.66667556762695" styleClass="column-header" text="Nom" />
+                        <TableColumn fx:id="colGenre" prefWidth="91.33334350585938" styleClass="column-header" text="Genre" />
+                        <TableColumn fx:id="colEspece" prefWidth="114.00004577636719" styleClass="column-header" text="Espèce" />
+                        <TableColumn fx:id="colLieu" prefWidth="184.6666259765625" styleClass="column-header" text="Lieu" />
+                        <TableColumn fx:id="colActions" prefWidth="74.66668701171875" styleClass="column-header" text="Actions" />
                     </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
