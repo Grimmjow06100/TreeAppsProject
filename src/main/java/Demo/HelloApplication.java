@@ -1,10 +1,8 @@
 package Demo;
 
 import App.AssociationManagement.Association;
-import App.AssociationManagement.Controller.PageAccueilController;
 import App.AssociationManagement.Visit;
 import App.AssociationMember.Member;
-import javafx.scene.Parent;
 import others.*;
 import Data.JsonManager;
 import javafx.application.Application;
@@ -120,7 +118,6 @@ public class HelloApplication extends Application {
 
 
     public static void main(String[] args) throws IOException {
-        MakeJsonFiles();
         launch();
 
     }

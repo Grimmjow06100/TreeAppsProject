@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.AssociationManagement.Controller.gestionMembres.GestionMembresController">
+   <children>
+      <VBox fx:id="vbox1" layoutY="1.0">
+         <children>
+            <MenuBar fx:id="menuBar" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
+               <menus>
+                  <Menu fx:id="menu1" mnemonicParsing="false" text="Autres">
+                     <items>
+                        <MenuItem fx:id="menuItem1" mnemonicParsing="false" text="Quitter" />
+                     </items>
+                  </Menu>
+                  <Menu fx:id="menu2" mnemonicParsing="false" text="Notifications">
+                     <items>
+                        <MenuItem fx:id="menuItem2" mnemonicParsing="false" text="Voir les notifications" />
+                     </items>
+                  </Menu>
+               </menus>
+            </MenuBar>
+         </children>
+      </VBox>
+      <VBox fx:id="vbox2" layoutY="27.0">
+         <children>
+            <Pane fx:id="pane1" prefHeight="47.0" prefWidth="600.0">
+               <children>
+                  <Button fx:id="retourButtonCotisations" mnemonicParsing="false" onAction="#onButtonRetourClick" text="Retour" />
+                  <Label fx:id="titreLabelCotisations" layoutX="200.0" layoutY="25.0" text="Gestion des membres de l'association" />
+               </children>
+            </Pane>
+         </children>
+      </VBox>
+      <HBox alignment="CENTER_LEFT" layoutY="74.0" prefHeight="47.0" prefWidth="600.0" spacing="10.0">
+         <children>
+            <ImageView fx:id="presidentImage" fitHeight="30.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@iconePresidentAsso.png" />
+               </image>
+            </ImageView>
+            <VBox alignment="CENTER" prefHeight="47.0" prefWidth="82.0" spacing="2.0">
+               <children>
+                  <Label fx:id="presidentLabel" text="Président(e)" textAlignment="CENTER" />
+                  <Label fx:id="presidentLabel1" text="Nom prénom" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Italic" size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <Region prefHeight="47.0" prefWidth="273.0" />
+            <Button fx:id="elirePresidentButton" mnemonicParsing="false" onAction="#onButtonElirePresidentClick" text="Elire un nouveau président" />
+         </children>
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </HBox>
+      <HBox alignment="CENTER" layoutY="121.0" prefHeight="132.0" prefWidth="600.0">
+         <children>
+            <Button fx:id="listeMembresButton" mnemonicParsing="false" onAction="#onButtonListeMembresClick" text="Voir la liste des membres" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" layoutY="244.0" prefHeight="156.0" prefWidth="600.0" spacing="60.0">
+         <children>
+            <Button fx:id="inscriptionButton" mnemonicParsing="false" onAction="#onButtonInscriptionClick" text="Inscrire un membre" />
+            <Button fx:id="desinscriptionButton" mnemonicParsing="false" onAction="#onButtonDesinscriptionClick" text="Désinscrire un membre" />
+            <Button fx:id="radiationButton" mnemonicParsing="false" onAction="#onButtonRadiationClick" text="Radiation d'un membre" />
+         </children>
+      </HBox>
+   </children>
+</Pane>

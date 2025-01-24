@@ -10,14 +10,14 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="314.0" prefWidth="572.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.AssociationManagement.Controller.PageAccueilController">
+<VBox prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.AssociationManagement.Controller.PageAccueilController">
 <children>
     <Pane prefHeight="64.0" prefWidth="572.0" style="-fx-background-color: #6ae46f;">
         <children>
-            <Label layoutX="225.0" layoutY="14.0" text="Menu Principal" />
+            <Label layoutX="260.0" layoutY="24.0" text="Menu Principal" />
         </children>
     </Pane>
-    <GridPane alignment="CENTER" prefHeight="271.0" prefWidth="572.0">
+    <GridPane alignment="CENTER" prefHeight="336.0" prefWidth="600.0">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -52,8 +52,8 @@
                         </image>
                     </ImageView>
                 </graphic></Button>
-            <Button fx:id="cotisationsButton" mnemonicParsing="false" prefHeight="26.0" prefWidth="92.0" text="Cotisations" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-            <Button mnemonicParsing="false" prefHeight="77.0" prefWidth="84.0" style="-fx-background-color: #c49151; -fx-background-radius: 20; -fx-border-radius: 20;" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <Button fx:id="exerciceBudgetaireButton" mnemonicParsing="false" onAction="#onButtonExerciceBudgetaireClick" prefHeight="46.0" prefWidth="124.0" style="-fx-wrap-text: true;" text="Fin Exercice Budgétaire" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            <Button fx:id="memberButton" mnemonicParsing="false" onAction="#onButtonMemberClick" prefHeight="77.0" prefWidth="84.0" style="-fx-background-color: #c49151; -fx-background-radius: 20; -fx-border-radius: 20;" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                 <graphic>
                     <ImageView fitHeight="78.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true">
                         <image>
@@ -61,9 +61,8 @@
                         </image>
                     </ImageView>
                 </graphic></Button>
-            <Button fx:id="financesButton" mnemonicParsing="false" onAction="#onButtonFinancesClick" text="Exercice Budgétaire" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <Button fx:id="financesButton" mnemonicParsing="false" onAction="#onButtonFinancesClick" text="Gestion des finances" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
         </children>
     </GridPane>
 </children>
 </VBox>
-
