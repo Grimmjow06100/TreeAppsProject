@@ -18,10 +18,13 @@ import java.util.Optional;
 public class MenuController {
 
     @FXML
-    private JFXButton arbreRemarquableButton;
+    private JFXButton arbreListeButton;
 
     @FXML
     private JFXButton cotisationButton;
+
+    @FXML
+    private JFXButton votesButton;
 
     @FXML
     private JFXButton home;
@@ -68,19 +71,19 @@ public void initialize() {
             }
         
         });
-        arbreRemarquableButton.setOnAction((ActionEvent event) -> {
-             FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationMember/ArbreRemarquablePage.fxml"));
+        arbreListeButton.setOnAction((ActionEvent event) -> {
+             FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationMember/ArbreListePage.fxml"));
             
             try {
                 StackPane pane = loader.load();
-                ArbreRemarquableController controller = loader.getController();
+                ArbreListeController controller = loader.getController();
                 controller.setUser(user);
                 Scene scene = profilButton.getScene();
                 scene.getStylesheets().clear();
                 scene.getStylesheets().add(
-                        Objects.requireNonNull(getClass().getResource("/App/AssociationMember/ArbreRemarquablePage.css")).toExternalForm()
+                        Objects.requireNonNull(getClass().getResource("/App/AssociationMember/ArbreListePage.css")).toExternalForm()
                 );
-                arbreRemarquableButton.getScene().setRoot(pane);
+                arbreListeButton.getScene().setRoot(pane);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -121,6 +124,24 @@ public void initialize() {
             } catch (Exception e) {
                 System.out.println(e.getMessage());                }
             
+        });
+
+        votesButton.setOnAction((ActionEvent event) -> {
+             FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationMember/VotesPage.fxml"));
+
+            try {
+                StackPane pane = loader.load();
+                VotesController controller = loader.getController();
+                controller.setUser(user);
+                Scene scene = profilButton.getScene();
+                scene.getStylesheets().clear();
+                scene.getStylesheets().add(
+                        Objects.requireNonNull(getClass().getResource("/App/AssociationMember/VotesPage.css")).toExternalForm()
+                );
+                votesButton.getScene().setRoot(pane);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());                }
+
         });
         logoutButton.setOnAction((ActionEvent event) -> {
              System.out.println("Logout Button clicked");

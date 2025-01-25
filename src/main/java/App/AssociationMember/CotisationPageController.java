@@ -2,6 +2,7 @@ package App.AssociationMember;
 
 import Data.JsonManager;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
@@ -100,30 +101,19 @@ public class CotisationPageController {
                     return;
                 }
 
-                JsonNode rootNode=JsonManager.objectMapper.readTree("Association_JSON.json");
-                JsonNode association=null;
-                if(!rootNode.isArray()){
-                    System.out.println("❌ Erreur : Le fichier JSON doit contenir un tableau.");
-                    return;
+                Optional<JsonNode> rootNode=JsonManager.getRootNode("Association_JSON.json");
+                if(rootNode.isPresent()){
+                    ArrayNode associations=(ArrayNode) rootNode.get();
+                    JsonNode arreAssoc=associations.get(0);
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationMember/PaymentPage.fxml"));
+                    GridPane paiementCotisation = loader.load();
+                    PaymentController controller = loader.getController();
+                    controller.set(50.00, user, arreAssoc);
+                    Stage stage = new Stage();
+                    stage.setTitle("Paiement Cotisation");
+                    stage.setScene(new Scene(paiementCotisation, 700, 400));
+                    stage.show();
                 }
-                for(JsonNode r:rootNode){
-                    if(r.get("nom").equals("Arre Assos")){
-                        association=r;
-                        break;
-                    }
-                }
-                if(association==null){
-                    System.out.println("❌ Erreur : Association non trouvée.");
-                    return;
-                }
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationMember/PaymentPage.fxml"));
-                GridPane paiementCotisation = loader.load();
-                PaymentController controller = loader.getController();
-                controller.set(50.00, user, association);
-                Stage stage = new Stage();
-                stage.setTitle("Paiement Cotisation");
-                stage.setScene(new Scene(paiementCotisation, 700, 400));
-                stage.show();
 
             } catch (IOException e) {
                 e.printStackTrace();

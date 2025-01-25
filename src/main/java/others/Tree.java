@@ -1,6 +1,7 @@
 package others;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import java.time.LocalDate;
@@ -75,6 +76,45 @@ public class Tree {
     }
 
 
+    public static String arbreNodeToString(JsonNode arbre) {
+        if (arbre == null || arbre.isEmpty()) {
+            return "Aucune information disponible sur l'arbre.";
+        }
+
+        StringBuilder description = new StringBuilder();
+
+        description.append("🌳 **Informations sur l'Arbre** 🌳\n");
+        description.append("📌 **ID:** ").append(arbre.has("idBase") ? arbre.get("idBase").asInt() : "Non spécifié").append("\n");
+        description.append("🌱 **Genre:** ").append(arbre.has("genre") ? arbre.get("genre").asText() : "Inconnu").append("\n");
+        description.append("🌿 **Espèce:** ").append(arbre.has("espece") ? arbre.get("espece").asText() : "Inconnue").append("\n");
+        description.append("📛 **Nom commun:** ").append(arbre.has("libelle_france") ? arbre.get("libelle_france").asText() : "Non défini").append("\n");
+        description.append("📏 **Circonférence:** ").append(arbre.has("circonference") ? arbre.get("circonference").asInt() + " cm" : "Non mesurée").append("\n");
+        description.append("📏 **Hauteur:** ").append(arbre.has("hauteur") ? arbre.get("hauteur").asDouble() + " m" : "Non mesurée").append("\n");
+        description.append("🌲 **Stade de développement:** ").append(arbre.has("stade_de_developpement") ? arbre.get("stade_de_developpement").asText() : "Non renseigné").append("\n");
+        description.append("📍 **Lieu:** ").append(arbre.has("lieu") ? arbre.get("lieu").asText() : "Non précisé").append("\n");
+        description.append("🌎 **Coordonnées:** ");
+
+        if (arbre.has("latitude") && arbre.has("longitude")) {
+            description.append(arbre.get("latitude").asDouble())
+                    .append(", ")
+                    .append(arbre.get("longitude").asDouble())
+                    .append("\n");
+        } else {
+            description.append("Non disponibles\n");
+        }
+
+        description.append("⭐ **Remarquable:** ").append(arbre.has("remarquable") ? arbre.get("remarquable").asText() : "Non défini").append("\n");
+
+        if (arbre.has("dateClassification") && !arbre.get("dateClassification").isNull()) {
+            description.append("📅 **Date de classification:** ").append(arbre.get("dateClassification").asText()).append("\n");
+        } else {
+            description.append("📅 **Date de classification:** Non disponible\n");
+        }
+
+        return description.toString();
+    }
+
+
     // ✅ Getters
     public String getGenre() { return genre; }
     public String getEspece() { return espece; }
@@ -89,22 +129,6 @@ public class Tree {
     public LocalDate getDateClassification() { return dateClassification; }
     public int getIdBase() { return idBase; }
 
-    // ✅ Méthode pour afficher les infos
-    public void afficherInfo() {
-        Optional<String> dateClassification = Optional.ofNullable(this.dateClassification)
-                .map(LocalDate::toString);
-        System.out.println("🌳 Arbre : " + libelle_france + " (" + genre + " " + espece + ")");
-        System.out.println("📏 Circonférence : " + circonference + " cm, Hauteur : " + hauteur + " m");
-        System.out.println("🌱 Stade de développement : " + stade_de_developpement);
-        System.out.println("📍 Adresse : " + lieu + " (GPS : " + latitude + ", " + longitude + ")");
-        if (remarquable=="OUI") {
-            System.out.println("🏅 Arbre remarquable depuis : " +
-                    dateClassification.orElse("Date inconnue"));
-        } else {
-            System.out.println("🏅 Pas encore classé remarquable.");
-        }
-        System.out.println("-------------------------------------------------");
-    }
 
     public void setRemarquable(String remarquable) {
         this.remarquable = remarquable;

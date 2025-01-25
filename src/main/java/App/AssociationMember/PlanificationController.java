@@ -126,8 +126,8 @@ public class PlanificationController {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
             LocalDate localDate = LocalDate.parse(date, formatter);
-
-            if(localDate.isAfter(LocalDate.now())){
+            JsonNode nullNode=JsonManager.objectMapper.nullNode();
+            if(localDate.isAfter(LocalDate.now())&& visite.get("member")==nullNode){
                 listViewNewVistes.getItems().add("🌳 "+nom+" - "+lieu+" - "+date+" - "+id);
             }
 
@@ -138,7 +138,7 @@ public class PlanificationController {
     public void handleReservation(){
 
         listViewNewVistes.setOnMouseClicked((MouseEvent event)->{
-            if(event.getClickCount()==2){
+            if(event.getClickCount()==2 && !listViewNewVistes.getSelectionModel().isEmpty()){
                 String selectedItem = listViewNewVistes.getSelectionModel().getSelectedItem();
                 String[] parts = selectedItem.split(" - ");
                 int id=Integer.parseInt(parts[3]);
@@ -160,6 +160,7 @@ public class PlanificationController {
                             ArrayNode array = ((ArrayNode) user.get("visites")).add(visiteNode.get());
                             String key = user.get("identifiant").asText();
                             JsonManager.updateJsonObject("Members_JSON.json", Map.entry("identifiant", key), Map.entry("visites", array));
+                            JsonManager.updateJsonObject("Visites_JSON.json", Map.entry("id", id), Map.entry("member", user));
                         }
 
                     }

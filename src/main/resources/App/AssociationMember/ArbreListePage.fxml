@@ -3,8 +3,10 @@
 <?import com.jfoenix.controls.JFXDrawer?>
 <?import com.jfoenix.controls.JFXHamburger?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -13,11 +15,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane alignment="BOTTOM_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="380.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.AssociationMember.PlanificationController">
+<StackPane alignment="BOTTOM_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="380.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.AssociationMember.ArbreListeController">
    <children>
-      <VBox prefHeight="200.0" prefWidth="100.0">
+      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
          <children>
-            <HBox fx:id="topHbox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #388E3C;     -fx-padding: 10px;     -fx-border-radius: 10px;     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 5);">
+            <HBox fx:id="topHbox" alignment="CENTER" prefHeight="100.0" prefWidth="380.0" style="-fx-background-color: #388E3C;     -fx-padding: 10px;     -fx-border-radius: 10px;     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 5);">
                <children>
                   <AnchorPane prefHeight="97.0" prefWidth="119.0">
                      <children>
@@ -36,9 +38,9 @@
                   <VBox prefHeight="100.0" prefWidth="126.0" />
                </children>
             </HBox>
-            <HBox alignment="TOP_CENTER" prefHeight="117.0" prefWidth="380.0">
+            <HBox alignment="CENTER" prefHeight="74.0" prefWidth="380.0">
                <children>
-                  <Label styleClass="planification-label" text="Historique des visites">
+                  <Label alignment="CENTER" prefHeight="44.0" prefWidth="227.0" styleClass="arbre-label" text="La liste des Arbres">
                      <HBox.margin>
                         <Insets top="60.0" />
                      </HBox.margin>
@@ -51,36 +53,34 @@
                   <Insets />
                </VBox.margin>
             </HBox>
-            <HBox prefHeight="156.0" prefWidth="380.0">
+            <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <ListView styleClass="list-view" fx:id="listViewHoldVisites" prefHeight="151.0" prefWidth="320.0" />
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="295.0">
+                     <children>
+                        <TextField fx:id="recherche" prefHeight="25.0" prefWidth="215.0" promptText="Recherche">
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="98.0" prefWidth="144.0">
+                     <children>
+                        <ComboBox fx:id="filtre" prefWidth="150.0" promptText="Filtre">
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </ComboBox>
+                     </children>
+                  </HBox>
                </children>
-               <VBox.margin>
-                  <Insets left="30.0" right="30.0" />
-               </VBox.margin>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="87.0" prefWidth="380.0">
-               <children>
-                  <Label styleClass="planification-label" text="Planifier une visite ">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
-               </children>
-            </HBox>
-            <HBox prefHeight="156.0" prefWidth="380.0">
-               <children>
-                  <ListView styleClass="list-view" fx:id="listViewNewVistes" prefHeight="123.0" prefWidth="320.0" />
-               </children>
-               <padding>
-                  <Insets left="30.0" right="30.0" />
-               </padding>
-            </HBox>
+            <ListView fx:id="treeListView" prefHeight="392.0" prefWidth="380.0" styleClass="list-view" />
          </children>
       </VBox>
       <VBox fx:id="vboxMenu" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="580.0" prefWidth="210.0" visible="false">
          <children>
-            <JFXDrawer fx:id="JFXDrawer" defaultDrawerSize="210.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="580.0" prefWidth="210.0" />
+            <JFXDrawer fx:id="JFXDrawer" defaultDrawerSize="210.0" prefHeight="580.0" prefWidth="210.0" />
          </children>
          <opaqueInsets>
             <Insets />

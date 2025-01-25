@@ -15,14 +15,9 @@ public class TreeManagerController {
     @FXML
     void OnButtonReturnClickArbre(ActionEvent event){
         try {
-            // Chemin fixe pour le fichier FXML
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/GreenServiceSpace/accueil-view.fxml"));
             Parent secondView = loader.load();
-
-            // Obtenir le Stage actuel
             Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-
-            // Remplacer la scène actuelle par celle de la deuxième vue
             stage.setScene(new Scene(secondView, 800, 600));
             stage.getScene().getStylesheets().add(
                     Objects.requireNonNull(getClass().getResource("/App/GreenServiceSpace/styles.css")).toExternalForm()
@@ -30,7 +25,7 @@ public class TreeManagerController {
             stage.setTitle("Gestion des espaces verts");
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace(); // Log de l'exception pour diagnostiquer les erreurs
+            e.printStackTrace();
         }
     }
 
@@ -39,19 +34,29 @@ public class TreeManagerController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/GreenServiceSpace/three-list-view.fxml"));
             Parent secondView = loader.load();
-
-            // Obtenir le Stage actuel
             Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-
-            // Remplacer la scène actuelle par celle de la deuxième vue
             stage.setScene(new Scene(secondView, 800, 600));
-            //stage.getScene().getStylesheets().add(
-                  //  Objects.requireNonNull(getClass().getResource("/App/GreenServiceSpace/styles.css")).toExternalForm()
-           // );
             stage.setTitle("Liste des arbres");
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace(); // Log de l'exception pour diagnostiquer les erreurs
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void OnButtonNewTreeClick(ActionEvent event){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/GreenServiceSpace/tree-plantation-view.fxml"));
+            Parent secondView = loader.load();
+            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(secondView, 800, 600));
+            /*stage.getScene().getStylesheets().add(
+                    Objects.requireNonNull(getClass().getResource("/App/GreenServiceSpace/styles.css")).toExternalForm()
+            );*/
+            stage.setTitle("Enregistrement d'un nouvel arbre");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
