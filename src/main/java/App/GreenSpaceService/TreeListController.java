@@ -16,6 +16,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import javafx.scene.control.ComboBox;
 
 import java.io.IOException;
 import java.util.List;
@@ -43,6 +44,9 @@ public class TreeListController {
 
     @FXML
     private TableColumn<Tree, String> colLieu;
+
+    @FXML
+    private ComboBox<String> filterComboBox;
 
     ObservableList<Tree> treeList = FXCollections.observableArrayList();
 
@@ -77,6 +81,17 @@ public class TreeListController {
         loadTreeData();
         treeTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         treeTableView.setSelectionModel(null);
+
+        ObservableList<String> filters = FXCollections.observableArrayList(
+                "Aucun filtre",
+                "Arbres remarquables",
+                "Arbres non remarquables",
+                "circonférences supérieur à :"
+        );
+        // Associer les filtres au ComboBox
+        filterComboBox.setItems(filters);
+        // Optionnel : Sélectionner un filtre par défaut
+        filterComboBox.getSelectionModel().select("Aucun filtre");
     }
 
     public void loadTreeData() {
