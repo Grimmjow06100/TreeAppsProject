@@ -53,11 +53,20 @@ public class VoirListeVisitesController {
         if (visiteRoot.isPresent()) {
             ArrayNode visiteArray = (ArrayNode) visiteRoot.get();
             visiteArray.forEach((JsonNode node) -> {
-                String id = node.get("id").asText();
-                String date = node.get("date").asText();
-                String arbre = node.get("tree").get("libelle_france").asText();
-                String lieu = node.get("tree").get("lieu").asText();
-                String cout = node.get("cout").asText();
+                String id = node.has("id") ? node.get("id").asText() : "N/A";
+                String date = node.has("date") ? node.get("date").asText() : "Non spécifiée";
+                String cout = node.has("cout") ? node.get("cout").asText() : "0";
+
+                // Vérifie si "tree" existe et n'est pas null
+                String arbre = "Inconnu";
+                String lieu = "Inconnu";
+                if (node.has("tree") && !node.get("tree").isNull()) {
+                    JsonNode treeNode = node.get("tree");
+                    arbre = treeNode.has("libelle_france") ? treeNode.get("libelle_france").asText() : "Inconnu";
+                    lieu = treeNode.has("lieu") ? treeNode.get("lieu").asText() : "Inconnu";
+                } else {
+                    System.err.println("Erreur : Une visite sans 'tree' a été détectée dans le JSON.");
+                }
 
                 visiteList.add("ID: " + id + " | Arbre: " + arbre + " | Lieu: " + lieu + " | Date: " + date + " | Coût: " + cout + "€");
             });
@@ -69,8 +78,7 @@ public class VoirListeVisitesController {
                 if (newValue == null || newValue.isEmpty()) {
                     return true;
                 }
-                String lowerCaseFilter = newValue.toLowerCase();
-                return visite.toLowerCase().contains(lowerCaseFilter);
+                return visite.toLowerCase().contains(newValue.toLowerCase());
             });
         });
 
@@ -98,5 +106,20 @@ public class VoirListeVisitesController {
                 "\nCompte rendu: " + (visite.get("compte_rendu").asText().isEmpty() ? "Aucun" : visite.get("compte_rendu").asText());
 
         Message.showInformation("Détails de la visite", details);
+    }
+
+    @FXML
+    protected void onButtonAjouterVisiteClick(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationManagement/gestionVisiteArbre/AjouterVisite.fxml"));
+            Parent ajouterVisiteView = loader.load();
+
+            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(ajouterVisiteView, 600, 400));
+            stage.setTitle("Ajouter une visite d'arbre");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
