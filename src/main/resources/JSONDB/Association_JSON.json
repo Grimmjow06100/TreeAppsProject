@@ -1,17 +1,17 @@
 [ {
   "nom" : "Arre Assoc",
-  "budget" : 550.0,
+  "budget" : 500,
   "dons" : [ {
     "id" : 1,
     "montant" : 100.0,
     "donateur" : "kaka",
-    "dateDon" : "24-01-2025"
+    "dateDon" : "25-01-2025"
   } ],
   "factures" : [ {
     "id" : 1,
     "montant" : 100.0,
     "beneficiaire" : "kaka",
     "estPayee" : false,
-    "dateEmission" : "24-01-2025"
+    "dateEmission" : "25-01-2025"
   } ]
 } ]
