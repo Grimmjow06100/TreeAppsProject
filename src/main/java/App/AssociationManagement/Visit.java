@@ -1,4 +1,5 @@
 package App.AssociationManagement;
+import App.AssociationMember.Member;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import others.Tree;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -26,11 +27,14 @@ public class Visit {
     @JsonProperty("compte_rendu")
     private String compteRendu;
 
+    private Member member;
 
-    public Visit(double cout, LocalDate date, Tree tree) {
+
+    public Visit(double cout, LocalDate date, Tree tree,Member member) {
         this.cout = cout;
         this.date = date;
         this.tree = tree;
+        this.member = member;
         this.compteRendu = "";
     }
 
@@ -40,6 +44,7 @@ public class Visit {
         this.date = LocalDate.now();
         this.tree = new Tree();
         this.compteRendu = "";
+        this.member = new Member();
     }
 
 
@@ -58,6 +63,9 @@ public class Visit {
     }
     public int getId(){
         return id;
+    }
+    public Member getMember(){
+        return member;
     }
 
 

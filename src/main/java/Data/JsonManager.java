@@ -76,7 +76,7 @@ public enum JsonManager {
     public static synchronized void insertInJson(String fileName, List<Object> newData, String keyField) {
         File file = new File(BASE_URL + "/" + fileName);
         if (!file.exists()) {
-            createJsonFile(fileName); // Création automatique si le fichier n'existe pas
+            System.out.println("❌ Fichier non trouvé : " + fileName);
         }
 
         try {
@@ -87,7 +87,7 @@ public enum JsonManager {
             }
 
             ArrayNode arrayNode = (ArrayNode) rootNode;
-            Set<String> existingKeys = arrayNode.findValuesAsText(keyField).stream().collect(Collectors.toSet());
+            Set<String> existingKeys = new HashSet<>(arrayNode.findValuesAsText(keyField));
 
             for (Object obj : newData) {
                 JsonNode newNode = objectMapper.valueToTree(obj);
@@ -106,6 +106,35 @@ public enum JsonManager {
             objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, arrayNode);
             System.out.println("✅ Ajout réussi dans " + fileName);
         } catch (IOException e) {
+            System.out.println("❌ Erreur d'écriture JSON : " + e.getMessage());
+        }
+    }
+
+    // ✅ Ajout d'un ou plusieurs objets dans un fichier JSON
+    public static synchronized void insertInJson(String fileName, List<Object> newData) {
+        File file = new File(BASE_URL + "/" + fileName);
+        if (!file.exists()) {
+           System.out.println("❌ Fichier non trouvé : " + fileName);
+            return;
+        }
+
+        try {
+            JsonNode rootNode = objectMapper.readTree(file);
+            if (!rootNode.isArray()) {
+                System.out.println("❌ Erreur : Le fichier JSON doit contenir un tableau.");
+                return;
+            }
+
+            ArrayNode arrayNode = (ArrayNode) rootNode;
+            for (Object obj : newData) {
+                JsonNode newNode = objectMapper.valueToTree(obj);
+                System.out.println(newNode);
+                arrayNode.add(newNode);
+            }
+
+            objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, arrayNode);
+            System.out.println("✅ Ajout réussi dans " + fileName);
+        }catch (IOException e) {
             System.out.println("❌ Erreur d'écriture JSON : " + e.getMessage());
         }
     }
@@ -227,7 +256,7 @@ public enum JsonManager {
     }
 
     //Renvoie dans une liste le noeud sans appliquer de clé
-    public synchronized List<JsonNode> getNodeWithoutFilter(String fileName) {
+    public static synchronized List<JsonNode> getNodeWithoutFilter(String fileName) {
         File file = new File(BASE_URL + "/" + fileName);
         List<JsonNode> resultList = new ArrayList<>();
 

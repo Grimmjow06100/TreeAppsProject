@@ -1,11 +1,5 @@
 package others;
 
-
-import App.AssociationMember.Member;
-
-import java.util.LinkedList;
-import java.util.List;
-
 public class Nomination extends Tree {
     private int nombreVotes;
 
