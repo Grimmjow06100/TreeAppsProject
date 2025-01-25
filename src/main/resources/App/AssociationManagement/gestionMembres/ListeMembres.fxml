@@ -40,11 +40,12 @@
             </Pane>
          </children>
       </VBox>
-      <VBox alignment="CENTER" layoutY="81.0" prefHeight="320.0" prefWidth="600.0">
+      <VBox alignment="CENTER" layoutY="81.0" prefHeight="320.0" prefWidth="300.0">
          <children>
-            <TextField fx:id="nomMembreTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="466.0" promptText="Rechercher un membre par son nom" />
-            <ListView fx:id="listeMembresListView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="254.0" prefWidth="466.0" />
+            <TextField fx:id="nomTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="274.0" promptText="Rechercher un membre par son nom" />
+            <ListView fx:id="nomListView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="254.0" prefWidth="274.0" />
          </children>
       </VBox>
+      <VBox fx:id="detailsContainer" alignment="CENTER" layoutX="300.0" layoutY="81.0" prefHeight="320.0" prefWidth="300.0" />
    </children>
 </Pane>

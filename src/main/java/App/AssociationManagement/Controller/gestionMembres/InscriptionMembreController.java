@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -116,17 +118,18 @@ public class InscriptionMembreController {
         membre.put("prenom", prenomTextField.getText());
         membre.put("age", age);
         membre.put("adresse", adresseTextField.getText());
-        membre.put("dateNaissance", dateNaissance.toString());
+        membre.put("dateNaissance", dateNaissance.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
         membre.put("identifiant", identifiantTextField.getText());
         membre.put("password", passwordTextField.getText());
         membre.put("cotisationPayee", false);
-        membre.put("cotisationsPayees", new String[]{});
-        membre.put("nominations", new String[]{});
-        membre.put("visites", new String[]{});
+        membre.put("cotisationsPayees", new ArrayList<>());
+        membre.put("nominations", new ArrayList<>());
+        membre.put("visites", new ArrayList<>());
         membre.put("dateInscription", dateInscription);
 
-        JsonManager.insertInJson(JSON_FILE_NAME, java.util.Collections.singletonList(membre), "identifiant");
+        JsonManager.insertInJson(JSON_FILE_NAME, Collections.singletonList(membre), "identifiant");
     }
+
 
     private void effacerChamps() {
         nomTextField.clear();

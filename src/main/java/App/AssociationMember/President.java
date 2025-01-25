@@ -5,8 +5,15 @@ public enum President {
 
     private Member president;
 
-    public void setPresident(Member president){
+    public void setPresident(Member president) {
         this.president = president;
     }
 
+    public Member getPresident() {
+        return president;
+    }
+
+    public boolean isPresidentSet() {
+        return president != null;
+    }
 }

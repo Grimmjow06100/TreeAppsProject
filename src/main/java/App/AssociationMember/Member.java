@@ -57,6 +57,14 @@ public class Member extends Personne{
         this.visites = new ArrayList<>();
         this.cotisationsPayees = new ArrayList<>();
     }
+
+    public Member(String nom, String prenom, int age, LocalDate dateNaissance, String adresse) {
+        super(nom, prenom, age, dateNaissance, adresse);
+        this.nominations = new LinkedList<>();
+        this.visites = new ArrayList<>();
+        this.cotisationsPayees = new ArrayList<>();
+    }
+
     public static Optional<JsonNode> login(String Username, String password){
         Optional<JsonNode> user=JsonManager.getNodeAllMatch("Members_JSON.json",List.of(Map.entry("identifiant",Username),Map.entry("password",password)));
         if(user.isPresent()){
