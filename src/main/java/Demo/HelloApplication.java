@@ -91,7 +91,7 @@ public class HelloApplication extends Application {
         JsonManager.insertInJson("Members_JSON.json", List.of(m1, m2, m3, m4, m5), "identifiant");
 
         Don d= new Don(100, "kaka");
-        Facture f= new Facture(100, "kaka",false);
+        Facture f= new Facture(100, "kaka","pipi", false);
 
 
         Association a= new Association("Arre Assoc",500,List.of(d),List.of(f));

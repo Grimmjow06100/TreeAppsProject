@@ -31,17 +31,17 @@
             </MenuBar>
          </children>
       </VBox>
-      <VBox alignment="CENTER" prefHeight="58.0" prefWidth="600.0">
+      <VBox alignment="CENTER" prefHeight="82.0" prefWidth="600.0">
          <children>
-            <Pane prefHeight="57.0" prefWidth="600.0">
+            <Pane prefHeight="101.0" prefWidth="600.0">
                <children>
                   <Button fx:id="retourButton" mnemonicParsing="false" onAction="#onButtonRetourClick" text="Retour" />
-                  <Label fx:id="titreLabel" layoutX="131.0" layoutY="7.0" prefHeight="44.0" prefWidth="337.0" style="-fx-wrap-text: true;" text="Classement provisoire des arbres classés &quot;remarquables&quot; après les votes des membres" textAlignment="CENTER" />
+                  <Label fx:id="titreLabel" layoutX="107.0" layoutY="18.0" prefHeight="58.0" prefWidth="387.0" style="-fx-wrap-text: true;" text="Classement provisoire des arbres classés &quot;remarquables&quot; après les votes des membres" textAlignment="CENTER" />
                </children>
             </Pane>
          </children>
       </VBox>
-      <VBox alignment="CENTER" prefHeight="280.0" prefWidth="600.0" spacing="10.0">
+      <VBox alignment="CENTER" prefHeight="306.0" prefWidth="600.0" spacing="10.0">
          <children>
             <Label opacity="0.5" text="Appuyez 2 fois sur un arbre pour obtenir ses détails">
                <font>
@@ -51,7 +51,7 @@
             <ListView fx:id="listeArbresContainter" prefHeight="168.0" prefWidth="560.0" VBox.vgrow="ALWAYS" />
          </children>
          <padding>
-            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            <Insets bottom="20.0" left="20.0" right="20.0" top="15.0" />
          </padding>
       </VBox>
    </children>
