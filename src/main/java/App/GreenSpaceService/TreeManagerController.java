@@ -43,5 +43,22 @@ public class TreeManagerController {
         }
     }
 
+    @FXML
+    void OnButtonNewTreeClick(ActionEvent event){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/GreenServiceSpace/tree-plantation-view.fxml"));
+            Parent secondView = loader.load();
+            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(secondView, 800, 600));
+            /*stage.getScene().getStylesheets().add(
+                    Objects.requireNonNull(getClass().getResource("/App/GreenServiceSpace/styles.css")).toExternalForm()
+            );*/
+            stage.setTitle("Enregistrement d'un nouvel arbre");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }

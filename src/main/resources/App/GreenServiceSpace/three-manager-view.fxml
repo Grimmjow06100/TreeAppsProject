@@ -19,24 +19,24 @@
       </ImageView>
       <VBox>
          <children>
-      
-                        <!-- Contenu principal -->
+
+            <!-- Contenu principal -->
             <VBox alignment="CENTER" prefHeight="550.0" prefWidth="1003.0" spacing="50.0">
                <padding>
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </padding>
                <HBox>
                   <children>
-               
-                                 <!-- Bouton additionnel (ajouté en haut à gauche) -->
+
+                     <!-- Bouton additionnel (ajouté en haut à gauche) -->
                      <Button mnemonicParsing="false" onAction="#OnButtonReturnClickArbre" prefHeight="53.0" prefWidth="105.0" text="Retour" />
                   </children>
                </HBox>
-      
-                           <!-- Label principal -->
+
+               <!-- Label principal -->
                <Label alignment="CENTER" styleClass="header-label" text="Que voulez-vous faire ?" />
-      
-                           <!-- Boutons principaux -->
+
+               <!-- Boutons principaux -->
                <Button id="buttonArbreList" contentDisplay="TOP" onAction="#OnButtonThreeListClick" prefHeight="132.0" prefWidth="240.0" text="Liste des arbres">
                   <graphic>
                      <ImageView fitHeight="94.0" fitWidth="116.0" pickOnBounds="true" preserveRatio="true">
@@ -46,7 +46,7 @@
                      </ImageView>
                   </graphic>
                </Button>
-               <Button id="buttonArbrePlanter" contentDisplay="TOP" mnemonicParsing="false" prefHeight="132.0" prefWidth="240.0" text="Enregistrer un nouvel arbre">
+               <Button id="buttonArbrePlanter" contentDisplay="TOP" mnemonicParsing="false" onAction="#OnButtonNewTreeClick" prefHeight="132.0" prefWidth="240.0" text="Enregistrer un nouvel arbre">
                   <graphic>
                      <ImageView fitHeight="94.0" fitWidth="116.0" pickOnBounds="true" preserveRatio="true">
                         <image>
