@@ -6,6 +6,7 @@
     "libelle_france" : "Arbre à miel",
     "lieu" : "PARC CLICHY BATIGNOLLES MARTIN LUTHER KING / 147 RUE CARDINET"
   },
+  "member" : null,
   "date" : "16-03-2025",
   "compte_rendu" : ""
 }, {
@@ -16,7 +17,8 @@
     "libelle_france" : "Platane",
     "lieu" : "SQUARE ALEXANDRE ET RENE PARODI / 1 PLACE DE LA PORTE MAILLOT"
   },
-  "date" : "16-05-2021",
+  "member" : null,
+  "date" : "16-05-2025",
   "compte_rendu" : ""
 }, {
   "id" : 3,
@@ -26,6 +28,20 @@
     "libelle_france" : "Sophora",
     "lieu" : "JARDIN DE L AVENUE FOCH / 10 AVENUE FOCH"
   },
-  "date" : "17-05-2021",
+  "member" : {
+    "nom" : "Doe",
+    "prenom" : "John",
+    "age" : 25,
+    "adresse" : "balec",
+    "dateNaissance" : "15-05-1996",
+    "identifiant" : "johnDoe",
+    "password" : "password123",
+    "cotisationPayee" : false,
+    "cotisationsPayees" : [ ],
+    "nominations" : [ ],
+    "visites" : [ ],
+    "dateInscription" : "15-05-2021"
+  },
+  "date" : "17-05-2025",
   "compte_rendu" : ""
 } ]
