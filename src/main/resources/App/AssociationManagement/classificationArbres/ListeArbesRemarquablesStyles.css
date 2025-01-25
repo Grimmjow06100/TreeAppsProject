@@ -112,3 +112,9 @@ TextField:focused {
     -fx-spacing: 20px;
     -fx-padding: 10px;
 }
+
+#titreLabel {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1b5e20;
+}

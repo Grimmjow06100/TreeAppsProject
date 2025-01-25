@@ -36,7 +36,7 @@
             <Pane prefHeight="57.0" prefWidth="600.0">
                <children>
                   <Button fx:id="retourButton" mnemonicParsing="false" onAction="#onButtonRetourClick" text="Retour" />
-                  <Label layoutX="131.0" layoutY="7.0" prefHeight="44.0" prefWidth="337.0" style="-fx-wrap-text: true;" text="Classement provisoire des arbres classés &quot;remarquables&quot; après les votes des membres" textAlignment="CENTER" />
+                  <Label fx:id="titreLabel" layoutX="131.0" layoutY="7.0" prefHeight="44.0" prefWidth="337.0" style="-fx-wrap-text: true;" text="Classement provisoire des arbres classés &quot;remarquables&quot; après les votes des membres" textAlignment="CENTER" />
                </children>
             </Pane>
          </children>

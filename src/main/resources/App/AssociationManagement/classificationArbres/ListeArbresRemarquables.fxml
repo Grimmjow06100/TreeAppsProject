@@ -31,17 +31,17 @@
             </MenuBar>
          </children>
       </VBox>
-      <VBox alignment="CENTER" prefHeight="44.0" prefWidth="600.0">
+      <VBox alignment="CENTER" prefHeight="90.0" prefWidth="600.0">
          <children>
-            <Pane prefHeight="57.0" prefWidth="600.0">
+            <Pane prefHeight="79.0" prefWidth="600.0">
                <children>
                   <Button fx:id="retourButton" mnemonicParsing="false" onAction="#onButtonRetourClick" text="Retour" />
-                  <Label layoutX="116.0" layoutY="20.0" text="Listes des arbres classés &quot;remarquables&quot; par la municipalité" />
+                  <Label fx:id="titreLabel" layoutX="120.0" layoutY="14.0" prefHeight="60.0" prefWidth="359.0" style="-fx-wrap-text: true;" text="Listes des arbres classés &quot;remarquables&quot; par la municipalité" textAlignment="CENTER" />
                </children>
             </Pane>
          </children>
       </VBox>
-      <VBox alignment="CENTER" prefHeight="280.0" prefWidth="600.0" spacing="10.0">
+      <VBox alignment="CENTER" prefHeight="314.0" prefWidth="600.0" spacing="10.0">
          <children>
             <Label opacity="0.5" text="Appuyez 2 fois sur un arbre pour obtenir ses détails">
                <font>

@@ -35,7 +35,7 @@
                 <Pane fx:id="paneVBox2" prefHeight="74.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
                     <children>
                         <Button fx:id="retourButtonClassement" mnemonicParsing="false" onAction="#onButtonRetourClick" text="Retour" />
-                        <Label fx:id="titreLabel" layoutX="199.0" layoutY="39.0" text="Classification des arbres remarquables">
+                        <Label fx:id="titreLabel" layoutX="138.0" layoutY="32.0" text="Classification des arbres remarquables">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font></Label>
@@ -50,7 +50,7 @@
                           <VBox fx:id="vbox3" alignment="CENTER" prefHeight="100.0" prefWidth="600.0" spacing="5.0">
                               <children>
                                   <Label fx:id="listeLabel" style="-fx-wrap-text: true;" text="Liste des arbres classés &quot;remarquables&quot; par la municipalité" textAlignment="CENTER" VBox.vgrow="ALWAYS" />
-                                  <Button fx:id="listeButton" mnemonicParsing="false" onAction="#onButtonListeClick" text="Afficher liste" VBox.vgrow="ALWAYS" />
+                                  <Button fx:id="listeButton" mnemonicParsing="false" onAction="#onButtonListeClick" text="Afficher la liste" VBox.vgrow="ALWAYS" />
                               </children>
                      <padding>
                         <Insets left="20.0" right="20.0" />
