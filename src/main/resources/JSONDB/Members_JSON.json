@@ -8,7 +8,10 @@
   "password" : "password123",
   "cotisationPayee" : false,
   "cotisationsPayees" : [ ],
-  "nominations" : [ ],
+  "nominations" : [ {
+    "idBase" : 99876,
+    "libelle_france" : "If"
+  } ],
   "visites" : [ ],
   "dateInscription" : "15-05-2021"
 }, {
@@ -19,8 +22,6 @@
   "dateNaissance" : "25-08-1999",
   "identifiant" : "JaneDoe",
   "password" : "password456",
-  "cotisationPayee" : false,
-  "cotisationsPayees" : [ ],
   "cotisationPayee" : false,
   "cotisationsPayees" : [ ],
   "nominations" : [ ],
@@ -60,19 +61,6 @@
   "dateNaissance" : "30-10-1986",
   "identifiant" : "DoeEve",
   "password" : "password131415",
-  "cotisationPayee" : false,
-  "cotisationsPayees" : [ ],
-  "nominations" : [ ],
-  "visites" : [ ],
-  "dateInscription" : "15-05-2021"
-}, {
-  "nom" : "Doe",
-  "prenom" : "Charlie",
-  "age" : 40,
-  "adresse" : "balec",
-  "dateNaissance" : "25-08-1981",
-  "identifiant" : "CharlieDoe",
-  "password" : "password161718",
   "cotisationPayee" : false,
   "cotisationsPayees" : [ ],
   "nominations" : [ ],
