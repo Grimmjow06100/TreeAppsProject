@@ -49,7 +49,7 @@
       <HBox alignment="CENTER" layoutY="344.0" prefHeight="56.0" prefWidth="600.0" spacing="400.0">
          <children>
             <Button fx:id="annulerButton" mnemonicParsing="false" onAction="#onButtonAnnulerClick" prefHeight="36.0" prefWidth="89.0" text="Annuler" />
-            <Button fx:id="validerButton" mnemonicParsing="false" onAction="#onButtonValiderClick" prefHeight="36.0" prefWidth="89.0" text="Valider" />
+            <Button fx:id="validerButton" mnemonicParsing="false" onAction="#onButtonValiderClick" prefHeight="36.0" prefWidth="89.0" text="Radier" />
          </children>
          <padding>
             <Insets left="10.0" right="10.0" />

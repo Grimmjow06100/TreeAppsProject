@@ -61,14 +61,18 @@ public class VoirListeMembresController {
     }
 
     private void afficherDetailsMembre() {
-        detailsContainer.getChildren().clear();
+        detailsContainer.getChildren().clear(); // Effacer les détails précédents
+
         String selected = nomListView.getSelectionModel().getSelectedItem();
         if (selected == null) return;
+
+        // Extraire l'identifiant du membre sélectionné
         String identifiant = selected.split(" ")[1];
         Optional<JsonNode> membreOption = JsonManager.getNode(JSON_FILE_NAME, Map.entry("identifiant", identifiant));
 
         membreOption.ifPresent(membre -> {
             selectedMember = membre;
+
             detailsContainer.getChildren().add(new Label("Nom: " + membre.get("nom").asText()));
             detailsContainer.getChildren().add(new Label("Prénom: " + membre.get("prenom").asText()));
             detailsContainer.getChildren().add(new Label("Âge: " + membre.get("age").asText()));
@@ -78,7 +82,6 @@ public class VoirListeMembresController {
             detailsContainer.getChildren().add(new Label("Cotisation payée: " + (membre.get("cotisationPayee").asBoolean() ? "Oui" : "Non")));
         });
     }
-
 
     @FXML
     protected void onButtonRetourClick(ActionEvent event) {
