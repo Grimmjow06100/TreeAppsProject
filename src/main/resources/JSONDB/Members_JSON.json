@@ -6,8 +6,8 @@
   "dateNaissance" : "15-05-1996",
   "identifiant" : "johnDoe",
   "password" : "password123",
-  "cotisationPayee" : true,
-  "cotisationsPayees" : [ "24/01/2025" ],
+  "cotisationPayee" : false,
+  "cotisationsPayees" : [ ],
   "nominations" : [ ],
   "visites" : [ ],
   "dateInscription" : "15-05-2021"
