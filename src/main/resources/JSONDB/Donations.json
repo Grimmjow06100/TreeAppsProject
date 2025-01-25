@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "nature": "Services Municipaux",
+        "montant": 5000,
+        "date_don": "10-01-2024"
+    },
+    {
+        "id": 2,
+        "nature": "Entreprise",
+        "montant": 15000,
+        "date_don": "15-02-2024"
+    },
+    {
+        "id": 3,
+        "nature": "Association",
+        "montant": 2000,
+        "date_don": "05-03-2024"
+    },
+    {
+        "id": 4,
+        "nature": "Individu",
+        "montant": 500,
+        "date_don": "20-04-2024"
+    },
+    {
+        "id": 5,
+        "nature": "Entreprise",
+        "montant": 10000,
+        "date_don": "10-05-2024"
+    }
+]
