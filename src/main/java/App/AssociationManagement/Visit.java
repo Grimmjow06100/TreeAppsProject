@@ -29,12 +29,15 @@ public class Visit {
 
     private Member member;
 
+    private boolean visiteDefrayee;
 
-    public Visit(double cout, LocalDate date, Tree tree,Member member) {
+
+    public Visit(double cout, LocalDate date, Tree tree,Member member, boolean visiteDefrayee) {
         this.cout = cout;
         this.date = date;
         this.tree = tree;
         this.member = member;
+        this.visiteDefrayee = visiteDefrayee;
         this.compteRendu = "";
     }
 
@@ -45,6 +48,7 @@ public class Visit {
         this.tree = new Tree();
         this.compteRendu = "";
         this.member = new Member();
+        this.visiteDefrayee = false;
     }
 
 
@@ -66,6 +70,10 @@ public class Visit {
     }
     public Member getMember(){
         return member;
+    }
+
+    public boolean getVisiteDefrayee(){
+        return visiteDefrayee;
     }
 
 
