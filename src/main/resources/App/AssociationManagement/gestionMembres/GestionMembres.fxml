@@ -54,7 +54,7 @@
             <VBox alignment="CENTER" prefHeight="47.0" prefWidth="82.0" spacing="2.0">
                <children>
                   <Label fx:id="presidentLabel" text="Président(e)" textAlignment="CENTER" />
-                  <Label fx:id="presidentLabel1" text="Nom prénom" textAlignment="CENTER">
+                  <Label fx:id="nomPrenomPresidentLabel" text="Nom prénom" textAlignment="CENTER">
                      <font>
                         <Font name="System Italic" size="12.0" />
                      </font>

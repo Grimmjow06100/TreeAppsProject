@@ -56,7 +56,7 @@ public class PageAccueilController {
     protected void onButtonVisitesClick(ActionEvent event) {
         try {
             // Charger la nouvelle vue
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationManagement/VisitesArbres.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationManagement/gestionVisiteArbre/VisitesArbres.fxml"));
             Parent visiteView = loader.load();
 
             // Obtenir la scène actuelle à partir de l'événement

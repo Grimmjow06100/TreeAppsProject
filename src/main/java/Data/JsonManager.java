@@ -436,4 +436,28 @@ public enum JsonManager {
         return false;
     }
 
+    public static synchronized List<JsonNode> getAllNodes(String fileName) {
+        File file = new File(BASE_URL + "/" + fileName);
+        if (!file.exists()) {
+            System.out.println("❌ Fichier non trouvé : " + fileName);
+            return Collections.emptyList();
+        }
+
+        try {
+            JsonNode rootNode = objectMapper.readTree(file);
+            if (!rootNode.isArray()) {
+                System.out.println("❌ Erreur : Le fichier JSON doit contenir un tableau.");
+                return Collections.emptyList();
+            }
+
+            List<JsonNode> nodes = new ArrayList<>();
+            rootNode.forEach(nodes::add);
+            return nodes;
+        } catch (IOException e) {
+            System.out.println("❌ Erreur de lecture JSON : " + e.getMessage());
+            return Collections.emptyList();
+        }
+    }
+
+
 }

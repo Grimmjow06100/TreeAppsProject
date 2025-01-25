@@ -42,7 +42,7 @@
             </Pane>
          </children>
       </VBox>
-      <VBox alignment="TOP_CENTER" layoutY="74.0" prefHeight="273.0" prefWidth="600.0">
+      <VBox alignment="TOP_CENTER" layoutY="74.0" prefHeight="273.0" prefWidth="300.0">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
@@ -50,9 +50,17 @@
             <Insets top="20.0" />
          </padding>
          <children>
-            <TextField fx:id="nomTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="400.0" promptText="Entrez le nom d'un membre" />
-            <ListView fx:id="nomListView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="400.0" />
+            <TextField fx:id="nomTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="274.0" promptText="Entrez le nom d'un membre" />
+            <ListView fx:id="nomListView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="274.0" />
          </children>
+      </VBox>
+      <VBox fx:id="detailsContainer" alignment="TOP_CENTER" layoutX="300.0" layoutY="74.0" prefHeight="273.0" prefWidth="300.0">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <padding>
+            <Insets top="20.0" />
+         </padding>
       </VBox>
       <HBox alignment="CENTER" layoutY="353.0" prefHeight="47.0" prefWidth="600.0" spacing="450.0">
          <children>
@@ -60,5 +68,13 @@
             <Button fx:id="validerButton" mnemonicParsing="false" onAction="#onButtonValiderClick" text="Valider" />
          </children>
       </HBox>
+      <VBox fx:id="detailsContainer" alignment="CENTER" layoutX="310.0" layoutY="84.0" prefHeight="273.0" prefWidth="300.0">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <padding>
+            <Insets top="20.0" />
+         </padding>
+      </VBox>
    </children>
 </Pane>
