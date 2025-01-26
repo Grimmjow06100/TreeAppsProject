@@ -256,8 +256,37 @@ public enum JsonManager {
         return Optional.empty();
     }
 
+    public static synchronized List<JsonNode> getNodeWithoutFilter(String fileName){
+        File file = new File(BASE_URL + "/" + fileName);
+        List<JsonNode> resultList = new ArrayList<>();
+
+        if (!file.exists()) {
+            System.out.println("❌ Fichier non trouvé : " + fileName);
+            return resultList; // Retourne une liste vide
+        }
+
+        try {
+            // Lire le fichier JSON
+            JsonNode rootNode = objectMapper.readTree(file);
+
+            // Vérifier si le fichier JSON contient un tableau
+            if (!rootNode.isArray()) {
+                System.out.println("❌ Erreur : Le fichier JSON doit contenir un tableau.");
+                return resultList; // Retourne une liste vide
+            }
+
+            // Parcourir et ajouter chaque nœud à la liste
+            rootNode.forEach(resultList::add);
+
+        } catch (IOException e) {
+            System.out.println("❌ Erreur de lecture JSON : " + e.getMessage());
+        }
+
+        return resultList; // Retourne la liste des nœuds
+    }
+
     //Renvoie dans une liste le noeud sans appliquer de clé
-    public static synchronized ArrayNode getNodeWithoutFilter(String fileName) {
+    public static synchronized ArrayNode getArrayNode(String fileName) {
         File file = new File(BASE_URL + "/" + fileName);
         ArrayNode resultList = objectMapper.createArrayNode();
 
@@ -437,26 +466,26 @@ public enum JsonManager {
         return false;
     }
 
-    public static synchronized ArrayNode getAllNodes(String fileName) {
+    public static synchronized List<JsonNode> getAllNodes(String fileName) {
         File file = new File(BASE_URL + "/" + fileName);
         if (!file.exists()) {
             System.out.println("❌ Fichier non trouvé : " + fileName);
-            return objectMapper.createArrayNode();
+            return Collections.emptyList();
         }
 
         try {
             JsonNode rootNode = objectMapper.readTree(file);
             if (!rootNode.isArray()) {
                 System.out.println("❌ Erreur : Le fichier JSON doit contenir un tableau.");
-                return objectMapper.createArrayNode();
+                return Collections.emptyList();
             }
 
-            ArrayNode nodes = objectMapper.createArrayNode();
+            List<JsonNode> nodes = new ArrayList<>();
             rootNode.forEach(nodes::add);
             return nodes;
         } catch (IOException e) {
             System.out.println("❌ Erreur de lecture JSON : " + e.getMessage());
-            return objectMapper.createArrayNode();
+            return Collections.emptyList();
         }
     }
 

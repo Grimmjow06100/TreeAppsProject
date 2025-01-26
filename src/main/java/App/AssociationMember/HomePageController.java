@@ -54,12 +54,12 @@ public class HomePageController {
         this.user=user;
         updateListView();
         updateMenu();
-        updateNotif();
+        loadNotifications();
     }
 
     public void updateNotif(){
-        ArrayNode associationNotif = JsonManager.getNodeWithoutFilter("AssociationNotif.json");
-        ArrayNode greenSpaceNotif = JsonManager.getNodeWithoutFilter("GreenSpaceNotif.json");
+        ArrayNode associationNotif = JsonManager.getArrayNode("AssociationNotif.json");
+        ArrayNode greenSpaceNotif = JsonManager.getArrayNode("GreenSpaceNotif.json");
         ArrayNode notif=associationNotif.addAll(greenSpaceNotif);
 
         List<JsonNode> notifList = new ArrayList<>();
@@ -130,7 +130,7 @@ public class HomePageController {
 
         try {
             // Lire le contenu du fichier JSON
-            List<JsonNode> notifList = JsonManager.getNodeWithoutFilter(fileName);
+            ArrayNode notifList = JsonManager.getArrayNode(fileName);
 
             // Parcourir la liste à l'envers pour afficher les notifications les plus récentes en premier
             for (int i = notifList.size() - 1; i >= 0; i--) {

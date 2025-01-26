@@ -96,7 +96,7 @@ public class ArbreListeController {
     public void initialize() {
         logo.setImage(new Image("file:src/main/resources/App/AssociationMember/logo.png"));
         treeList = FXCollections.observableArrayList();
-        arbre = JsonManager.getNodeWithoutFilter("Arbres_JSON.json");
+        arbre = JsonManager.getArrayNode("Arbres_JSON.json");
         arbre.forEach(treeList::add);
 
         filteredList = new FilteredList<>(treeList, _ -> true);

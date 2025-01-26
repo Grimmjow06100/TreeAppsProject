@@ -71,7 +71,7 @@ public class DetailsController {
                             Map.entry("identifiant", user.get("identifiant").asText()),
                             Map.entry("nominations", votesArray));
 
-                    ArrayNode nominationListe = JsonManager.getNodeWithoutFilter("Nominations_JSON.json");
+                    ArrayNode nominationListe = JsonManager.getArrayNode("Nominations_JSON.json");
 
                     JsonNode existingNomination = null;
 

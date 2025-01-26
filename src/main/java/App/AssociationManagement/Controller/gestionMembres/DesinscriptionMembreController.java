@@ -113,7 +113,7 @@ public class DesinscriptionMembreController {
         JsonManager.insertInJson(JSON_ARCHIVE_FILE, Collections.singletonList(archivedMember), "identifiant");
 
         // Lire tous les membres existants
-        ArrayNode members = JsonManager.getAllNodes(JSON_FILE_NAME);
+        List<JsonNode> members = JsonManager.getAllNodes(JSON_FILE_NAME);
         ArrayNode updatedMembers = JsonManager.objectMapper.createArrayNode();
 
         for (JsonNode member : members) {

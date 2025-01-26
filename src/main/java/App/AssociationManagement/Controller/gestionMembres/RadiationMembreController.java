@@ -2,7 +2,6 @@ package App.AssociationManagement.Controller.gestionMembres;
 
 import Data.JsonManager;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -120,8 +119,8 @@ public class RadiationMembreController {
         JsonManager.insertInJson(JSON_ARCHIVE_FILE, Collections.singletonList(archivedMember), "identifiant");
 
         // Supprimer le membre du fichier principal
-        ArrayNode members = JsonManager.getAllNodes(JSON_FILE_NAME);
-        ArrayNode updatedMembers = JsonManager.objectMapper.createArrayNode();
+        List<JsonNode> members = JsonManager.getAllNodes(JSON_FILE_NAME);
+        List<JsonNode> updatedMembers = new ArrayList<>();
 
         for (JsonNode member : members) {
             if (!member.get("identifiant").asText().equals(selectedMember.get("identifiant").asText())) {
