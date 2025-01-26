@@ -46,4 +46,36 @@
     "longitude" : 2.340734265833792,
     "remarquable" : "NON"
   }
+}, {
+  "idBase" : "99874",
+  "TypeChangement" : "Proposition arbre remarquable",
+  "Arbre" : {
+    "idBase" : 99874,
+    "genre" : "Aesculus",
+    "espece" : "hippocastanum",
+    "circonference" : 250,
+    "libelle_france" : "Marronnier",
+    "hauteur" : 22,
+    "stade_de_developpement" : "Mature",
+    "lieu" : "JARDIN DE LA MAIRIE DU VIIEME / 116 RUE DE GRENELLE",
+    "latitude" : 48.85763363167391,
+    "longitude" : 2.320982125256987,
+    "remarquable" : "OUI"
+  }
+}, {
+  "idBase" : "99875",
+  "TypeChangement" : "Proposition arbre remarquable",
+  "Arbre" : {
+    "idBase" : 99875,
+    "genre" : "Taxus",
+    "espece" : "baccata",
+    "circonference" : 80,
+    "libelle_france" : "If",
+    "hauteur" : 10,
+    "stade_de_developpement" : "Adulte",
+    "lieu" : "JARDIN DE LA MAIRIE DU VIIEME / 116 RUE DE GRENELLE",
+    "latitude" : 48.85766060320649,
+    "longitude" : 2.3210943354556894,
+    "remarquable" : "NON"
+  }
 } ]

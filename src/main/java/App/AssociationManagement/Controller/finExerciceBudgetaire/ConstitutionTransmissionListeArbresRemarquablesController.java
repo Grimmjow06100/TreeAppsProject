@@ -13,6 +13,7 @@ import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,18 +33,18 @@ public class ConstitutionTransmissionListeArbresRemarquablesController {
 
     @FXML
     protected void initialize() {
+        // Charger le classement des arbres et configurer l'action du bouton
         loadClassementProvisoire();
         GreenServiceSubmit.setOnAction(this::onGreenServiceSubmit);
     }
 
     @FXML
     protected void onButtonRetourClick(ActionEvent event) {
+        // Retourner à la vue précédente
         try {
-            // Charger la vue précédente
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationManagement/finExerciceBudgetaire/AccueilFinExerciceBudgetaire.fxml"));
             Parent membreView = loader.load();
 
-            // Obtenir la scène actuelle et appliquer la nouvelle
             Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(membreView, 600, 400));
             stage.setTitle("Exercice Budgétaire");
@@ -54,6 +55,7 @@ public class ConstitutionTransmissionListeArbresRemarquablesController {
     }
 
     private void loadClassementProvisoire() {
+        // Charger les votes des membres et classer les arbres en fonction des votes
         List<JsonNode> membres = JsonManager.getNodeWithoutFilter(MEMBERS_FILENAME);
         Map<String, Integer> arbreVotes = new HashMap<>();
 
@@ -68,6 +70,7 @@ public class ConstitutionTransmissionListeArbresRemarquablesController {
             }
         }
 
+        // Charger les arbres et les classer par votes
         List<JsonNode> arbres = JsonManager.getNodeWithoutFilter(FILENAME);
         List<JsonNode> arbresClassement = arbres.stream()
                 .filter(arbre -> arbre.has("idBase") && arbreVotes.containsKey(arbre.get("idBase").asText()))
@@ -85,6 +88,7 @@ public class ConstitutionTransmissionListeArbresRemarquablesController {
                 .limit(5)
                 .collect(Collectors.toList());
 
+        // Mettre à jour la ListView
         listeArbresContainter.getItems().clear();
         for (JsonNode arbre : arbresClassement) {
             String idBase = arbre.has("idBase") ? arbre.get("idBase").asText() : "Inconnu";
@@ -94,55 +98,51 @@ public class ConstitutionTransmissionListeArbresRemarquablesController {
             listeArbresContainter.getItems().add(idBase + " - " + genre + " - " + libelleFrance + " - " + espece);
         }
     }
+
     private void onGreenServiceSubmit(ActionEvent event) {
-        String selectedItem = listeArbresContainter.getSelectionModel().getSelectedItem();
+        // Soumettre tous les arbres affichés dans la ListView
+        List<String> items = listeArbresContainter.getItems();
 
-        if (selectedItem == null) {
-            Alert alert = new Alert(Alert.AlertType.WARNING, "Veuillez sélectionner un arbre avant de soumettre.", javafx.scene.control.ButtonType.OK);
+        if (items.isEmpty()) {
+            // Alerte si la liste est vide
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Aucun arbre à soumettre.", javafx.scene.control.ButtonType.OK);
             alert.show();
             return;
         }
 
-        String[] parts = selectedItem.split(" - ");
-        if (parts.length == 0) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Impossible de soumettre la demande. Format d'arbre invalide.", javafx.scene.control.ButtonType.OK);
-            alert.show();
-            return;
-        }
-
-        String idBase = parts[0];
         List<JsonNode> arbres = JsonManager.getNodeWithoutFilter(FILENAME);
 
-        JsonNode selectedTree = arbres.stream()
-                .filter(arbre -> arbre.has("idBase") && arbre.get("idBase").asText().equals(idBase))
-                .findFirst()
-                .orElse(null);
+        // Créer une liste pour les changements à soumettre
+        List<Map<String, Object>> changements = items.stream()
+                .map(item -> {
+                    String[] parts = item.split(" - ");
+                    String idBase = parts[0];
 
-        if (selectedTree == null) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Arbre introuvable dans le fichier JSON.", javafx.scene.control.ButtonType.OK);
+                    // Trouver l'arbre correspondant dans le fichier JSON
+                    JsonNode selectedTree = arbres.stream()
+                            .filter(arbre -> arbre.has("idBase") && arbre.get("idBase").asText().equals(idBase))
+                            .findFirst()
+                            .orElse(null);
+
+                    if (selectedTree != null) {
+                        Map<String, Object> changement = new HashMap<>();
+                        changement.put("TypeChangement", "Proposition arbre remarquable");
+                        changement.put("Arbre", selectedTree);
+                        changement.put("idBase", selectedTree.get("idBase").asText());
+                        return changement;
+                    }
+                    return null;
+                })
+                .filter(changement -> changement != null)
+                .collect(Collectors.toList());
+
+        if (!changements.isEmpty()) {
+            // Insérer les changements dans le fichier JSON
+            JsonManager.insertInJson(REMARKABLE_JSON, new ArrayList<>(changements), "idBase");
+
+            // Alerte de confirmation
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Tous les arbres ont été soumis au service des espaces verts !", javafx.scene.control.ButtonType.OK);
             alert.show();
-            return;
         }
-
-        Map<String, Object> changement = new HashMap<>();
-        changement.put("TypeChangement", "Proposition arbre remarquable");
-        changement.put("Arbre", selectedTree);
-
-        // Ajouter idBase à la racine pour s'assurer de l'unicité
-        if (selectedTree.has("idBase")) {
-            changement.put("idBase", selectedTree.get("idBase").asText());
-        } else {
-            System.out.println("❌ L'arbre sélectionné ne possède pas d'idBase.");
-            return;
-        }
-
-        // Log pour vérifier l'objet avant insertion
-        System.out.println("Objet envoyé à insertInJson : " + changement);
-
-        // Insérer dans le JSON
-        JsonManager.insertInJson("ArbreRemarquableChoisi.json", List.of(changement), "idBase");
-
-        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Demande soumise avec succès au service des espaces verts !", javafx.scene.control.ButtonType.OK);
-        alert.show();
     }
 }
