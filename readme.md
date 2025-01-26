@@ -75,6 +75,7 @@ Dans la page Mes votes, on peut voir les votes effectués par l'utilisateur conn
 Chacune des pages est équipé d'un bouton `retour` pour retourner à la page précedente.
 
 
+## Utilisation de l'application de gestion de l'association ##
 
 **Gestion des membres de l'association**
 Depuis cette interface, il est possible de gérer les membres de l'association. Les fonctionnalités disponibles sont :
