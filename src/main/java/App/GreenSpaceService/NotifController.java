@@ -1,15 +1,21 @@
 package App.GreenSpaceService;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.Objects;
 
 public class NotifController {
+
+    @FXML
+    ListView<String> listNotif;
+
     public void OnButtonReturnClick3(ActionEvent actionEvent) {
         try {
             // Chemin fixe pour le fichier FXML
