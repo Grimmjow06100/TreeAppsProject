@@ -14,7 +14,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@GestionMembresStyles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.AssociationManagement.Controller.gestionMembres.GestionMembresController">
    <children>
       <HBox alignment="TOP_RIGHT" layoutY="1.0" prefHeight="28.0" prefWidth="600.0">
@@ -24,11 +23,6 @@
                   <Menu fx:id="menu1" mnemonicParsing="false" text="Autres">
                      <items>
                         <MenuItem fx:id="menuItem1" mnemonicParsing="false" text="Quitter" />
-                     </items>
-                  </Menu>
-                  <Menu fx:id="menu2" mnemonicParsing="false" text="Notifications">
-                     <items>
-                        <MenuItem fx:id="menuItem2" mnemonicParsing="false" text="Voir les notifications" />
                      </items>
                   </Menu>
                </menus>
