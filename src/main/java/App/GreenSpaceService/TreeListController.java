@@ -9,20 +9,22 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import javafx.scene.control.ComboBox;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class TreeListController {
+
+    @FXML
+    private TextField textFiltrerCirconference;
 
     @FXML
     private TableView<Tree> treeTableView;
@@ -48,7 +50,8 @@ public class TreeListController {
     @FXML
     private ComboBox<String> filterComboBox;
 
-    ObservableList<Tree> treeList = FXCollections.observableArrayList();
+    private final ObservableList<Tree> treeList = FXCollections.observableArrayList();
+    private final ObservableList<Tree> filteredList = FXCollections.observableArrayList();
 
     @FXML
     public void OnActionButtonClicked5(ActionEvent actionEvent) {
@@ -92,6 +95,15 @@ public class TreeListController {
         filterComboBox.setItems(filters);
         // Optionnel : Sélectionner un filtre par défaut
         filterComboBox.getSelectionModel().select("Aucun filtre");
+        // Ajouter un ChangeListener pour détecter les changements de filtre
+        filterComboBox.valueProperty().addListener((observable, oldValue, newValue) -> applyFilter(newValue));
+
+        // Ajouter un écouteur sur le champ `TextField` pour appliquer le filtre de circonférence
+        textFiltrerCirconference.setOnKeyReleased(this::filterByCirconference);
+        // Initialiser la liste affichée par défaut (sans filtre)
+        filteredList.addAll(treeList);
+        treeTableView.setItems(filteredList);
+        textFiltrerCirconference.setVisible(false);
     }
 
     public void loadTreeData() {
@@ -123,6 +135,7 @@ public class TreeListController {
     public void removeTree(Tree tree) {
         treeList.remove(tree); // Supprime de la liste observable
         treeTableView.setItems(treeList); // Met à jour la TableView
+        logChangeToNotifFile("Suppression", tree);
     }
 
     private void addButtonToTable() {
@@ -195,9 +208,108 @@ public class TreeListController {
 
             // Rafraîchir la TableView
             treeTableView.refresh();
+            logChangeToNotifFile("Changement en arbre remarquable", tree);
             System.out.println("✅ Arbre mis à jour : " + tree.getId() + " est maintenant " + newStatus);
+
         } else {
             System.out.println("❌ Impossible de mettre à jour l'arbre dans le fichier JSON.");
+        }
+    }
+
+    private void applyFilter(String filter) {
+        filteredList.clear();
+
+        switch (filter) {
+            case "Aucun filtre":
+                // Ajouter tous les arbres sans filtrer
+                filteredList.addAll(treeList);
+                textFiltrerCirconference.setVisible(false);
+                break;
+
+            case "Arbres remarquables":
+                // Filtrer uniquement les arbres remarquables
+                filteredList.addAll(treeList.stream()
+                        .filter(tree -> "OUI".equalsIgnoreCase(tree.getRemarquable()))
+                        .toList());
+                textFiltrerCirconference.setVisible(false);
+                break;
+
+            case "Arbres non remarquables":
+                // Filtrer uniquement les arbres non remarquables
+                filteredList.addAll(treeList.stream()
+                        .filter(tree -> "NON".equalsIgnoreCase(tree.getRemarquable()))
+                        .toList());
+                textFiltrerCirconference.setVisible(false);
+                break;
+
+            case "circonférences supérieur à :":
+                textFiltrerCirconference.setVisible(true);
+                filteredList.addAll(treeList);
+
+            default:
+                break;
+        }
+
+        // Mettre à jour la TableView
+        treeTableView.setItems(filteredList);
+    }
+
+    private void filterByCirconference(KeyEvent event) {
+        try {
+            String input = textFiltrerCirconference.getText();
+            if (input.isEmpty()) {
+                filteredList.clear();
+                filteredList.addAll(treeList); // Aucun filtre si la saisie est vide
+            } else {
+                double minCirconference = Double.parseDouble(input);
+
+                // Filtrer en fonction de la circonférence
+                filteredList.clear();
+                filteredList.addAll(treeList.stream()
+                        .filter(tree -> {
+                            try {
+                                return Double.parseDouble(tree.getCirconference()) >= minCirconference;
+                            } catch (NumberFormatException e) {
+                                return false; // Ignore les valeurs non valides
+                            }
+                        })
+                        .toList());
+            }
+
+            // Mettre à jour la TableView
+            treeTableView.setItems(filteredList);
+
+        } catch (NumberFormatException e) {
+            System.out.println("❌ Valeur de circonférence invalide : " + textFiltrerCirconference.getText());
+        }
+    }
+
+    private void logChangeToNotifFile(String typeChangement, Tree tree) {
+        try {
+            // Créer une map pour représenter le changement
+            Map<String, Object> changeLog = new HashMap<>();
+            changeLog.put("TypeChangement", typeChangement);
+
+            Map<String, Object> treeData = new HashMap<>();
+            treeData.put("id", tree.getId());
+            treeData.put("nom", tree.getNom());
+            treeData.put("genre", tree.getGenre());
+            treeData.put("espece", tree.getEspece());
+            treeData.put("lieu", tree.getLieu());
+            treeData.put("remarquable", tree.getRemarquable());
+            treeData.put("latitude", tree.getLatitude());
+            treeData.put("longitude", tree.getLongitude());
+            treeData.put("hauteur", tree.getHauteur());
+            treeData.put("circonference", tree.getCirconference());
+            treeData.put("stade_de_developpement", tree.getDeveloppementStage());
+
+            changeLog.put("Arbre", treeData);
+
+            // Appeler JsonManager pour insérer dans le fichier JSON
+            JsonManager.insertInJson("GreenSpaceNotif.json", List.of(changeLog));
+            System.out.println("✅ Changement enregistré dans GreenSpaceNotif.json : " + typeChangement);
+        } catch (Exception e) {
+            System.out.println("❌ Erreur lors de l'enregistrement du changement : " + e.getMessage());
         }
     }
 }

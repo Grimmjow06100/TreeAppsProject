@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
@@ -24,6 +25,7 @@
                <children>
                       <Button id="returnButton1" mnemonicParsing="false" onAction="#OnActionButtonClicked5" prefHeight="55.0" prefWidth="123.0" stylesheets="@styles.css" text="Retour" />
                   <ComboBox fx:id="filterComboBox" prefWidth="150.0" promptText="filtres" />
+                  <TextField fx:id="textFiltrerCirconference" promptText="ex : 10 (en cm)" visible="false" />
                </children>
             </VBox>
                 <TableView fx:id="treeTableView" stylesheets="@TableStyle.css">
