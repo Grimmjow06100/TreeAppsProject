@@ -459,5 +459,50 @@ public enum JsonManager {
         }
     }
 
+    public static int getLastId(String filename) {
+        Optional<JsonNode> root = getRootNode(filename);
+        if (root.isPresent() && root.get().isArray()) {
+            JsonNode array = root.get();
+            int lastId = 0;
+            for (JsonNode node : array) {
+                if (node.has("id")) {
+                    lastId = Math.max(lastId, node.get("id").asInt());
+                }
+            }
+            return lastId;
+        }
+        return 0; // Retourne 0 si le fichier est vide ou inexistant
+    }
+
+    public static void updateJsonField(String filename, String searchKey, String searchValue, String fieldToUpdate, String newValue) {
+        File file = new File(filename);
+
+        try {
+            if (!file.exists()) {
+                System.err.println("⚠️ Fichier JSON non trouvé : " + filename);
+                return;
+            }
+
+            JsonNode root = objectMapper.readTree(file);
+            if (root.isArray()) {
+                ArrayNode arrayNode = (ArrayNode) root;
+
+                for (JsonNode node : arrayNode) {
+                    if (node.has(searchKey) && node.get(searchKey).asText().equals(searchValue)) {
+                        ((ObjectNode) node).put(fieldToUpdate, newValue);
+                        objectMapper.writeValue(file, arrayNode);
+                        System.out.println("✅ Champ '" + fieldToUpdate + "' mis à jour avec succès !");
+                        return;
+                    }
+                }
+            }
+            System.err.println("❌ Aucun enregistrement trouvé pour " + searchKey + " = " + searchValue);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("❌ Erreur lors de la mise à jour du fichier JSON !");
+        }
+    }
+
+
 
 }
