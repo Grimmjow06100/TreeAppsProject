@@ -103,7 +103,7 @@ public class TreePlantationController {
 
 
             // Ajouter l'arbre au fichier JSON
-            JsonManager.insertInJson("Arbres_JSON_test.json", List.of(newTree));
+            JsonManager.insertInJson("Arbres_JSON.json", List.of(newTree));
 
             logPlantationToNotifFile(newTree);
             // Confirmation

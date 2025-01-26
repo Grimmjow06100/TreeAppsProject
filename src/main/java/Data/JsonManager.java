@@ -131,6 +131,7 @@ public enum JsonManager {
                 System.out.println(newNode);
                 arrayNode.add(newNode);
             }
+            System.out.println("Contenu final du fichier JSON : " + arrayNode.toPrettyString());
 
             objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, arrayNode);
             System.out.println("✅ Ajout réussi dans " + fileName);

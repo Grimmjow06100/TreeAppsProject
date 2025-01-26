@@ -108,7 +108,7 @@ public class TreeListController {
 
     public void loadTreeData() {
         JsonManager jsonManager = JsonManager.INSTANCE;
-        List<JsonNode> arbreList = jsonManager.getNodeWithoutFilter("Arbres_JSON_test.json");
+        List<JsonNode> arbreList = jsonManager.getNodeWithoutFilter("Arbres_JSON.json");
 
         // Convertir les données JSON en objets Tree et les ajouter à la liste
         arbreList.forEach((JsonNode node) -> {
@@ -200,7 +200,7 @@ public class TreeListController {
 
     public void updateTreeRemarkableStatus(Tree tree, String newStatus) {
         // Mettre à jour l'arbre dans le fichier JSON
-        boolean isUpdated = JsonManager.INSTANCE.updateTreeRemarkableStatus("Arbres_JSON_test.json", tree.getId(), newStatus);
+        boolean isUpdated = JsonManager.INSTANCE.updateTreeRemarkableStatus("Arbres_JSON.json", tree.getId(), newStatus);
 
         if (isUpdated) {
             // Mettre à jour l'objet Tree dans la liste observable
