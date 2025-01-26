@@ -21,11 +21,6 @@
                                 <MenuItem mnemonicParsing="false" text="Close" />
                             </items>
                         </Menu>
-                        <Menu mnemonicParsing="false" text="Notifications">
-                            <items>
-                                <MenuItem mnemonicParsing="false" text="Voir les notifications" />
-                            </items>
-                        </Menu>
                     </menus>
                 </MenuBar>
                 <Button fx:id="retourButton" layoutY="28.0" mnemonicParsing="false" onAction="#onButtonRetourClick" text="Retour" />

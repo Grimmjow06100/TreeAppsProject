@@ -30,6 +30,7 @@ public class DesinscriptionMembreController {
     @FXML
     private VBox detailsContainer;
 
+
     private ObservableList<String> memberList;
     private JsonNode selectedMember;
     private static final String JSON_FILE_NAME = "Members_JSON.json";

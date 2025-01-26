@@ -21,11 +21,6 @@
                     <MenuItem mnemonicParsing="false" text="Close" />
                   </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Notifications">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Delete" />
-                  </items>
-                </Menu>
               </menus>
             </MenuBar>
          </children>
@@ -36,7 +31,7 @@
             <TextField fx:id="nomArbreTextField" layoutX="84.0" layoutY="57.0" prefHeight="25.0" prefWidth="432.0" promptText="Rechercher une visite par arbre ou lieu" />
             <ListView fx:id="listeVisitesListView" layoutX="84.0" layoutY="82.0" prefHeight="200.0" prefWidth="432.0" />
             <Button fx:id="ajouterVisiteButton" layoutX="407.0" layoutY="10.0" mnemonicParsing="false" onAction="#onButtonAjouterVisiteClick" text="Ajouter une visite" />
-             <Button fx:id="trierParDateButton" layoutX="84.0" layoutY="10.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="108.0" onAction="#onButtonTrierParDateClick" text="Trier par date" />
+             <Button fx:id="trierParDateButton" layoutX="84.0" layoutY="10.0" mnemonicParsing="false" onAction="#onButtonTrierParDateClick" prefHeight="25.0" prefWidth="108.0" text="Trier par date" />
          </children>
       </Pane>
    </children>
