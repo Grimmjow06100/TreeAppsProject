@@ -26,4 +26,32 @@
   "remarquable" : "NON",
   "dateClassification" : null,
   "nombreVotes" : 2
+}, {
+  "idBase" : 99896,
+  "genre" : "",
+  "espece" : "",
+  "libelle_france" : "Arbre à caramel",
+  "circonference" : 0,
+  "hauteur" : 0.0,
+  "stade_de_developpement" : "",
+  "lieu" : "",
+  "latitude" : 0.0,
+  "longitude" : 0.0,
+  "remarquable" : "NON",
+  "dateClassification" : null,
+  "nombreVotes" : 1
+}, {
+  "idBase" : 99876,
+  "genre" : "Taxus",
+  "espece" : "baccata",
+  "libelle_france" : "If",
+  "circonference" : 115,
+  "hauteur" : 10.0,
+  "stade_de_developpement" : "Adulte",
+  "lieu" : "JARDIN DE LA MAIRIE DU VIIEME / 116 RUE DE GRENELLE",
+  "latitude" : 48.85772445527974,
+  "longitude" : 2.3210253456463703,
+  "remarquable" : "NON",
+  "dateClassification" : null,
+  "nombreVotes" : 1
 } ]

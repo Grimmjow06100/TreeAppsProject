@@ -8,6 +8,34 @@
   "password" : "password123",
   "cotisationPayee" : false,
   "cotisationsPayees" : [ ],
+  "nominations" : [ {
+    "idBase" : 99896,
+    "libelle_france" : "Arbre à caramel"
+  }, {
+    "idBase" : 99876,
+    "libelle_france" : "If"
+  }, {
+    "idBase" : 99876,
+    "libelle_france" : "If"
+  }, {
+    "idBase" : 99876,
+    "libelle_france" : "If"
+  }, {
+    "idBase" : 99876,
+    "libelle_france" : "If"
+  } ],
+  "visites" : [ ],
+  "dateInscription" : "15-05-2021"
+}, {
+  "nom" : "Doe",
+  "prenom" : "Jane",
+  "age" : 22,
+  "adresse" : "balec",
+  "dateNaissance" : "25-08-1999",
+  "identifiant" : "JaneDoe",
+  "password" : "password456",
+  "cotisationPayee" : false,
+  "cotisationsPayees" : [ ],
   "nominations" : [ ],
   "visites" : [ ],
   "dateInscription" : "15-05-2021"

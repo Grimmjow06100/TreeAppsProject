@@ -20,7 +20,7 @@ public class DatabaseToJSON {
              ResultSet rs = stmt.executeQuery(
                      "SELECT idBase,genre, espece, circonference, libelle_france as nomCommun, hauteur, stade_de_developpement as stadeDeveloppement, lieu as adresse, " +
                              "ST_X(geo_point_2d) AS latitude, ST_Y(geo_point_2d) AS longitude, remarquable " +
-                             "FROM arbre WHERE stade_de_developpement IS NOT NULL AND remarquable IS NOT NULL LIMIT 2000;"
+                             "FROM arbre WHERE stade_de_developpement IS NOT NULL AND remarquable IS NOT NULL LIMIT 50000;"
              )) {
 
             // ✅ Création du tableau JSON depuis la BDD
@@ -89,8 +89,8 @@ public class DatabaseToJSON {
     }
 
     public static void main(String[] args) {
-        JsonManager json= JsonManager.INSTANCE;
-        json.deleteJsonFile("Arbres_JSON.json");
+
+        JsonManager.deleteJsonFile("Arbres_JSON.json");
         exportTableToJson("C:\\Users\\samy0\\OneDrive\\Bureau\\Polytech\\Info\\Java\\ET4\\demo\\src\\main\\resources\\JSONDB\\Arbres_JSON.json"); // Remplace "arbres" par le nom de ta table
     }
 }

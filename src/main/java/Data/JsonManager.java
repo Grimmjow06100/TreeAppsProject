@@ -73,7 +73,7 @@ public enum JsonManager {
     }
 
     // ✅ Ajout d'un ou plusieurs objets dans un fichier JSON
-    public static synchronized void insertInJson(String fileName, List<Object> newData, String keyField) {
+    public static synchronized void insertInJson(String fileName, List<?> newData, String keyField) {
         File file = new File(BASE_URL + "/" + fileName);
         if (!file.exists()) {
             System.out.println("❌ Fichier non trouvé : " + fileName);
@@ -111,7 +111,7 @@ public enum JsonManager {
     }
 
     // ✅ Ajout d'un ou plusieurs objets dans un fichier JSON
-    public static synchronized void insertInJson(String fileName, List<Object> newData) {
+    public static synchronized void insertInJson(String fileName, List<?> newData) {
         File file = new File(BASE_URL + "/" + fileName);
         if (!file.exists()) {
            System.out.println("❌ Fichier non trouvé : " + fileName);
@@ -191,21 +191,21 @@ public enum JsonManager {
 
 
     // ✅ Recherche d'objets dans un fichier JSON par cléUnique/valeur
-    public static synchronized List<JsonNode> getNodeList(String fileName, List<Map.Entry<String,Object>>entries) {
+    public static synchronized ArrayNode getNodeList(String fileName, List<Map.Entry<String,Object>>entries) {
         File file = new File(BASE_URL + "/" + fileName);
         if (!file.exists()) {
             System.out.println("❌ Fichier non trouvé : " + fileName);
-            return Collections.emptyList();
+            return objectMapper.createArrayNode();
         }
 
         try {
             JsonNode rootNode = objectMapper.readTree(file);
             if (!rootNode.isArray()) {
                 System.out.println("❌ Erreur : Le fichier JSON doit contenir un tableau.");
-                return Collections.emptyList();
+                return objectMapper.createArrayNode();
             }
 
-            List<JsonNode> results = new ArrayList<>();
+            ArrayNode results = objectMapper.createArrayNode();
             for (JsonNode node : rootNode) {
                 for(Map.Entry<String,Object>entry:entries){
                     JsonNode nodeValue=objectMapper.valueToTree(entry.getValue());
@@ -217,10 +217,10 @@ public enum JsonManager {
 
             }
 
-            return results.isEmpty() ? Collections.emptyList() : results;
+            return results.isEmpty() ? objectMapper.createArrayNode() : results;
         } catch (IOException e) {
             System.out.println("❌ Erreur de lecture JSON : " + e.getMessage());
-            return Collections.emptyList();
+            return objectMapper.createArrayNode();
         }
     }
 
@@ -256,10 +256,39 @@ public enum JsonManager {
         return Optional.empty();
     }
 
-    //Renvoie dans une liste le noeud sans appliquer de clé
-    public static synchronized List<JsonNode> getNodeWithoutFilter(String fileName) {
+    public static synchronized List<JsonNode> getNodeWithoutFilter(String fileName){
         File file = new File(BASE_URL + "/" + fileName);
         List<JsonNode> resultList = new ArrayList<>();
+
+        if (!file.exists()) {
+            System.out.println("❌ Fichier non trouvé : " + fileName);
+            return resultList; // Retourne une liste vide
+        }
+
+        try {
+            // Lire le fichier JSON
+            JsonNode rootNode = objectMapper.readTree(file);
+
+            // Vérifier si le fichier JSON contient un tableau
+            if (!rootNode.isArray()) {
+                System.out.println("❌ Erreur : Le fichier JSON doit contenir un tableau.");
+                return resultList; // Retourne une liste vide
+            }
+
+            // Parcourir et ajouter chaque nœud à la liste
+            rootNode.forEach(resultList::add);
+
+        } catch (IOException e) {
+            System.out.println("❌ Erreur de lecture JSON : " + e.getMessage());
+        }
+
+        return resultList; // Retourne la liste des nœuds
+    }
+
+    //Renvoie dans une liste le noeud sans appliquer de clé
+    public static synchronized ArrayNode getArrayNode(String fileName) {
+        File file = new File(BASE_URL + "/" + fileName);
+        ArrayNode resultList = objectMapper.createArrayNode();
 
         if (!file.exists()) {
             System.out.println("❌ Fichier non trouvé : " + fileName);

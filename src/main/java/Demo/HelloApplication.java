@@ -13,10 +13,8 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Objects;
+import java.time.LocalTime;
+import java.util.*;
 
 
 public class HelloApplication extends Application {
@@ -121,9 +119,28 @@ public class HelloApplication extends Application {
 
     }
 
+    public static void notifTest(){
+        List<Notification> notifications = new ArrayList<>();
+
+        notifications.add(new Notification("🌳 Une nouvelle visite d'arbre est planifiée.",
+                LocalDate.of(2025, 2, 10), LocalTime.of(14, 30)));
+
+        notifications.add(new Notification("📅 Votre cotisation annuelle est due bientôt.",
+                LocalDate.of(2025, 3, 5), LocalTime.of(9, 45)));
+
+        notifications.add(new Notification("🔔 Un nouvel arbre remarquable a été ajouté !",
+                LocalDate.of(2025, 4, 20), LocalTime.of(16, 15)));
+
+        notifications.add(new Notification("✅ Votre proposition de classification a été validée.",
+                LocalDate.of(2025, 5, 8), LocalTime.of(11, 0)));
+
+
+        JsonManager.insertInJson("AssociationNotif.json",notifications);
+    }
+
 
     public static void main(String[] args) throws IOException {
-        MakeJsonFiles();
+
         launch();
 
     }
