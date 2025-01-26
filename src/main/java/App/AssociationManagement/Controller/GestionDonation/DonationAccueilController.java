@@ -50,10 +50,14 @@ public class DonationAccueilController {
     public void initialize() {
         donateursList = FXCollections.observableArrayList();
 
-        Optional<JsonNode> donationsRoot = JsonManager.getRootNode("Donations_JSON.json");
+        Optional<JsonNode> donationsRoot = JsonManager.getRootNode("Donations.json");
         if (donationsRoot.isPresent()) {
+            System.out.println("Fichier JSON chargé avec succès !");
             ArrayNode donationsArray = (ArrayNode) donationsRoot.get();
+
             donationsArray.forEach((JsonNode node) -> {
+                System.out.println("Lecture de la donation : " + node.toString()); // Debug
+
                 int id = node.get("id").asInt();
                 String nature = node.get("nature").asText();
                 int montant = node.get("montant").asInt();
@@ -61,6 +65,8 @@ public class DonationAccueilController {
 
                 donateursList.add("ID: " + id + " | Nature: " + nature + " | Montant: " + montant + "€ | Date: " + date);
             });
+        } else {
+            System.out.println("⚠️ Fichier Donations_JSON.json non trouvé !");
         }
 
         FilteredList<String> filteredList = new FilteredList<>(donateursList, _ -> true);
@@ -75,5 +81,20 @@ public class DonationAccueilController {
         });
 
         donateursListView.setItems(filteredList);
+    }
+
+    @FXML
+    protected void onButtonAjouterClick(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationManagement/Donation/AjouterDonateur.fxml"));
+            Parent ajouterDonateurView = loader.load();
+
+            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(ajouterDonateurView, 600, 400));
+            stage.setTitle("Ajouter un Donateur");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -36,7 +36,7 @@
             <children>
                 <TextField fx:id="rechercheTextField" alignment="CENTER" layoutX="149.0" layoutY="32.0" prefHeight="25.0" prefWidth="302.0" promptText="Rechercher un donateur..." />
                 <ListView fx:id="donateursListView" layoutX="149.0" layoutY="57.0" prefHeight="200.0" prefWidth="302.0" />
-                <Button layoutX="380.0" layoutY="270.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" text="Ajouter" />
+                <Button fx:id="ajouterButton" layoutX="380.0" layoutY="270.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" text="Ajouter" onAction="#onButtonAjouterClick" />
                 <Button layoutX="149.0" layoutY="270.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" text="Supprimer" />
             </children>
         </Pane>
