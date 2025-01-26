@@ -60,6 +60,8 @@ Dans la page Mes votes, on peut voir les votes effectués par l'utilisateur conn
 
 
 
+
+
 ## Utilisation de l'application du service des espaces verts
 
 1. **Lancer l'application** : L'application se lance automatiquement avec les 2 autres applications lorsqu'on run le *helloApplication*.  
@@ -72,6 +74,31 @@ Dans la page Mes votes, on peut voir les votes effectués par l'utilisateur conn
 
 Chacune des pages est équipé d'un bouton `retour` pour retourner à la page précedente.
 
+
+
+**Gestion des membres de l'association**
+Depuis cette interface, il est possible de gérer les membres de l'association. Les fonctionnalités disponibles sont :
+
+- Retour : Revenir à l'écran précédent.
+- Élire un nouveau président : Permet de désigner un(e) nouveau/nouvelle président(e) pour l'association. Pour cela il faut double-cliquer sur le nom d'une personne.
+- Voir la liste des membres : Accéder à la liste complète des membres de l'association.
+- Inscrire un membre : Ajouter un nouveau membre à l'association.
+- Désinscrire un membre : Supprimer un membre de la liste des membres de l'association.
+- Radiation d'un membre : Retirer définitivement un membre pour cause de non-respect des règles ou autres raisons justifiées.
+
+**Classification des arbres remarquables**
+Depuis cette interface, il est possible de :
+
+-Afficher la liste des arbres remarquables
+-Afficher le classement provisoire des arbres avec le plus de vote (pour être classé arbre remarquable)
+
+**Fin exercice budgétaire**
+
+**Donations**
+
+**Visites d'arbres**
+
+**Gestion des finances de l'association**
 
 
 
