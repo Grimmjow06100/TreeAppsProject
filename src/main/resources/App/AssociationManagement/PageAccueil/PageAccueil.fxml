@@ -16,6 +16,15 @@
     <Pane prefHeight="64.0" prefWidth="572.0" style="-fx-background-color: #6ae46f;">
         <children>
             <Label layoutX="223.0" layoutY="16.0" text="Menu Principal" />
+            <Button fx:id="notificationButton" layoutX="540.0" layoutY="4.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="56.0" onAction="#onNotificationButtonClick">
+               <graphic>
+                  <ImageView fitHeight="31.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Notif.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
         </children>
     </Pane>
       <StackPane>
