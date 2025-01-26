@@ -11,16 +11,25 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.AssociationManagement.Controller.PageAccueilController">
+<VBox prefHeight="400.0" prefWidth="600.0" stylesheets="@PageAccueilStyles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.AssociationManagement.Controller.PageAccueilController">
 <children>
     <Pane prefHeight="64.0" prefWidth="572.0" style="-fx-background-color: #6ae46f;">
         <children>
-            <Label layoutX="260.0" layoutY="24.0" text="Menu Principal" />
+            <Label layoutX="223.0" layoutY="16.0" text="Menu Principal" />
+            <Button fx:id="notificationButton" layoutX="540.0" layoutY="4.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="56.0" onAction="#onNotificationButtonClick">
+               <graphic>
+                  <ImageView fitHeight="31.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Notif.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
         </children>
     </Pane>
       <StackPane>
          <children>
-            <ImageView fitHeight="337.0" fitWidth="602.0" pickOnBounds="true">
+            <ImageView fitHeight="337.0" fitWidth="602.0" opacity="0.8" pickOnBounds="true">
                <image>
                   <Image url="@Jungle2.jpg" />
                </image>
@@ -36,7 +45,7 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
               <children>
-                  <Button mnemonicParsing="false" style="-fx-background-color: c49151; -fx-background-radius: 20; -fx-border-radius: 20;" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                  <Button fx:id="donationButton" mnemonicParsing="false" onAction="#onButtonDonationClick" style="-fx-background-color: c49151; -fx-background-radius: 20; -fx-border-radius: 20;" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                       <graphic>
                           <ImageView fitHeight="68.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true">
                               <image>
@@ -45,7 +54,7 @@
                           </ImageView>
                       </graphic>
                   </Button>
-                  <Button fx:id="votesArbresButton" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#onButtonArbresClick" prefHeight="74.0" prefWidth="99.0" style="-fx-background-color: #C49151; -fx-border-radius: 20; -fx-background-radius: 20;" textAlignment="CENTER" GridPane.columnIndex="1">
+                  <Button fx:id="votesArbresButton" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#onButtonArbresClick" prefHeight="74.0" prefWidth="106.0" style="-fx-background-color: #C49151; -fx-border-radius: 20; -fx-background-radius: 20;" textAlignment="CENTER" GridPane.columnIndex="1">
                       <graphic>
                           <ImageView fitHeight="77.0" fitWidth="81.0" pickOnBounds="true" preserveRatio="true">
                               <image>

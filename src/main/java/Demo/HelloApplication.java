@@ -89,7 +89,7 @@ public class HelloApplication extends Application {
         JsonManager.insertInJson("Members_JSON.json", List.of(m1, m2, m3, m4, m5), "identifiant");
 
         Don d= new Don(100, "kaka");
-        Facture f= new Facture(100, "kaka",false);
+        Facture f= new Facture(100, "kaka","pipi", true);
 
 
         Association a= new Association("Arre Assoc",500,List.of(d),List.of(f));
@@ -101,10 +101,12 @@ public class HelloApplication extends Application {
         Optional<Tree> tree3=JsonManager.getObjectFromJson(filename,Map.entry("genre","Styphnolobium"), Tree.class);
 
 
-        Visit v1= new Visit(50,LocalDate.of(2025, 3, 16), tree1.get(),null);
-        Visit v2= new Visit(150,LocalDate.of(2025, 5, 16), tree2.get(),null);
-        Visit v3= new Visit(100,LocalDate.of(2025, 5, 17), tree3.get(),m1);
+        Visit v1= new Visit(50,LocalDate.of(2025, 3, 16), tree1.get(),null, true);
+        Visit v2= new Visit(150,LocalDate.of(2025, 5, 16), tree2.get(),m2, false);
+        Visit v3= new Visit(100,LocalDate.of(2025, 5, 17), tree3.get(),m1, false);
 
+        Don don = new Don(500, "Association locale");
+        Subvention subvention = new Subvention(2000, "Ministère des Sports", "rapport_2024.pdf");
 
         JsonManager.insertInJson("Visites_JSON.json",List.of(v1, v2, v3), "date");
 

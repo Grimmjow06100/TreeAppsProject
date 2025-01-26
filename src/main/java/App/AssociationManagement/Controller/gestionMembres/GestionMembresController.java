@@ -1,5 +1,7 @@
 package App.AssociationManagement.Controller.gestionMembres;
 
+import Data.JsonManager;
+import com.fasterxml.jackson.databind.JsonNode;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Optional;
 
 public class GestionMembresController {
 
@@ -137,5 +140,17 @@ public class GestionMembresController {
 
     public void setPresidentName(String s) {
         nomPrenomPresidentLabel.setText(s);
+    }
+
+    public void initialize() {
+        loadPresidentFromFile();
+    }
+
+    private void loadPresidentFromFile() {
+        Optional<JsonNode> presidentNode = JsonManager.getNodeWithoutFilter("President.json")
+                .stream().reduce((first, second) -> second);
+        presidentNode.ifPresent(node -> nomPrenomPresidentLabel.setText(
+                node.get("prenom").asText() + " " + node.get("nom").asText()
+        ));
     }
 }

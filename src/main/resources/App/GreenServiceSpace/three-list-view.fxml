@@ -2,12 +2,15 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 
 <StackPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.GreenSpaceService.TreeListController">
     <children>
@@ -18,7 +21,13 @@
         </ImageView>
       <HBox spacing="20.0">
          <children>
-                <Button id="returnButton1" mnemonicParsing="false" onAction="#OnActionButtonClicked5" prefHeight="55.0" prefWidth="123.0" stylesheets="@styles.css" text="Retour" />
+            <VBox spacing="30.0">
+               <children>
+                      <Button id="returnButton1" mnemonicParsing="false" onAction="#OnActionButtonClicked5" prefHeight="55.0" prefWidth="123.0" stylesheets="@styles.css" text="Retour" />
+                  <ComboBox fx:id="filterComboBox" prefWidth="150.0" promptText="filtres" />
+                  <TextField fx:id="textFiltrerCirconference" promptText="ex : 10 (en cm)" visible="false" />
+               </children>
+            </VBox>
                 <TableView fx:id="treeTableView" stylesheets="@TableStyle.css">
                     <columns>
                         <TableColumn fx:id="colId" prefWidth="60.000001311302185" styleClass="column-header" text="ID" />

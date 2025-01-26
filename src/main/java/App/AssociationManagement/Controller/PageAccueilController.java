@@ -112,5 +112,43 @@ public class PageAccueilController {
         }
     }
 
+    @FXML
+    protected void onButtonDonationClick(ActionEvent event) {
+        try {
+            // Charger la vue DonationAccueil.fxml
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationManagement/Donation/DonationAccueil.fxml"));
+            Parent donationView = loader.load();
+
+            // Obtenir la scène actuelle
+            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+
+            // Définir la nouvelle scène
+            stage.setScene(new Scene(donationView, 600, 400));
+            stage.setTitle("Gestion des dons");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    protected void onNotificationButtonClick(ActionEvent event) {
+        try {
+            // Charger la vue NotificationAccueil.fxml
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationManagement/NotificationManagement/NotificationAccueil.fxml"));
+            Parent notificationView = loader.load();
+
+            // Obtenir la scène actuelle
+            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+
+            // Définir la nouvelle scène
+            stage.setScene(new Scene(notificationView, 600, 400));
+            stage.setTitle("Notifications");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
 

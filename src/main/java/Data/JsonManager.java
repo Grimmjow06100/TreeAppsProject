@@ -131,6 +131,7 @@ public enum JsonManager {
                 System.out.println(newNode);
                 arrayNode.add(newNode);
             }
+            System.out.println("Contenu final du fichier JSON : " + arrayNode.toPrettyString());
 
             objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, arrayNode);
             System.out.println("✅ Ajout réussi dans " + fileName);
@@ -458,6 +459,90 @@ public enum JsonManager {
             return objectMapper.createArrayNode();
         }
     }
+
+    public static int getLastId(String filename) {
+        Optional<JsonNode> root = getRootNode(filename);
+        if (root.isPresent() && root.get().isArray()) {
+            JsonNode array = root.get();
+            int lastId = 0;
+            for (JsonNode node : array) {
+                if (node.has("id")) {
+                    lastId = Math.max(lastId, node.get("id").asInt());
+                }
+            }
+            return lastId;
+        }
+        return 0; // Retourne 0 si le fichier est vide ou inexistant
+    }
+
+    public static void updateJsonField(String filename, String searchKey, String searchValue, String fieldToUpdate, String newValue) {
+        File file = new File(filename);
+
+        try {
+            if (!file.exists()) {
+                System.err.println("⚠️ Fichier JSON non trouvé : " + filename);
+                return;
+            }
+
+            JsonNode root = objectMapper.readTree(file);
+            if (root.isArray()) {
+                ArrayNode arrayNode = (ArrayNode) root;
+
+                for (JsonNode node : arrayNode) {
+                    if (node.has(searchKey) && node.get(searchKey).asText().equals(searchValue)) {
+                        ((ObjectNode) node).put(fieldToUpdate, newValue);
+                        objectMapper.writeValue(file, arrayNode);
+                        System.out.println("✅ Champ '" + fieldToUpdate + "' mis à jour avec succès !");
+                        return;
+                    }
+                }
+            }
+            System.err.println("❌ Aucun enregistrement trouvé pour " + searchKey + " = " + searchValue);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("❌ Erreur lors de la mise à jour du fichier JSON !");
+        }
+    }
+
+
+    public static synchronized void removeDonateurById(String fileName, int idToDelete) {
+        File file = new File(BASE_URL + "/" + fileName);
+        if (!file.exists()) {
+            System.out.println("❌ Fichier non trouvé : " + fileName);
+            return;
+        }
+
+        try {
+            JsonNode rootNode = objectMapper.readTree(file);
+            if (!rootNode.isArray()) {
+                System.out.println("❌ Erreur : Le fichier JSON doit contenir un tableau.");
+                return;
+            }
+
+            ArrayNode arrayNode = (ArrayNode) rootNode;
+            boolean found = false;
+
+            // Parcourir le fichier JSON pour chercher l'ID à supprimer
+            for (int i = 0; i < arrayNode.size(); i++) {
+                if (arrayNode.get(i).has("id") && arrayNode.get(i).get("id").asInt() == idToDelete) {
+                    arrayNode.remove(i);
+                    found = true;
+                    break;
+                }
+            }
+
+            if (found) {
+                // Écriture du fichier après suppression
+                objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, arrayNode);
+                System.out.println("✅ Donateur avec ID " + idToDelete + " supprimé avec succès.");
+            } else {
+                System.out.println("⚠️ Aucun donateur trouvé avec l'ID " + idToDelete);
+            }
+        } catch (IOException e) {
+            System.out.println("❌ Erreur lors de la modification du fichier JSON : " + e.getMessage());
+        }
+    }
+
 
 
 }

@@ -9,7 +9,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.AssociationManagement.Controller.gestionVisiteArbre.VoirListeVisitesController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@VoirListeVisitesStyles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.AssociationManagement.Controller.gestionVisiteArbre.VoirListeVisitesController">
    <children>
       <Pane prefHeight="54.0" prefWidth="600.0">
          <children>
@@ -35,6 +35,8 @@
             <Label fx:id="titreLabel" layoutX="260.0" layoutY="14.0" text="Visites d'arbres" />
             <TextField fx:id="nomArbreTextField" layoutX="84.0" layoutY="57.0" prefHeight="25.0" prefWidth="432.0" promptText="Rechercher une visite par arbre ou lieu" />
             <ListView fx:id="listeVisitesListView" layoutX="84.0" layoutY="82.0" prefHeight="200.0" prefWidth="432.0" />
+            <Button fx:id="ajouterVisiteButton" layoutX="407.0" layoutY="10.0" mnemonicParsing="false" onAction="#onButtonAjouterVisiteClick" text="Ajouter une visite" />
+             <Button fx:id="trierParDateButton" layoutX="84.0" layoutY="10.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="108.0" onAction="#onButtonTrierParDateClick" text="Trier par date" />
          </children>
       </Pane>
    </children>

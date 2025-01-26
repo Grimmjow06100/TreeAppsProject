@@ -20,6 +20,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 
 public class HomePageController {
@@ -41,6 +44,9 @@ public class HomePageController {
 
     @FXML
     private ListView<String> listViewNotif;
+
+
+
 
     JsonNode user;
 
@@ -118,6 +124,40 @@ public class HomePageController {
 
     }
 
+    public void loadNotifications() {
+        String fileName = "GreenSpaceNotif.json"; // Chemin du fichier JSON
+        List<String> notificationList = new ArrayList<>();
+
+        try {
+            // Lire le contenu du fichier JSON
+            List<JsonNode> notifList = JsonManager.getNodeWithoutFilter(fileName);
+
+            // Parcourir la liste à l'envers pour afficher les notifications les plus récentes en premier
+            for (int i = notifList.size() - 1; i >= 0; i--) {
+                JsonNode notif = notifList.get(i);
+
+                // Extraire les informations nécessaires
+                String typeChangement = notif.has("TypeChangement") ? notif.get("TypeChangement").asText() : "Type inconnu";
+                JsonNode arbre = notif.get("Arbre");
+                String idArbre = arbre.has("id") ? arbre.get("id").asText() : "ID inconnu";
+                String nomArbre = arbre.has("nom") ? arbre.get("nom").asText() : "Nom inconnu";
+
+                // Construire la chaîne de caractère pour chaque notification
+                String notifText = String.format("Type: %s | ID: %s | Nom: %s", typeChangement, idArbre, nomArbre);
+
+                // Ajouter la notification à la liste
+                notificationList.add(notifText);
+            }
+
+            // Ajouter les notifications à la ListView
+            listViewNotif.getItems().setAll(notificationList);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Erreur lors de la lecture des notifications : " + e.getMessage());
+        }
+    }
+
 
     public void updateListView(){
         JsonNode node=user.get("visites");
@@ -143,6 +183,6 @@ public class HomePageController {
     @FXML
     public void  initialize() {
         logo.setImage(new Image("file:src/main/resources/App/AssociationMember/logo.png"));
-
+        loadNotifications();
     }
 }
