@@ -11,19 +11,6 @@
 
 Chacune des pages est équipé d'un bouton `retour` pour retourner à la page précedente.
 
-## Utilisation de l'application de l'association
- 
-Depuis l'écran d'accueil, nous avons dans la partie en haut à droite de l'écran un bouton pour accéder aux `notifications` : 
-
-Parmi tous les boutons présent au premier plan :
-
-- En haut à gauche : `Gestion des membres de l'association`
-- En haut au milieu : `Classification des arbres remarquables`
-- En haut à droite : `Fin exercice budgétaire`
-- En bas à gauche : `Donations`
-- En bas au milieu : `Visites d'arbres`
-- En bas à droite : `Gestion des finances de l'association`
-
 
 
 
