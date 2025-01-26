@@ -68,7 +68,7 @@ public class TreeOptionController {
     public void onDeleteButtonClick() {
         if (tree != null && parentController != null) {
             // Supprimer l'arbre du fichier JSON
-            boolean isRemoved = JsonManager.INSTANCE.removeNode("Arbres_JSON_test.json", tree.getId());
+            boolean isRemoved = JsonManager.INSTANCE.removeNode("Arbres_JSON.json", tree.getId());
 
             if (isRemoved) {
                 // Supprimer l'arbre de la table et fermer la fenêtre
