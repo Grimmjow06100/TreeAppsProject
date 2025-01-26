@@ -9,7 +9,6 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 
-
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.AssociationManagement.Controller.GestionDonation.DonationAccueilController">
     <children>
         <Pane prefHeight="64.0" prefWidth="600.0">
@@ -36,8 +35,9 @@
             <children>
                 <TextField fx:id="rechercheTextField" alignment="CENTER" layoutX="149.0" layoutY="32.0" prefHeight="25.0" prefWidth="302.0" promptText="Rechercher un donateur..." />
                 <ListView fx:id="donateursListView" layoutX="149.0" layoutY="57.0" prefHeight="200.0" prefWidth="302.0" />
-                <Button fx:id="ajouterButton" layoutX="380.0" layoutY="270.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" text="Ajouter" onAction="#onButtonAjouterClick" />
-                <Button layoutX="149.0" layoutY="270.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" text="Supprimer" />
+                <Button fx:id="ajouterButton" layoutX="380.0" layoutY="270.0" mnemonicParsing="false" onAction="#onButtonAjouterClick" prefHeight="25.0" prefWidth="90.0" text="Ajouter" />
+                <TextField fx:id="idSuppressionTextField" layoutX="149.0" layoutY="295.0" prefHeight="25.0" prefWidth="100.0" promptText="ID du donateur" />
+                <Button fx:id="supprimerButton" layoutX="149.0" layoutY="270.0" mnemonicParsing="false" onAction="#onButtonSupprimerClick" prefHeight="25.0" prefWidth="100.0" text="Supprimer" />
             </children>
         </Pane>
     </children>

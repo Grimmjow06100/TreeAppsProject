@@ -504,5 +504,44 @@ public enum JsonManager {
     }
 
 
+    public static synchronized void removeDonateurById(String fileName, int idToDelete) {
+        File file = new File(BASE_URL + "/" + fileName);
+        if (!file.exists()) {
+            System.out.println("❌ Fichier non trouvé : " + fileName);
+            return;
+        }
+
+        try {
+            JsonNode rootNode = objectMapper.readTree(file);
+            if (!rootNode.isArray()) {
+                System.out.println("❌ Erreur : Le fichier JSON doit contenir un tableau.");
+                return;
+            }
+
+            ArrayNode arrayNode = (ArrayNode) rootNode;
+            boolean found = false;
+
+            // Parcourir le fichier JSON pour chercher l'ID à supprimer
+            for (int i = 0; i < arrayNode.size(); i++) {
+                if (arrayNode.get(i).has("id") && arrayNode.get(i).get("id").asInt() == idToDelete) {
+                    arrayNode.remove(i);
+                    found = true;
+                    break;
+                }
+            }
+
+            if (found) {
+                // Écriture du fichier après suppression
+                objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, arrayNode);
+                System.out.println("✅ Donateur avec ID " + idToDelete + " supprimé avec succès.");
+            } else {
+                System.out.println("⚠️ Aucun donateur trouvé avec l'ID " + idToDelete);
+            }
+        } catch (IOException e) {
+            System.out.println("❌ Erreur lors de la modification du fichier JSON : " + e.getMessage());
+        }
+    }
+
+
 
 }

@@ -20,6 +20,9 @@ import java.util.Optional;
 
 public class DonationAccueilController {
     @FXML
+    private TextField idSuppressionTextField;
+
+    @FXML
     private TextField rechercheTextField;
 
     @FXML
@@ -46,27 +49,67 @@ public class DonationAccueilController {
         }
     }
 
+    private void refreshDonateurList() {
+        donateursList.clear();
+
+        Optional<JsonNode> donationsRoot = JsonManager.getRootNode("Donations.json");
+        if (donationsRoot.isPresent()) {
+            ArrayNode donationsArray = (ArrayNode) donationsRoot.get();
+
+            donationsArray.forEach((JsonNode node) -> {
+                int id = node.get("id").asInt();
+                String nom = node.has("nom") ? node.get("nom").asText() : "Donateur inconnu";
+                String nature = node.get("nature").asText();
+                String date = node.get("date_don").asText();
+
+                donateursList.add("ID: " + id + " | Nom: " + nom + " | Nature: " + nature + " | Date: " + date);
+            });
+        }
+
+        donateursListView.setItems(donateursList);
+    }
+
+    @FXML
+    protected void onButtonSupprimerClick(ActionEvent event) {
+        String idText = idSuppressionTextField.getText().trim();
+
+        if (idText.isEmpty()) {
+            System.out.println("❌ Veuillez entrer un ID pour supprimer un donateur.");
+            return;
+        }
+
+        try {
+            int idToDelete = Integer.parseInt(idText);
+
+            // Appel de la méthode dans JsonManager pour supprimer l'entrée du JSON
+            JsonManager.removeDonateurById("Donations.json", idToDelete);
+
+            // Rafraîchir la liste des donateurs après suppression
+            refreshDonateurList();
+        } catch (NumberFormatException e) {
+            System.out.println("❌ L'ID doit être un nombre valide.");
+        }
+    }
+
     @FXML
     public void initialize() {
         donateursList = FXCollections.observableArrayList();
 
         Optional<JsonNode> donationsRoot = JsonManager.getRootNode("Donations.json");
         if (donationsRoot.isPresent()) {
-            System.out.println("Fichier JSON chargé avec succès !");
+            System.out.println("✅ Fichier JSON chargé avec succès !");
             ArrayNode donationsArray = (ArrayNode) donationsRoot.get();
 
             donationsArray.forEach((JsonNode node) -> {
-                System.out.println("Lecture de la donation : " + node.toString()); // Debug
-
                 int id = node.get("id").asInt();
+                String nom = node.has("nom") ? node.get("nom").asText() : "Donateur inconnu";
                 String nature = node.get("nature").asText();
-                int montant = node.get("montant").asInt();
                 String date = node.get("date_don").asText();
 
-                donateursList.add("ID: " + id + " | Nature: " + nature + " | Montant: " + montant + "€ | Date: " + date);
+                donateursList.add("ID: " + id + " | Nom: " + nom + " | Nature: " + nature + " | Date: " + date);
             });
         } else {
-            System.out.println("⚠️ Fichier Donations_JSON.json non trouvé !");
+            System.out.println("⚠️ Fichier Donations.json non trouvé !");
         }
 
         FilteredList<String> filteredList = new FilteredList<>(donateursList, _ -> true);
@@ -75,8 +118,7 @@ public class DonationAccueilController {
                 if (newValue == null || newValue.isEmpty()) {
                     return true;
                 }
-                String lowerCaseFilter = newValue.toLowerCase();
-                return donateur.toLowerCase().contains(lowerCaseFilter);
+                return donateur.toLowerCase().contains(newValue.toLowerCase());
             });
         });
 
