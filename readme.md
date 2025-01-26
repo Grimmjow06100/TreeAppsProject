@@ -1,6 +1,6 @@
 ## Application pour un membre de l'association
 
-## connexion
+**connexion**
 
 Pour se connecter, il faut rentrer son identifiant et son mot de passe.
 
