@@ -36,11 +36,7 @@ public class AssocListController {
             // Chemin fixe pour le fichier FXML
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/GreenServiceSpace/accueil-view.fxml"));
             Parent secondView = loader.load();
-
-            // Obtenir le Stage actuel
             Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-
-            // Remplacer la scène actuelle par celle de la deuxième vue
             stage.setScene(new Scene(secondView, 800, 600));
             stage.getScene().getStylesheets().add(
                     Objects.requireNonNull(getClass().getResource("/App/GreenServiceSpace/styles.css")).toExternalForm()
