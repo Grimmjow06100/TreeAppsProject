@@ -32,4 +32,6 @@ public class AssocListController {
             e.printStackTrace(); // Log de l'exception pour diagnostiquer les erreurs
         }
     }
+
+
 }
