@@ -35,6 +35,7 @@
             <Label fx:id="titreLabel" layoutX="260.0" layoutY="14.0" text="Visites d'arbres" />
             <TextField fx:id="nomArbreTextField" layoutX="84.0" layoutY="57.0" prefHeight="25.0" prefWidth="432.0" promptText="Rechercher une visite par arbre ou lieu" />
             <ListView fx:id="listeVisitesListView" layoutX="84.0" layoutY="82.0" prefHeight="200.0" prefWidth="432.0" />
+            <Button fx:id="ajouterVisiteButton" layoutX="407.0" layoutY="10.0" mnemonicParsing="false" onAction="#onButtonAjouterVisiteClick" text="Ajouter une visite" />
          </children>
       </Pane>
    </children>
