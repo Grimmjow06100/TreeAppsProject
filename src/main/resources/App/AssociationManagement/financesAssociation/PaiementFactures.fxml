@@ -46,6 +46,7 @@
             <VBox alignment="CENTER" prefHeight="235.0" prefWidth="279.0" spacing="10.0">
                <children>
                   <Label text="Listes des factures" />
+                  <Label fx:id="pressTwiceLabel" text="Appuyez 2 fois pour afficher les détails" />
                   <ListView fx:id="facturesListView" prefHeight="200.0" prefWidth="200.0" />
                </children>
                <HBox.margin>

@@ -4,8 +4,8 @@
   "dons" : [ {
     "id" : 1,
     "montant" : 100.0,
-    "donateur" : "kaka",
-    "dateDon" : "26-01-2025"
+    "natureDonateur" : "kaka",
+    "date" : "26-01-2025"
   } ],
   "factures" : [ {
     "id" : 1,

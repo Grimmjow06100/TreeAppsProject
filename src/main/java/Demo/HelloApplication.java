@@ -107,6 +107,8 @@ public class HelloApplication extends Application {
         Visit v2= new Visit(150,LocalDate.of(2025, 5, 16), tree2.get(),m2, false);
         Visit v3= new Visit(100,LocalDate.of(2025, 5, 17), tree3.get(),m1, false);
 
+        Don don = new Don(500, "Association locale");
+        Subvention subvention = new Subvention(2000, "Ministère des Sports", "rapport_2024.pdf");
 
         JsonManager.insertInJson("Visites_JSON.json",List.of(v1, v2, v3), "date");
 
