@@ -11,10 +11,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import others.Message;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 
 import java.io.IOException;
 import java.util.Map;
@@ -29,6 +33,43 @@ public class VoirListeVisitesController {
     private ListView<String> listeVisitesListView;
 
     private ObservableList<String> visiteList;
+
+    @FXML
+    private Button trierParDateButton;
+
+    private LocalDate parseDate(String dateStr) {
+        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("dd-MM-yyyy"); // Format : 16-03-2025
+        DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // Format : 2025-01-31
+
+        try {
+            return LocalDate.parse(dateStr, formatter1);
+        } catch (Exception e1) {
+            try {
+                return LocalDate.parse(dateStr, formatter2);
+            } catch (Exception e2) {
+                System.err.println("❌ Impossible de parser la date : " + dateStr);
+                return null;
+            }
+        }
+    }
+
+
+    @FXML
+    protected void onButtonTrierParDateClick(ActionEvent event) {
+        // Trier les visites par date décroissante
+        visiteList.sort((v1, v2) -> {
+            String date1Str = v1.split("Date: ")[1].split(" \\|")[0].trim();
+            String date2Str = v2.split("Date: ")[1].split(" \\|")[0].trim();
+
+            LocalDate date1 = parseDate(date1Str);
+            LocalDate date2 = parseDate(date2Str);
+
+            if (date1 == null || date2 == null) return 0; // Évite une exception en cas de date non valide
+            return date2.compareTo(date1); // Tri décroissant
+        });
+
+        listeVisitesListView.setItems(visiteList);
+    }
 
     @FXML
     protected void onButtonRetourClick(ActionEvent event) {

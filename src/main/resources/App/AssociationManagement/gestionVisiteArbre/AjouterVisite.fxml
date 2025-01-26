@@ -34,10 +34,10 @@
       <Pane layoutY="61.0" prefHeight="339.0" prefWidth="600.0">
          <children>
             <Label layoutX="254.0" layoutY="14.0" text="Ajout d'une visite" />
-            <TextField fx:id="nomArbreTextField" layoutX="105.0" layoutY="66.0" text="Nom de l'arbre" />
-            <TextField fx:id="lieuTextField" layoutX="105.0" layoutY="116.0" text="Lieu" />
+            <TextField fx:id="nomArbreTextField" layoutX="105.0" layoutY="66.0" promptText="Nom de l'arbre" />
+            <TextField fx:id="lieuTextField" layoutX="105.0" layoutY="116.0" promptText="Lieu" />
             <DatePicker fx:id="dateVisitePicker" layoutX="346.0" layoutY="66.0" prefHeight="25.0" prefWidth="149.0" />
-            <TextField fx:id="coutTextField" layoutX="346.0" layoutY="116.0" text="Cout" />
+            <TextField fx:id="coutTextField" layoutX="346.0" layoutY="116.0" promptText="Cout" />
             <Button fx:id="Ajouter" layoutX="274.0" layoutY="249.0" mnemonicParsing="false" text="Ajouter" onAction="#onButtonAjouterClick" />
          </children>
       </Pane>
