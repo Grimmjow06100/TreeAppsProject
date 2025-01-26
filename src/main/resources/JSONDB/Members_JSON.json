@@ -8,7 +8,10 @@
   "password" : "password123",
   "cotisationPayee" : false,
   "cotisationsPayees" : [ ],
-  "nominations" : [ ],
+  "nominations" : [ {
+    "idBase" : 102090,
+    "libelle_france" : "Cèdre"
+  } ],
   "visites" : [ ],
   "dateInscription" : "15-05-2021"
 }, {
