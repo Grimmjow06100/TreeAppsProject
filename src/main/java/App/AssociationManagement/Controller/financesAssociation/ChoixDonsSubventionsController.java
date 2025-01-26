@@ -9,13 +9,12 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class DepensesController {
-
+public class ChoixDonsSubventionsController {
     @FXML
-    protected void onButtonRetourClick(ActionEvent event) {
+    protected void onButtonAnnulerClick(ActionEvent event) {
         try {
             // Charger la nouvelle vue
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationManagement/financesAssociation/FinancesAssociation.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationManagement/financesAssociation/DonsSubventions.fxml"));
             Parent financesView = loader.load();
 
             // Obtenir la scène actuelle à partir de l'événement
@@ -24,7 +23,7 @@ public class DepensesController {
             // Définir la nouvelle scène
             stage.setScene(new Scene(financesView, 600,400));
             //stage.getScene().getStylesheets().add(Objects.requireNonNull(getClass().getResource("/App/AssociationManagement/styles.css")).toExternalForm());
-            stage.setTitle("Finances de l'association");
+            stage.setTitle("Gestion des dons et des subventions");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -32,10 +31,10 @@ public class DepensesController {
     }
 
     @FXML
-    protected void onButtonDefraiementVisitesClick(ActionEvent event){
+    protected void onButtonDonClick(ActionEvent event) {
         try {
             // Charger la nouvelle vue
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationManagement/financesAssociation/DefraiementVisites.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationManagement/financesAssociation/DemandeDon.fxml"));
             Parent financesView = loader.load();
 
             // Obtenir la scène actuelle à partir de l'événement
@@ -44,7 +43,7 @@ public class DepensesController {
             // Définir la nouvelle scène
             stage.setScene(new Scene(financesView, 600,400));
             //stage.getScene().getStylesheets().add(Objects.requireNonNull(getClass().getResource("/App/AssociationManagement/styles.css")).toExternalForm());
-            stage.setTitle("Défraiement des visites des clients");
+            stage.setTitle("Demander un don");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -52,10 +51,10 @@ public class DepensesController {
     }
 
     @FXML
-    protected void onButtonPaiementFacturesClick(ActionEvent event){
+    protected void onButtonSubventionClick(ActionEvent event) {
         try {
             // Charger la nouvelle vue
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationManagement/financesAssociation/PaiementFactures.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationManagement/financesAssociation/DemandeSubvention.fxml"));
             Parent financesView = loader.load();
 
             // Obtenir la scène actuelle à partir de l'événement
@@ -64,11 +63,10 @@ public class DepensesController {
             // Définir la nouvelle scène
             stage.setScene(new Scene(financesView, 600,400));
             //stage.getScene().getStylesheets().add(Objects.requireNonNull(getClass().getResource("/App/AssociationManagement/styles.css")).toExternalForm());
-            stage.setTitle("Paiement des factures");
+            stage.setTitle("Demander une subvention");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 }
-

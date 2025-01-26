@@ -14,6 +14,9 @@ public class Facture {
     @JsonProperty("montant")
     private double montant;
 
+    @JsonProperty("emetteur")
+    private String emetteur;
+
     @JsonProperty("beneficiaire")
     private String beneficiaire;
 
@@ -25,9 +28,10 @@ public class Facture {
     private LocalDate dateEmission;
 
     // ✅ Constructeur
-    public Facture(double montant, String beneficiaire, boolean estPayee) {
+    public Facture(double montant, String emetteur, String beneficiaire, boolean estPayee) {
         this.id = compteur.getAndIncrement();
         this.montant = montant;
+        this.emetteur = emetteur;
         this.beneficiaire = beneficiaire;
         this.estPayee = estPayee;
         this.dateEmission = LocalDate.now();
@@ -37,6 +41,9 @@ public class Facture {
     public int getId() { return id; }
     public double getMontant() { return montant; }
     public void setMontant(double montant) { this.montant = montant; }
+
+    public String getEmetteur() { return emetteur; }
+    public void setEmetteur(String emetteur) { this.emetteur = emetteur; }
 
     public String getBeneficiaire() { return beneficiaire; }
     public void setBeneficiaire(String beneficiaire) { this.beneficiaire = beneficiaire; }
@@ -49,8 +56,14 @@ public class Facture {
 
     @Override
     public String toString() {
-        return "Facture{id=" + id + ", montant=" + montant + ", beneficiaire='" + beneficiaire + '\'' +
-                ", estPayee=" + estPayee + ", dateEmission=" + dateEmission + '}';
+        return "Facture{" +
+                "id=" + id +
+                ", montant=" + montant +
+                ", emetteur='" + emetteur + '\'' +
+                ", beneficiaire='" + beneficiaire + '\'' +
+                ", estPayee=" + estPayee +
+                ", dateEmission=" + dateEmission +
+                '}';
     }
 }
 
