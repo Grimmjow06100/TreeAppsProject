@@ -62,7 +62,7 @@ Dans la page Mes votes, on peut voir les votes effectués par l'utilisateur conn
 
 
 
-## Utilisation de l'application du service des espaces verts
+## Application du service des espaces verts
 
 1. **Lancer l'application** : L'application se lance automatiquement avec les 2 autres applications lorsqu'on run le *helloApplication*.  
 2. **Ecran d'accueil** : Vous avez le choix entre 3 boutons : un pour gérer les arbres, un pour voir les notifications et un pour voir la liste des entités inscrites aux informations sur les arbres.
@@ -75,7 +75,7 @@ Dans la page Mes votes, on peut voir les votes effectués par l'utilisateur conn
 Chacune des pages est équipé d'un bouton `retour` pour retourner à la page précedente.
 
 
-## Utilisation de l'application de gestion de l'association ##
+## Application de gestion de l'association ##
 
 **Gestion des membres de l'association**
 Depuis cette interface, il est possible de gérer les membres de l'association. Les fonctionnalités disponibles sont :
