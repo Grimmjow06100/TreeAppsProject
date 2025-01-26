@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.AssociationManagement.Controller.Notification.NotificationAccueilController">
+   <children>
+      <Pane prefHeight="78.0" prefWidth="600.0">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="230.0" layoutY="31.0" prefHeight="17.0" prefWidth="141.0" text="Notifications" textAlignment="CENTER" />
+         </children>
+      </Pane>
+      <Pane layoutY="74.0" prefHeight="326.0" prefWidth="600.0">
+         <children>
+            <Button fx:id="retourButton" layoutY="2.0" mnemonicParsing="false" text="Retour" onAction="#onRetourButtonClick" />
+         </children>
+      </Pane>
+   </children>
+</Pane>

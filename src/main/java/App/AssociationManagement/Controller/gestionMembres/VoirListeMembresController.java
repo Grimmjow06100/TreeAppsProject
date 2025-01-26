@@ -34,6 +34,30 @@ public class VoirListeMembresController {
     private static final String JSON_FILE_NAME = "Members_JSON.json";
 
     @FXML
+    protected void onNotificationsClick(ActionEvent event) {
+        try {
+            System.out.println("Tentative de chargement de NotificationAccueil.fxml");
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationManagement/NotificationManagement/NotificationAccueil.fxml"));
+            Parent notificationView = loader.load();
+
+            // Obtenir le stage à partir de n'importe quel Node connu
+            MenuItem menuItem = (MenuItem) event.getSource();
+            Scene scene = menuItem.getParentPopup().getOwnerWindow().getScene();
+            Stage stage = (Stage) scene.getWindow();
+
+            // Charger la nouvelle scène
+            stage.setScene(new Scene(notificationView, 600, 400));
+            stage.setTitle("Notifications");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Impossible de charger la page des notifications.", ButtonType.OK);
+            alert.showAndWait();
+        }
+    }
+
+    @FXML
     public void initialize() {
         memberList = FXCollections.observableArrayList();
         cotisationsButton.setVisible(false);
