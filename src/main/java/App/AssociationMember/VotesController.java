@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import javafx.animation.PauseTransition;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -14,6 +15,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+
+import java.util.function.Predicate;
 
 public class VotesController {
 
@@ -33,6 +36,8 @@ public class VotesController {
     private VBox vboxMenu;
 
     private JsonNode user;
+
+    private ObservableList<JsonNode> treeList;
 
     public void setUser(JsonNode user){
         this.user=user;
@@ -86,7 +91,8 @@ public class VotesController {
         voteList.forEach((JsonNode node)->{
             String id = node.get("idBase").asText();
             String nom = node.get("libelle_france").asText();
-            listView.getItems().add( String.format("🌳 ID %s - %s",id, nom));
+            String affichage = "🌳 ID " + id + " - Nom " + nom;
+            listView.getItems().add( affichage);
         });
     }
 

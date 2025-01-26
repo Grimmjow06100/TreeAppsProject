@@ -14,6 +14,7 @@ module TreeApp {
     exports App.AssociationManagement;
     exports App.AssociationMember ;
     exports App.GreenSpaceService;
+    exports App.AssociationManagement.Controller;
 
 
 
@@ -23,7 +24,6 @@ module TreeApp {
     opens App.AssociationMember to javafx.fxml,com.fasterxml.jackson.databind,com.jfoenix;
     opens App.AssociationManagement to com.fasterxml.jackson.databind,com.jfoenix;
     opens App.GreenSpaceService to javafx.fxml,com.fasterxml.jackson.databind,com.jfoenix;
-    exports App.AssociationManagement.Controller;
     opens App.AssociationManagement.Controller to javafx.fxml, com.fasterxml.jackson.databind, com.jfoenix;
     exports App.AssociationManagement.Controller.classificationArbres;
     opens App.AssociationManagement.Controller.classificationArbres to javafx.fxml, com.fasterxml.jackson.databind, com.jfoenix;

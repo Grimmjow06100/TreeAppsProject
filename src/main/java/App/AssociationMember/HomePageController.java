@@ -1,6 +1,8 @@
 package App.AssociationMember;
 
+import Data.JsonManager;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
@@ -10,12 +12,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 
 public class HomePageController {
@@ -35,12 +39,49 @@ public class HomePageController {
     @FXML
     private ListView<String> listViewVisites;
 
+    @FXML
+    private ListView<String> listViewNotif;
+
     JsonNode user;
 
     public void setUser(JsonNode user){
         this.user=user;
         updateListView();
         updateMenu();
+        updateNotif();
+    }
+
+    public void updateNotif(){
+        ArrayNode associationNotif = JsonManager.getNodeWithoutFilter("AssociationNotif.json");
+        ArrayNode greenSpaceNotif = JsonManager.getNodeWithoutFilter("GreenSpaceNotif.json");
+        ArrayNode notif=associationNotif.addAll(greenSpaceNotif);
+
+        List<JsonNode> notifList = new ArrayList<>();
+        notif.forEach(notifList::add);
+
+        // ✅ Tri des notifications par date (ordre décroissant) puis heure (ordre décroissant)
+        notifList.sort(
+                Comparator.comparing((JsonNode node) -> {
+                            String dateString = node.get("date").asText(); // Ex: "25-01-2025"
+                            return LocalDate.parse(dateString, java.time.format.DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+                        })
+                        .reversed() // 🔹 Trie les dates en ordre décroissant
+                        .thenComparing(
+                                node -> {
+                                    String timeString = node.get("time").asText(); // Ex: "14:30"
+                                    return LocalTime.parse(timeString, java.time.format.DateTimeFormatter.ofPattern("HH:mm"));
+                                },
+                                Comparator.reverseOrder() // 🔹 Trie aussi les heures en ordre décroissant
+                        )
+        );
+
+        for(JsonNode n:notifList){
+            String message=n.get("message").asText();
+            String date=n.get("date").asText();
+            String time=n.get("time").asText();
+            listViewNotif.getItems().add(message+" : le "+date+" à "+time);
+        }
+
     }
 
     public void updateMenu(){

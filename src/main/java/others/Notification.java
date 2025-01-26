@@ -22,6 +22,12 @@ public class Notification {
         this.date=LocalDate.now();
         this.time=LocalTime.now();
     }
+
+    public Notification(String message, LocalDate date, LocalTime time){
+        this.message = message;
+        this.date=date;
+        this.time=time;
+    }
     public Notification(){
         this.message = "";
         this.date=null;

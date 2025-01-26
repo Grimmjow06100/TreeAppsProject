@@ -12,6 +12,7 @@ import javafx.scene.layout.VBox;
 import others.ResourceHandler;
 import javafx.scene.control.Label;
 
+import java.net.URL;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -73,30 +74,40 @@ public void initialize() {
         });
         arbreListeButton.setOnAction((ActionEvent event) -> {
              FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationMember/ArbreListePage.fxml"));
+            URL fxmlPath = getClass().getResource("/App/AssociationMember/ArbreListePage.fxml");
+            if(fxmlPath==null){
+                System.out.println("fxmlPath est null");
+            }
+            else {
+                System.out.println("fxmlPath est non null");
+            }
             
             try {
                 StackPane pane = loader.load();
                 ArbreListeController controller = loader.getController();
                 controller.setUser(user);
-                Scene scene = profilButton.getScene();
+                Scene scene = arbreListeButton.getScene();
                 scene.getStylesheets().clear();
                 scene.getStylesheets().add(
                         Objects.requireNonNull(getClass().getResource("/App/AssociationMember/ArbreListePage.css")).toExternalForm()
                 );
                 arbreListeButton.getScene().setRoot(pane);
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                System.out.println("impossible de charger la page arbreListePage");
+                e.printStackTrace(); // ✅ Affiche l'erreur complète pour identifier le problème
             }
             
         });
         cotisationButton.setOnAction((ActionEvent event) -> {
              FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationMember/CotisationPage.fxml"));
+
             
             try {
+
                 StackPane pane = loader.load();
                 CotisationPageController controller = loader.getController();
                 controller.setUser(user);
-                Scene scene = profilButton.getScene();
+                Scene scene = cotisationButton.getScene();
                 scene.getStylesheets().clear();
                 scene.getStylesheets().add(
                         Objects.requireNonNull(getClass().getResource("/App/AssociationMember/CotisationPage.css")).toExternalForm()
@@ -110,12 +121,11 @@ public void initialize() {
              FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationMember/PlanificationPage.fxml"));
          
             try {
-                JsonManager jsonManager = JsonManager.INSTANCE;
-                Optional<JsonNode> rootNodeOption = jsonManager.getRootNode("Visites_JSON.json");
+                Optional<JsonNode> rootNodeOption = JsonManager.getRootNode("Visites_JSON.json");
                 StackPane pane = loader.load();
                 PlanificationController controller = loader.getController();
                 controller.setUser(user,rootNodeOption.get());
-                Scene scene = profilButton.getScene();
+                Scene scene = planificationButton.getScene();
                 scene.getStylesheets().clear();
                 scene.getStylesheets().add(
                         Objects.requireNonNull(getClass().getResource("/App/AssociationMember/PlanificationPage.css")).toExternalForm()
@@ -133,7 +143,7 @@ public void initialize() {
                 StackPane pane = loader.load();
                 VotesController controller = loader.getController();
                 controller.setUser(user);
-                Scene scene = profilButton.getScene();
+                Scene scene = votesButton.getScene();
                 scene.getStylesheets().clear();
                 scene.getStylesheets().add(
                         Objects.requireNonNull(getClass().getResource("/App/AssociationMember/VotesPage.css")).toExternalForm()
@@ -148,6 +158,11 @@ public void initialize() {
              FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationMember/LoginScreen.fxml"));
         
             try {
+                Scene scene = logoutButton.getScene();
+                scene.getStylesheets().clear();
+                scene.getStylesheets().add(
+                        Objects.requireNonNull(getClass().getResource("/App/AssociationMember/LoginScreen.css")).toExternalForm()
+                );
                 VBox pane = loader.load();
                 this.user=null;
                 logoutButton.getScene().setRoot(pane);
@@ -163,6 +178,11 @@ public void initialize() {
                 StackPane pane = loader.load();
                 HomePageController controller = loader.getController();
                 controller.setUser(user);
+                Scene scene = home.getScene();
+                scene.getStylesheets().clear();
+                scene.getStylesheets().add(
+                        Objects.requireNonNull(getClass().getResource("/App/AssociationMember/HomePage.css")).toExternalForm()
+                );
                 home.getScene().setRoot(pane);
             } catch (Exception e) {
                 System.out.println(e.getMessage());                }

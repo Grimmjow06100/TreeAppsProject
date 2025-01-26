@@ -2,10 +2,14 @@ package App.AssociationMember;
 
 import Data.JsonManager;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import javafx.animation.PauseTransition;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -25,7 +29,9 @@ import javafx.util.Duration;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 public class ArbreListeController {
 
@@ -34,9 +40,6 @@ public class ArbreListeController {
 
     @FXML
     private JFXHamburger JFXHamburger;
-
-    @FXML
-    private ComboBox<?> filtre;
 
     @FXML
     private ListView<String> treeListView;
@@ -48,46 +51,83 @@ public class ArbreListeController {
     private TextField recherche;
 
     @FXML
-    private HBox topHbox;
-
-    @FXML
     private VBox vboxMenu;
+    @FXML
+    private JFXButton moreButton;
 
     private JsonNode user;
-    private ObservableList<String> treeList;
+    private ObservableList<JsonNode> treeList;
+    private ArrayNode arbre;
+    private FilteredList<JsonNode> filteredList;
+    private ChangeListener<String> rechercheListener; // Permet de stocker le listener actif
 
     public void setUser(JsonNode user){
         this.user=user;
         updateMenu();
         handleCellClick();
+        handeMoreButton();
     }
+
+    private Predicate<JsonNode> defaultFilter(String newValue) {
+        return tree -> {
+            if (newValue == null || newValue.isEmpty()) {
+                return true; // Aucun filtre, afficher tout
+            }
+
+            String lowerCaseFilter = newValue.toLowerCase();
+
+            // Vérifier si les champs existent et correspondent au filtre
+            boolean matchNom = tree.has("libelle_france") && tree.get("libelle_france").asText().toLowerCase().contains(lowerCaseFilter);
+            boolean matchGenre = tree.has("genre") && tree.get("genre").asText().toLowerCase().contains(lowerCaseFilter);
+            boolean matchEspece = tree.has("espece") && tree.get("espece").asText().toLowerCase().contains(lowerCaseFilter);
+            boolean matchLieu = tree.has("lieu") && tree.get("lieu").asText().toLowerCase().contains(lowerCaseFilter);
+            boolean matchDeveloppement= tree.has("stade_de_developpement") && tree.get("stade_de_developpement").asText().toLowerCase().contains(lowerCaseFilter);
+            boolean matchRemarquable = tree.has("remarquable") && tree.get("remarquable").asText().toLowerCase().contains(lowerCaseFilter);
+            boolean matchId = tree.has("idBase") && tree.get("idBase").asText().contains(newValue);
+
+
+            // Retourne `true` si au moins un champ correspond
+            return matchNom || matchGenre || matchEspece || matchLieu || matchId || matchDeveloppement || matchRemarquable;
+        };
+    }
+
 
     @FXML
     public void initialize() {
         logo.setImage(new Image("file:src/main/resources/App/AssociationMember/logo.png"));
         treeList = FXCollections.observableArrayList();
-        List<JsonNode> arbreList = JsonManager.getNodeWithoutFilter("Arbres_JSON.json");
-        arbreList.forEach((JsonNode node) -> {
-            String id = node.get("idBase").asText();
-            String nom = node.get("libelle_france").asText();
-            treeList.add(String.format(
-                    "🌲 ID %s - Nom %s ",
-                    id, nom));
+        arbre = JsonManager.getNodeWithoutFilter("Arbres_JSON.json");
+        arbre.forEach(treeList::add);
 
+        filteredList = new FilteredList<>(treeList, _ -> true);
+
+        rechercheListener = (ObservableValue<? extends String> _, String _, String newValue)-> {
+            filteredList.setPredicate(defaultFilter(newValue));
+            updateListView();
+        };
+
+        recherche.textProperty().addListener(rechercheListener);
+
+
+        updateListView();
+
+    }
+
+    public void updateListView(){
+        treeListView.getItems().clear();
+        filteredList.forEach(tree -> {
+            String id=tree.get("idBase").asText();
+            String nom=tree.get("libelle_france").asText();
+            String affichage = "🌳 ID " + id + " - Nom " + nom;
+            treeListView.getItems().add(affichage);
         });
+    }
 
-        FilteredList<String> filteredList = new FilteredList<>(treeList, _ -> true);
-        recherche.textProperty().addListener((_, _, newValue) -> {
-            filteredList.setPredicate(tree -> {
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
-                String lowerCaseFilter = newValue.toLowerCase();
-                return tree.toLowerCase().contains(lowerCaseFilter);
-            });
-        });
+    public void reset(){
+        recherche.textProperty().removeListener(rechercheListener);
+        filteredList.setPredicate(_ -> true);
+        updateListView();
 
-        treeListView.setItems(filteredList);
     }
 
     public void updateMenu(){
@@ -148,6 +188,31 @@ public class ArbreListeController {
 
                 }
 
+            }
+        });
+    }
+
+    public void handeMoreButton(){
+        moreButton.setOnAction(event -> {
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationMember/FiltrePage.fxml"));
+            try {
+                updateListView();
+                VBox ajoutPage = loader.load();
+                FiltreController controller = loader.getController();
+
+                reset();
+
+                controller.setup(treeList,treeListView,recherche,rechercheListener);
+                Scene scene = new Scene(ajoutPage);
+                scene.getStylesheets().add(
+                        Objects.requireNonNull(getClass().getResource("/App/AssociationMember/FiltrePage.css")).toExternalForm()
+                );
+                stage.setTitle("Paramètre de recherche et filtre");
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         });
     }

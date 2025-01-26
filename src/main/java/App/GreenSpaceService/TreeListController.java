@@ -2,6 +2,7 @@ package App.GreenSpaceService;
 
 import Data.JsonManager;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -80,8 +81,7 @@ public class TreeListController {
     }
 
     public void loadTreeData() {
-        JsonManager jsonManager = JsonManager.INSTANCE;
-        List<JsonNode> arbreList = jsonManager.getNodeWithoutFilter("Arbres_JSON_test.json");
+        ArrayNode arbreList = JsonManager.getNodeWithoutFilter("Arbres_JSON_test.json");
 
         // Convertir les données JSON en objets Tree et les ajouter à la liste
         arbreList.forEach((JsonNode node) -> {

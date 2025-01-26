@@ -31,7 +31,7 @@ public class LoginScreenController {
     void handleLoginAction() {
         Optional<JsonNode> user=Member.login("johnDoe","password123");
 
-        if(true){
+        if(user.isPresent()){
             SessionManager s=SessionManager.INSTANCE;
             s.setUserData(user.get());
             System.out.println(s.getUserData().toString());
