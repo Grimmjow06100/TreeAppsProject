@@ -105,6 +105,7 @@ public class TreePlantationController {
             // Ajouter l'arbre au fichier JSON
             JsonManager.insertInJson("Arbres_JSON_test.json", List.of(newTree));
 
+            logPlantationToNotifFile(newTree);
             // Confirmation
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "Arbre enregistré avec succès !", ButtonType.OK);
             alert.show();
@@ -137,6 +138,30 @@ public class TreePlantationController {
         hauteurField.clear();
         circonferenceField.clear();
         developpementStageField.clear();
+    }
+
+    // Méthode pour journaliser une plantation dans GreenSpaceNotif.json
+    private void logPlantationToNotifFile(Map<String, Object> newTree) {
+        try {
+            // Préparer l'entrée pour le fichier de notifications
+            Map<String, Object> notifEntry = new HashMap<>();
+            notifEntry.put("TypeChangement", "Plantation");
+
+            // Mettre les détails de l'arbre dans une clé "Arbre"
+            Map<String, Object> arbreDetails = new HashMap<>(newTree);
+            arbreDetails.remove("idBase"); // Supprimer "idBase" car il n'existe pas dans les autres entrées
+            arbreDetails.put("id", newTree.get("idBase")); // Renommer "idBase" en "id"
+
+            notifEntry.put("Arbre", arbreDetails);
+
+            // Insérer dans le fichier de notifications
+            JsonManager.insertInJson("GreenSpaceNotif.json", List.of(notifEntry));
+            System.out.println("✅ Plantation journalisée dans GreenSpaceNotif.json");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("❌ Erreur lors de la journalisation dans GreenSpaceNotif.json");
+        }
     }
 
 }

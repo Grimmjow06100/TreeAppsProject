@@ -15,10 +15,10 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
-import java.util.stream.Collectors;
-
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class TreeListController {
@@ -135,6 +135,7 @@ public class TreeListController {
     public void removeTree(Tree tree) {
         treeList.remove(tree); // Supprime de la liste observable
         treeTableView.setItems(treeList); // Met à jour la TableView
+        logChangeToNotifFile("Suppression", tree);
     }
 
     private void addButtonToTable() {
@@ -207,7 +208,9 @@ public class TreeListController {
 
             // Rafraîchir la TableView
             treeTableView.refresh();
+            logChangeToNotifFile("Changement en arbre remarquable", tree);
             System.out.println("✅ Arbre mis à jour : " + tree.getId() + " est maintenant " + newStatus);
+
         } else {
             System.out.println("❌ Impossible de mettre à jour l'arbre dans le fichier JSON.");
         }
@@ -278,6 +281,35 @@ public class TreeListController {
 
         } catch (NumberFormatException e) {
             System.out.println("❌ Valeur de circonférence invalide : " + textFiltrerCirconference.getText());
+        }
+    }
+
+    private void logChangeToNotifFile(String typeChangement, Tree tree) {
+        try {
+            // Créer une map pour représenter le changement
+            Map<String, Object> changeLog = new HashMap<>();
+            changeLog.put("TypeChangement", typeChangement);
+
+            Map<String, Object> treeData = new HashMap<>();
+            treeData.put("id", tree.getId());
+            treeData.put("nom", tree.getNom());
+            treeData.put("genre", tree.getGenre());
+            treeData.put("espece", tree.getEspece());
+            treeData.put("lieu", tree.getLieu());
+            treeData.put("remarquable", tree.getRemarquable());
+            treeData.put("latitude", tree.getLatitude());
+            treeData.put("longitude", tree.getLongitude());
+            treeData.put("hauteur", tree.getHauteur());
+            treeData.put("circonference", tree.getCirconference());
+            treeData.put("stade_de_developpement", tree.getDeveloppementStage());
+
+            changeLog.put("Arbre", treeData);
+
+            // Appeler JsonManager pour insérer dans le fichier JSON
+            JsonManager.insertInJson("GreenSpaceNotif.json", List.of(changeLog));
+            System.out.println("✅ Changement enregistré dans GreenSpaceNotif.json : " + typeChangement);
+        } catch (Exception e) {
+            System.out.println("❌ Erreur lors de l'enregistrement du changement : " + e.getMessage());
         }
     }
 }
