@@ -1,0 +1,17 @@
+[ {
+  "idBase" : "105896",
+  "TypeChangement" : "Proposition arbre remarquable",
+  "Arbre" : {
+    "idBase" : 105896,
+    "genre" : "Liriodendron",
+    "espece" : "tulipifera",
+    "circonference" : 75,
+    "libelle_france" : "Tulipier",
+    "hauteur" : 10,
+    "stade_de_developpement" : "Jeune (arbre)Adulte",
+    "lieu" : "PARC DE CHOISY / 1 RUE GEORGE EASTMAN",
+    "latitude" : 48.8274551278128,
+    "longitude" : 2.3597469509423687,
+    "remarquable" : "NON"
+  }
+} ]

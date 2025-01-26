@@ -55,7 +55,7 @@ public class AccueilFinExerciceBudgetaireController {
     protected void onButtonTransmissionListeArbresRemarquablesClick(ActionEvent event){
         try {
             // Charger la nouvelle vue
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationManagement/finExerciceBudgetaire/RevocationMembres.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/AssociationManagement/finExerciceBudgetaire/TransmissionListeArbresRemarquables.fxml"));
             Parent arbreView = loader.load();
 
             // Obtenir la scène actuelle à partir de l'événement
