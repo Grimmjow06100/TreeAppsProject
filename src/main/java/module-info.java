@@ -36,6 +36,8 @@ module TreeApp {
     exports App.AssociationManagement.Controller.gestionVisiteArbre;
     opens App.AssociationManagement.Controller.gestionVisiteArbre to javafx.fxml, com.fasterxml.jackson.databind, com.jfoenix;
     opens App.AssociationManagement.Controller.GestionDonation to javafx.fxml;
+    exports App.AssociationManagement.Controller.Notification;
+    opens App.AssociationManagement.Controller.Notification to com.fasterxml.jackson.databind, com.jfoenix, javafx.fxml;
 
 
 }
