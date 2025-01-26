@@ -22,7 +22,7 @@
                         </Menu>
                     </menus>
                 </MenuBar>
-                <Label layoutX="269.0" layoutY="32.0" prefHeight="17.0" prefWidth="62.0" text="Donations" />
+                <Label layoutX="259.0" layoutY="31.0" prefHeight="20.0" prefWidth="82.0" text="Donations" />
                 <Button fx:id="retourButton" layoutY="28.0" mnemonicParsing="false" onAction="#onButtonRetourClick" text="Retour" />
             </children>
         </Pane>
