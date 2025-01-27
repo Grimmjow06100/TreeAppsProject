@@ -77,6 +77,34 @@ Chacune des pages est équipé d'un bouton `retour` pour retourner à la page pr
 
 ## Application de gestion de l'association ##
 
+**Page d'accueil**
+La page d'accueil est composé de 7 boutons, chacun liés avec une image. 
+Tout en haut à droite, on a le bouton des notifications.
+Pour le reste, on a :
+   Membre     |   Classisfication d'arbres remarquable   |   Fin d'exercice budgétaire
+   Donateurs  |              Visite d'arbre              |   Gestion et finance de l'aasociation
+
+**Notifications**
+Le bouton des notifications nous envoit sur la page NotificationAccueil.fxml, qui est scincé en 2:
+-Les notifications issue de l'application de la gestion membre
+-Les notifications de l'application de la gestion des arbres
+En haut de chaque listeview se situe la notifiaction la plus récente, et pour avoir la mise à jour des notifications,
+il suffit de quitter la page notification via le bouton retour puis d'y revenir depuis la page d'accueil.
+
+**Donations**
+La page donation liste l'ensemble des donateurs enregistrés. Il est possible de rechercher un donateur avec n'importe 
+quelle donnée, que ce soit son nom, sa nature ou meme la date de l'enregistrement.
+Le bouton ajouter vous envoit vers une nouvelle page dans laquelle vous devrez entrer les informations nécessaires,
+puis cliquer sur ajouter pour finaliser l'enregistrement. Le nouveau donnateur sera alors visible sur la liste des 
+donateurs.
+Il vous est également possible de supprimer un donateur en tapant son id. Il disparaitra alors de la liste.
+
+**Visites d'arbres**
+De la meme manière, une listeview permet de lire toutes les visites d'arbres passées/à venir.
+En cliquant sur le bouton trier par date, les visites seront alors triés par date.
+Le bouton ajouter une visite vous ammène sur une autre page, ou vous pourrez procéder à l'enregistrement d'une 
+visite, qui sera automatiquement repertorié dans la listeview.
+
 **Gestion des membres de l'association**
 Depuis cette interface, il est possible de gérer les membres de l'association. Les fonctionnalités disponibles sont :
 
@@ -94,10 +122,6 @@ Depuis cette interface, il est possible de :
 -Afficher le classement provisoire des arbres avec le plus de vote (pour être classé arbre remarquable)
 
 **Fin exercice budgétaire**
-
-**Donations**
-
-**Visites d'arbres**
 
 **Gestion des finances de l'association**
 
