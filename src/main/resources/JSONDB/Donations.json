@@ -23,4 +23,9 @@
   "nature" : "Individu",
   "nom" : "Anonyme",
   "date_don" : "2025-01-15"
+}, {
+  "id" : 6,
+  "nature" : "Entreprise",
+  "nom" : "Nike",
+  "date_don" : "2025-01-01"
 } ]
